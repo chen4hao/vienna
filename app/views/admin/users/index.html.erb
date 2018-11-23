@@ -1,0 +1,46 @@
+<div class="col-md-12">
+  <h2>使用者列表</h2>
+  <div class="group">
+    <%= link_to("新增使用者", new_admin_user_path, class: "btn btn-primary pull-right") %>
+  </div>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr>
+        <th>Email</th>
+        <th>名稱</th>
+        <th>職稱</th>
+        <th>權限</th>
+        <th>功能</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @users.each do |user| %>
+        <tr>
+          <td>
+            <%= user.email %>
+          </td>
+          <td>
+            <%= user.name %>
+          </td>
+          <td>
+            <%= user.title %>
+          </td>
+          <td>
+            <% if user.admin? %>
+              管理者
+            <% else %>
+              一般員工
+            <% end %>
+          </td>
+          <td>
+            <% if !user.admin? %>
+              <%= link_to("刪除使用者", admin_user_path(user), class: "btn btn-primary",
+                            method: :delete, data: { confirm: "你確定要刪除嗎?" } )%>
+            <% end %>
+          </td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

@@ -24,6 +24,10 @@
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">
+              <% if user.admin? %>
+                <li> <%= link_to("帳號管理", admin_users_path )%></li>
+                <li class="divider"> </li>
+              <% end %>
               <li> <%= link_to("帳號設定", edit_user_registration_path )%></li>
               <li> <%= link_to("登出", destroy_user_session_path, method: :delete ) %></li>
             </ul>

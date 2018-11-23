@@ -9,6 +9,8 @@
 # 新增管理者帳號
 u = User.new
 u.email = "admin@vienna.com.tw"
+u.name = "admin"
+u.title = "管理者"
 u.password = "12345678"              # 最少要八碼
 u.password_confirmation = "12345678" # 最少要八碼
 u.is_admin = true
