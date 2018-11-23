@@ -20,7 +20,10 @@
         <% else %>
           <li class="dropdown">
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-              Hi!, <%= current_user.name %> (<%= current_user.title %>)
+              <%= current_user.name %>
+              <% if !current_user.title.blank? %>
+                (<%= current_user.title %>)
+              <% end %>
               <b class="caret"></b>
             </a>
             <ul class="dropdown-menu">

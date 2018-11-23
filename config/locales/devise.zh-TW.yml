@@ -21,8 +21,12 @@ zh-TW:
         subject: "密碼重設步驟"
       unlock_instructions:
         subject: "帳號解鎖步驟"
+      email_changed:
+        subject: "信箱已被修改"
+      password_change:
+        subject: "密碼已被修改"
     omniauth_callbacks:
-      failure: "無法從 %{kind} 驗證，因為 \"%{reason}\"。"
+      failure: "無法從 %{kind} 驗證，因為「%{reason}」。"
       success: "成功從 %{kind} 驗證。"
     passwords:
       no_token: "這是密碼重設頁面，僅能透過密碼重設信件進入。如果您是透過重設信件進入的，請確認您的網址是完整的。"
@@ -54,5 +58,4 @@ zh-TW:
       not_found: "找不到。"
       not_locked: "並未被鎖定。"
       not_saved:
-        one: "有一個錯誤導致 %{resource} 不能被儲存："
         other: "有 %{count} 個錯誤導致 %{resource} 不能被儲存："

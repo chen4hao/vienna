@@ -7,3 +7,13 @@ zh-TW:
       shipped: 已到貨
       order_cancelled: 取消訂單
       good_return: 退貨
+
+  activerecord:
+    attributes:
+      user:
+        name: "名稱"
+        title: "職稱"
+        email: "信箱"
+        password: "密碼"
+        password_confirmation: "重覆密碼"
+        current_password: "現有密碼"
