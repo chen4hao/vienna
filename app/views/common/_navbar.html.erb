@@ -3,16 +3,106 @@
   <div class="container-fluid">
     <!-- Brand and toggle get grouped for better mobile display -->
     <div class="navbar-header">
-      <a class="navbar-brand" href="/">Vienna v0.1 (updated: 2018/11/21)</a>
+      <a class="navbar-brand" href="/"><%= render_system_name %></a>
     </div>
 
     <!-- Collect the nav links, forms, and other content for toggling -->
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
       <ul class="nav navbar-nav">
-        <li class="active">
-          <%= link_to("Rooms", admin_rooms_path) %>
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">訂單管理
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li> <%= link_to("訂單登入", root_path )%></li>
+            <li class="divider"> </li>
+            <li> <%= link_to("當月訂房狀況", root_path )%></li>
+            <li> <%= link_to("依房間查詢", root_path ) %></li>
+            <li> <%= link_to("待處理訂單", root_path ) %></li>
+          </ul>
         </li>
       </ul>
+
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">客戶管理
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li> <%= link_to("Check in", root_path )%></li>
+            <li class="divider"> </li>
+            <li> <%= link_to("依日期查詢", root_path )%></li>
+            <li> <%= link_to("依客戶查詢", root_path ) %></li>
+            <li> <%= link_to("列出所有客戶", root_path ) %></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">統計報表
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li> <%= link_to("日報", root_path )%></li>
+            <li> <%= link_to("週報", root_path )%></li>
+            <li> <%= link_to("月報", root_path ) %></li>
+            <li> <%= link_to("年報", root_path ) %></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">表單列印
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li> <%= link_to("房客住宿資料表", root_path )%></li>
+            <li> <%= link_to("房客住宿清單", root_path )%></li>
+            <li> <%= link_to("房間服務統計表", root_path ) %></li>
+            <li> <%= link_to("當日房客明細表", root_path ) %></li>
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">相關連結
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li><a href="https://tw.piliapp.com/time-now/" target="_blank">世界時間</a></li>
+            <li><a href="https://www.cwb.gov.tw/V7/forecast/" target="_blank">中央氣象局</a></li>
+            <li><a href="https://www.cwb.gov.tw/V7/forecast/week/week.htm#area2" target="_blank">一週天氣預報</a></li>
+            <li><a href="https://www.cwb.gov.tw/V7/prevent/typhoon/ty.htm" target="_blank">颱風警報</a></li>
+            <li class="divider"> </li>
+            <li><a href="" >觀星天相圖</a></li>
+            <li><a href="https://www.windy.com/?23.975,120.941,5" target="_blank">Windty</a></li>
+            <li class="divider"> </li>
+            <li><a href="https://tw.voicetube.com/definition/" target="_blank">英漢字典</a></li>
+            <li><a href="https://1968.freeway.gov.tw/traffic/index/fid/10010" target="_blank">高速公路路況</a></li>
+            <li><a href="https://www.google.com.tw/maps/@24.0456979,121.1562197,17z?hl=zh-TW" target="_blank">Google map</a></li>
+
+          </ul>
+        </li>
+      </ul>
+
+      <ul class="nav navbar-nav">
+        <li class="dropdown">
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">系統管理
+            <b class="caret"></b>
+          </a>
+          <ul class="dropdown-menu">
+            <li> <%= link_to("房價管理", root_path )%></li>
+            <li class="divider"> </li>
+            <li> <%= link_to("資料備份", root_path )%></li>
+            <li> <%= link_to("系統設定", root_path ) %></li>
+          </ul>
+        </li>
+      </ul>
+
       <ul class="nav navbar-nav navbar-right">
 
         <% if !current_user %>
