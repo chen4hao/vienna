@@ -3,7 +3,7 @@
   <h2>新增使用者</h2>
 
   <hr>
-  <%= simple_form_for @user, url: admin_users_path do |f| %>
+  <%= simple_form_for [:admin, @user] do |f| %>
     <div class="form-user">
       <%= f.input :email,
                   required: true,

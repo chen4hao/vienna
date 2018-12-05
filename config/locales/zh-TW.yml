@@ -11,9 +11,53 @@ zh-TW:
   activerecord:
     attributes:
       user:
+        email: "信箱"
         name: "名稱"
         title: "職稱"
-        email: "信箱"
         password: "密碼"
         password_confirmation: "重覆密碼"
         current_password: "現有密碼"
+      service:
+        name: "名稱"
+        list_price: "定價"
+        category: "種類"
+
+  errors:
+    format: "%{attribute} %{message}"
+    messages:
+      accepted: 必須是可被接受的
+      blank: 不能為空白
+      present: 必須是空白
+      confirmation: 兩次輸入須一致
+      empty: 不能留空
+      equal_to: 必須等於 %{count}
+      even: 必須是偶數
+      exclusion: 是被保留的關鍵字
+      greater_than: 必須大於 %{count}
+      greater_than_or_equal_to: 必須大於或等於 %{count}
+      inclusion: 沒有包含在列表中
+      invalid: 是無效的
+      less_than: 必須小於 %{count}
+      less_than_or_equal_to: 必須小於或等於 %{count}
+      model_invalid: "校驗失敗: %{errors}"
+      not_a_number: 不是數字
+      not_an_integer: 必須是整數
+      odd: 必須是奇數
+      required: 必須存在
+      taken: 已經被使用
+      too_long:
+        one: 過長（最長是一個字）
+        other: 過長（最長是 %{count} 個字）
+      too_short:
+        one: 過短（最短是一個字）
+        other: 過短（最短是 %{count} 個字）
+      wrong_length:
+        one: 字數錯誤 (必須是一個字)
+        other: 字數錯誤 (必須是 %{count} 個字)
+      other_than: 不可以是 %{count} 個字
+
+  helpers:
+    submit:
+        create: "新增"
+        update: "更新"
+        submit: "儲存%{model}"

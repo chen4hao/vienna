@@ -1,0 +1,20 @@
+<div class="col-md-10 col-md-offset-1">
+  <h2>服務列表</h2>
+  <div class="group">
+    <%= link_to("新增服務", new_admin_service_path, class: "btn btn-primary pull-right") %>
+  </div>
+
+  <table class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>名稱</th>
+        <th>定價</th>
+        <th>種類</th>
+        <th>功能</th>
+      </tr>
+    </thead>
+    <tbody>
+       <%= render partial: "service", collection: @services %>
+    </tbody>
+  </table>
+</div>
