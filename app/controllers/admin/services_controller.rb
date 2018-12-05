@@ -13,7 +13,7 @@ class Admin::ServicesController < ApplicationController
   end
 
   def create
-    @service = Service.create(service_params)
+    @service = Service.new(service_params)
     if @service.save
       redirect_to admin_services_path, notice: "新增服務(#{@service.name})成功"
     else

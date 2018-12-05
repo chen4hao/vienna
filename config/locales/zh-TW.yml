@@ -21,6 +21,15 @@ zh-TW:
         name: "名稱"
         list_price: "定價"
         category: "種類"
+      room:
+        'no': "房號"
+        name: "名稱"
+        list_price: "定價"
+        holiday_price: "假日價"
+        hotday_price: "旺日價"
+        weekday_price: "平日價"
+        add_bed_fee: "加床費"
+
 
   errors:
     format: "%{attribute} %{message}"

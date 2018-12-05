@@ -1,0 +1,13 @@
+<%= simple_form_for [:admin, room] do |f| %>
+  <div class="form-room">
+    <%= f.input :no, required: true, input_html: { class: "form-control"}, autofocus: true%>
+    <%= f.input :name, required: true, input_html: { class: "form-control"} %>
+    <%= f.input :list_price, required: true, input_html: { class: "form-control"} %>
+    <%= f.input :holiday_price, required: true, input_html: { class: "form-control"} %>
+    <%= f.input :hotday_price, required: true, input_html: { class: "form-control"} %>
+    <%= f.input :weekday_price, required: true, input_html: { class: "form-control"} %>
+    <%= f.input :add_bed_fee, input_html: { class: "form-control"} %>
+  </div>
+
+  <%= f.button :submit, class: "btn btn-primary" %>
+<% end %>

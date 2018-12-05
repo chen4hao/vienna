@@ -10,7 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_04_235435) do
+ActiveRecord::Schema.define(version: 2018_12_05_070550) do
+
+  create_table "rooms", force: :cascade do |t|
+    t.string "no"
+    t.string "name"
+    t.integer "list_price", default: 0
+    t.integer "holiday_price", default: 0
+    t.integer "hotday_price", default: 0
+    t.integer "weekday_price", default: 0
+    t.integer "custom_price", default: 0
+    t.integer "add_bed_fee", default: 0
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "services", force: :cascade do |t|
     t.string "name"

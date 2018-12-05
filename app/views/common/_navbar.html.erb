@@ -73,17 +73,19 @@
             <b class="caret"></b>
           </a>
           <ul class="dropdown-menu">
-            <li><a href="https://tw.piliapp.com/time-now/" target="_blank">世界時間</a></li>
-            <li><a href="https://www.cwb.gov.tw/V7/forecast/" target="_blank">中央氣象局</a></li>
-            <li><a href="https://www.cwb.gov.tw/V7/forecast/week/week.htm#area2" target="_blank">一週天氣預報</a></li>
-            <li><a href="https://www.cwb.gov.tw/V7/prevent/typhoon/ty.htm" target="_blank">颱風警報</a></li>
+            <li><%= link_to "世界時間", "https://tw.piliapp.com/time-now/", target: "_blank" %></li>
+            <li><%= link_to "中央氣象局", "https://www.cwb.gov.tw/V7/forecast/", target: "_blank" %></li>
+            <li><%= link_to "一週天氣預報", "https://www.cwb.gov.tw/V7/forecast/week/week.htm#area2", target: "_blank" %></li>
+            <li><%= link_to "颱風警報", "https://www.cwb.gov.tw/V7/prevent/typhoon/ty.htm", target: "_blank" %></li>
             <li class="divider"> </li>
-            <li><a href="" >觀星天相圖</a></li>
-            <li><a href="https://www.windy.com/?23.975,120.941,5" target="_blank">Windty</a></li>
+
+            <li><%= link_to "觀星天相圖", "", target: "_blank" %></li>
+            <li><%= link_to "Windty", "https://www.windy.com/?23.975,120.941,5", target: "_blank" %></li>
             <li class="divider"> </li>
-            <li><a href="https://tw.voicetube.com/definition/" target="_blank">英漢字典</a></li>
-            <li><a href="https://1968.freeway.gov.tw/traffic/index/fid/10010" target="_blank">高速公路路況</a></li>
-            <li><a href="https://www.google.com.tw/maps/@24.0456979,121.1562197,17z?hl=zh-TW" target="_blank">Google map</a></li>
+
+            <li><%= link_to "英漢字典", "https://tw.voicetube.com/definition/", target: "_blank" %></li>
+            <li><%= link_to "高速公路路況", "https://1968.freeway.gov.tw/traffic/index/fid/10010", target: "_blank" %></li>
+            <li><%= link_to "Google map", "https://www.google.com.tw/maps/@24.0456979,121.1562197,17z?hl=zh-TW", target: "_blank" %></li>
 
           </ul>
         </li>
@@ -96,6 +98,8 @@
           </a>
           <ul class="dropdown-menu">
             <li> <%= link_to("服務管理", admin_services_path )%></li>
+            <li> <%= link_to("房間管理", admin_rooms_path )%></li>
+            <li class="divider"> </li>
             <li> <%= link_to("房價管理", root_path )%></li>
             <li class="divider"> </li>
             <li> <%= link_to("資料備份", root_path )%></li>

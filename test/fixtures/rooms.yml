@@ -1,0 +1,21 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  'no': MyString
+  name: MyString
+  list_price: 1
+  holiday_price: 1
+  hotday_price: 1
+  weekday_price: 1
+  custom_price: 1
+  add_bed_fee: 1
+
+two:
+  'no': MyString
+  name: MyString
+  list_price: 1
+  holiday_price: 1
+  hotday_price: 1
+  weekday_price: 1
+  custom_price: 1
+  add_bed_fee: 1

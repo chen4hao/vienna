@@ -1,1 +1,24 @@
-<h1> Hello vienna</h1>
+<div class="col-md-10 col-md-offset-1">
+  <h2>房間列表</h2>
+  <div class="group">
+    <%= link_to("新增房間", new_admin_room_path, class: "btn btn-primary pull-right") %>
+  </div>
+
+  <table class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>房號</th>
+        <th>名稱</th>
+        <th>定價</th>
+        <th>假日價</th>
+        <th>旺日價</th>
+        <th>平日價</th>
+        <th>加床費</th>
+        <th>功能</th>
+      </tr>
+    </thead>
+    <tbody>
+       <%= render partial: "room", collection: @rooms %>
+    </tbody>
+  </table>
+</div>
