@@ -14,7 +14,7 @@ ActiveRecord::Schema.define(version: 2018_12_28_014039) do
 
   create_table "room_calendars", force: :cascade do |t|
     t.date "day"
-    t.integer "day_mode"
+    t.integer "day_mode", default: 0
     t.string "day_info"
     t.string "r301"
     t.string "r302"

@@ -14,52 +14,6 @@ def setup_accounts
   end
 end
 
-def setup_calandar(start_year=Date.current.year, end_year=start_year)
-  # 新增月曆(+設定週六為假日)
-  start_year.upto(end_year) do |year|
-    day = Date.new(year, 1, 1)
-    1.upto(365) do
-      puts "日期:#{day.strftime("%Y-%m-%d %a")}(#{day.wday})"
-      if day.saturday?
-        RoomCalendar.create(day: day, day_mode: 2, day_info: "週六假日")
-      else
-        RoomCalendar.create(day: day)
-      end
-      day = day.tomorrow
-    end
-  end
-end
-
-def setup_2019calandar_special_days
-  #元旦連假
-  # RoomCalendar.where(day: "2019-01-01").update(day_mode: 3, day_info: "元旦連假")
-  #春節連假
-  RoomCalendar.where(day: "2019-02-02" .. "2019-02-09").update(day_mode: 3, day_info: "春節連假")
-  #國定假日及連續假日
-  RoomCalendar.where(day: "2019-02-28" .. "2019-03-02").update(day_mode: 2, day_info: "228連假")
-  RoomCalendar.where(day: "2019-04-04" .. "2019-04-06").update(day_mode: 2, day_info: "清明節連假")
-  RoomCalendar.where(day: "2019-05-01").update(day_mode: 2, day_info: "勞動節")
-  RoomCalendar.where(day: "2019-06-07" .. "2019-06-08").update(day_mode: 2, day_info: "端午節連假")
-  RoomCalendar.where(day: "2019-09-13" .. "2019-09-14").update(day_mode: 2, day_info: "中秋節連假")
-  RoomCalendar.where(day: "2019-10-10" .. "2019-10-12").update(day_mode: 2, day_info: "雙十節連假")
-  #寒暑假
-  RoomCalendar.where(day: "2019-01-20" .. "2019-01-25").update(day_mode: 1, day_info: "寒假")
-  RoomCalendar.where(day: "2019-01-27" .. "2019-02-01").update(day_mode: 1, day_info: "寒假")
-  RoomCalendar.where(day: "2019-06-30" .. "2019-07-05").update(day_mode: 1, day_info: "暑假")
-  RoomCalendar.where(day: "2019-07-07" .. "2019-07-12").update(day_mode: 1, day_info: "暑假")
-  RoomCalendar.where(day: "2019-07-14" .. "2019-07-19").update(day_mode: 1, day_info: "暑假")
-  RoomCalendar.where(day: "2019-07-21" .. "2019-07-26").update(day_mode: 1, day_info: "暑假")
-  RoomCalendar.where(day: "2019-07-28" .. "2019-08-02").update(day_mode: 1, day_info: "暑假")
-  RoomCalendar.where(day: "2019-08-04" .. "2019-08-09").update(day_mode: 1, day_info: "暑假")
-  RoomCalendar.where(day: "2019-08-11" .. "2019-08-16").update(day_mode: 1, day_info: "暑假")
-  RoomCalendar.where(day: "2019-08-18" .. "2019-08-23").update(day_mode: 1, day_info: "暑假")
-  RoomCalendar.where(day: "2019-08-25" .. "2019-08-30").update(day_mode: 1, day_info: "暑假")
-  #補上班
-  RoomCalendar.where(day: "2019-01-19").update(day_mode: 0, day_info: "補上班")
-  RoomCalendar.where(day: "2019-02-23").update(day_mode: 0, day_info: "補上班")
-  RoomCalendar.where(day: "2019-10-05").update(day_mode: 0, day_info: "補上班")
-end
-
 def setup_services
   # 新增服務資料
   if Service.count < 1
@@ -108,6 +62,53 @@ def setup_rooms
     Room.create(no: "205", name: "豪華八人迎曦家庭房", list_price: 12000, holiday_price: 9600, hotday_price: 7800, weekday_price: 6200, add_bed_fee: 0)
   end
 end
+
+def setup_calandar(start_year=Date.current.year, end_year=start_year)
+  # 新增月曆(+設定週六為假日)
+  start_year.upto(end_year) do |year|
+    day = Date.new(year, 1, 1)
+    1.upto(365) do
+      puts "日期:#{day.strftime("%Y-%m-%d %a")}(#{day.wday})"
+      if day.saturday?
+        RoomCalendar.create(day: day, day_mode: 2, day_info: "週六假日")
+      else
+        RoomCalendar.create(day: day)
+      end
+      day = day.tomorrow
+    end
+  end
+end
+
+def setup_2019calandar_special_days
+  #元旦連假
+  # RoomCalendar.where(day: "2019-01-01").update(day_mode: 3, day_info: "元旦連假")
+  #春節連假
+  RoomCalendar.where(day: "2019-02-02" .. "2019-02-09").update(day_mode: 3, day_info: "春節連假")
+  #國定假日及連續假日
+  RoomCalendar.where(day: "2019-02-28" .. "2019-03-02").update(day_mode: 2, day_info: "228連假")
+  RoomCalendar.where(day: "2019-04-04" .. "2019-04-06").update(day_mode: 2, day_info: "清明節連假")
+  RoomCalendar.where(day: "2019-05-01").update(day_mode: 2, day_info: "勞動節")
+  RoomCalendar.where(day: "2019-06-07" .. "2019-06-08").update(day_mode: 2, day_info: "端午節連假")
+  RoomCalendar.where(day: "2019-09-13" .. "2019-09-14").update(day_mode: 2, day_info: "中秋節連假")
+  RoomCalendar.where(day: "2019-10-10" .. "2019-10-12").update(day_mode: 2, day_info: "雙十節連假")
+  #寒暑假
+  RoomCalendar.where(day: "2019-01-20" .. "2019-01-25").update(day_mode: 1, day_info: "寒假")
+  RoomCalendar.where(day: "2019-01-27" .. "2019-02-01").update(day_mode: 1, day_info: "寒假")
+  RoomCalendar.where(day: "2019-06-30" .. "2019-07-05").update(day_mode: 1, day_info: "暑假")
+  RoomCalendar.where(day: "2019-07-07" .. "2019-07-12").update(day_mode: 1, day_info: "暑假")
+  RoomCalendar.where(day: "2019-07-14" .. "2019-07-19").update(day_mode: 1, day_info: "暑假")
+  RoomCalendar.where(day: "2019-07-21" .. "2019-07-26").update(day_mode: 1, day_info: "暑假")
+  RoomCalendar.where(day: "2019-07-28" .. "2019-08-02").update(day_mode: 1, day_info: "暑假")
+  RoomCalendar.where(day: "2019-08-04" .. "2019-08-09").update(day_mode: 1, day_info: "暑假")
+  RoomCalendar.where(day: "2019-08-11" .. "2019-08-16").update(day_mode: 1, day_info: "暑假")
+  RoomCalendar.where(day: "2019-08-18" .. "2019-08-23").update(day_mode: 1, day_info: "暑假")
+  RoomCalendar.where(day: "2019-08-25" .. "2019-08-30").update(day_mode: 1, day_info: "暑假")
+  #補上班
+  RoomCalendar.where(day: "2019-01-19").update(day_mode: 0, day_info: "補上班")
+  RoomCalendar.where(day: "2019-02-23").update(day_mode: 0, day_info: "補上班")
+  RoomCalendar.where(day: "2019-10-05").update(day_mode: 0, day_info: "補上班")
+end
+
 
 # ------------------------------
 # Main
