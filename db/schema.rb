@@ -10,7 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_05_070550) do
+ActiveRecord::Schema.define(version: 2018_12_28_014039) do
+
+  create_table "room_calendars", force: :cascade do |t|
+    t.date "day"
+    t.integer "day_mode"
+    t.string "day_info"
+    t.string "r301"
+    t.string "r302"
+    t.string "r303"
+    t.string "r305"
+    t.string "r306"
+    t.string "r101"
+    t.string "r102"
+    t.string "r103"
+    t.string "r105"
+    t.string "r201"
+    t.string "r202"
+    t.string "r203"
+    t.string "r205"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "rooms", force: :cascade do |t|
     t.string "no"

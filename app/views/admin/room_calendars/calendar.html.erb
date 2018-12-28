@@ -1,0 +1,31 @@
+<div class="col-md-10 col-md-offset-1">
+  <h2>行事曆設定</h2>
+
+  <table class="table table-bordered table-hover">
+    <thead class="thead-light">
+      <tr>
+        <th>日期</th>
+        <th>型態</th>
+        <th>備註</th>
+        <th>設定</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @room_calendars.each do |room_calendar| %>
+        <tr class="<%= render_tr_class(room_calendar) %>" >
+          <td><%= render_day(room_calendar.day) %></td>
+          <td><%= render_day_mode(room_calendar) %></td>
+          <td><%= room_calendar.day_info %></td>
+          <td>
+            <%= link_to("轉平日", to_weekday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default")%>
+            <%= link_to("轉旺日", to_hotday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default btn-success")%>
+            <%= link_to("轉假日", to_holiday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default btn-warning")%>
+            <%= link_to("轉定價", to_dealday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default btn-danger")%>
+
+          </td>
+        </tr>
+
+      <% end %>
+    </tbody>
+  </table>
+</div>

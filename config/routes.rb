@@ -6,6 +6,15 @@ Rails.application.routes.draw do
     resources :users
     resources :services
     resources :rooms
+    resources :room_calendars do
+      get  :calendar, on: :collection
+      member do
+        post :to_dealday
+        post :to_holiday
+        post :to_hotday
+        post :to_weekday
+      end
+    end
 
   end
 

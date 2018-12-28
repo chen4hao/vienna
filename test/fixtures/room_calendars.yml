@@ -1,0 +1,37 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  day: 2018-12-28
+  day_mode: 1
+  day_info: MyString
+  r301: MyString
+  r302: MyString
+  r303: MyString
+  r305: MyString
+  r306: MyString
+  r101: MyString
+  r102: MyString
+  r103: MyString
+  r105: MyString
+  r201: MyString
+  r202: MyString
+  r203: MyString
+  r205: MyString
+
+two:
+  day: 2018-12-28
+  day_mode: 1
+  day_info: MyString
+  r301: MyString
+  r302: MyString
+  r303: MyString
+  r305: MyString
+  r306: MyString
+  r101: MyString
+  r102: MyString
+  r103: MyString
+  r105: MyString
+  r201: MyString
+  r202: MyString
+  r203: MyString
+  r205: MyString
