@@ -6,17 +6,17 @@ class Admin::RoomCalendarsController < ApplicationController
 
 
   def index
-    @room_calendars = RoomCalendar.all
+    @room_calendars = RoomCalendar.all.order(:day)
   end
 
   def calendar
-    @room_calendars = RoomCalendar.all
+    @room_calendars = RoomCalendar.all.order(:day)
   end
 
   # 當月訂房狀況
   def monthly
     @room_calendars = RoomCalendar.where("day >= :start_date AND day <= :end_date",
-      {start_date: Date.current.beginning_of_month, end_date: Date.current.end_of_month})
+      {start_date: Date.current.beginning_of_month, end_date: Date.current.end_of_month}).order(:day)
   end
 
   def to_dealday
