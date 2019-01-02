@@ -13,6 +13,12 @@ class Admin::RoomCalendarsController < ApplicationController
     @room_calendars = RoomCalendar.all
   end
 
+  # 當月訂房狀況
+  def monthly
+    @room_calendars = RoomCalendar.where("day >= :start_date AND day <= :end_date",
+      {start_date: Date.current.beginning_of_month, end_date: Date.current.end_of_month})
+  end
+
   def to_dealday
     @room_calendars.to_dealday
 

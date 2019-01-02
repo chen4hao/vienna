@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     resources :rooms
     resources :room_calendars do
       get  :calendar, on: :collection
+      get  :monthly, on: :collection
       member do
         post :to_dealday
         post :to_holiday
