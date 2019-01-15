@@ -1,0 +1,17 @@
+<%= simple_form_for client do |f| %>
+  <div class="form-group">
+    <%= f.input :name, required: true, input_html: { class: "form-control"}, autofocus: true %>
+    <%= f.input :sex %>
+    <%= f.input :mobile %>
+    <%= f.input :country, as: :string %>
+    <%= f.input :id_no %>
+    <%= f.input :birthday, as: :string %>
+    <%= f.input :tel %>
+    <%= f.input :address %>
+    <%= f.input :job %>
+    <%= f.input :reminder %>
+    <%= f.input :note %>
+  </div>
+  <%= f.button :submit, class: "btn btn-primary" %>
+<% end %>
+

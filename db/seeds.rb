@@ -109,12 +109,30 @@ def setup_2019calandar_special_days
   RoomCalendar.where(day: "2019-10-05").update(day_mode: 0, day_info: "補上班")
 end
 
+# 設定客戶測試資料
+def setup_clients
+  Client.create(name:"廖維珍", sex:"男", mobile:"0935162682", country:"台灣", id_no:"L120807920", reminder:"", note:"")
+  Client.create(name:"張佑嘉", sex:"女", mobile:"0989929875", country:"台灣", id_no:"H225850233", reminder:"", note:"")
+  Client.create(name:"Chcin Hsia", sex:"男", mobile:"0917774695", country:"香港", id_no:"1646972679", reminder:"", note:"")
+  Client.create(name:"Jaseph Chen", sex:"男", mobile:"65 96548875", country:"香港", id_no:"1645005537", reminder:"", note:"")
+  Client.create(name:"譚意敏", sex:"女", mobile:"0928143215", country:"台灣", id_no:"K221597123", reminder:"", note:"")
+  Client.create(name:"郭文鳳", sex:"女", mobile:"0929049528", country:"香港", id_no:"", reminder:"", note:"")
+
+  Client.create(name: "陳一", mobile: "0911111111")
+  Client.create(name: "林二", mobile: "0922222222")
+  Client.create(name: "張三", mobile: "0933333333")
+  Client.create(name: "李四", mobile: "0944444444")
+
+end
+
 
 # ------------------------------
 # Main
 # ------------------------------
-setup_accounts
-setup_rooms
-setup_services
-setup_calandar(2019)
-setup_2019calandar_special_days
+# setup_accounts
+# setup_rooms
+# setup_services
+# setup_calandar(2019)
+# setup_2019calandar_special_days
+
+setup_clients

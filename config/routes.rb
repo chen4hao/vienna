@@ -21,5 +21,10 @@ Rails.application.routes.draw do
 
   resources :dashboard
 
+  resources :clients do
+    get :search, on: :collection
+  end
+
+
   root 'dashboard#index'
 end

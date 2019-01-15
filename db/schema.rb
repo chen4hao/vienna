@@ -10,7 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_28_014039) do
+ActiveRecord::Schema.define(version: 2019_01_14_061339) do
+
+  create_table "clients", force: :cascade do |t|
+    t.string "name"
+    t.string "sex"
+    t.string "mobile"
+    t.string "country"
+    t.string "id_no"
+    t.date "birthday"
+    t.string "job"
+    t.string "tel"
+    t.string "address"
+    t.string "email"
+    t.string "reminder"
+    t.string "note"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
 
   create_table "room_calendars", force: :cascade do |t|
     t.date "day"

@@ -1,0 +1,52 @@
+
+<div class="col-md-8 col-md-offset-2">
+  <h2>客戶資料</h2>
+
+  <hr />
+  <p><strong>姓名:</strong><%= @client.name %></p>
+  <p><strong>性別:</strong><%= @client.sex %></p>
+  <p><strong>手機:</strong><%= @client.mobile %></p>
+  <p><strong>國籍:</strong><%= @client.country %></p>
+  <p><strong>身分證/護照:</strong><%= @client.id_no %></p>
+  <p><strong>生日:</strong><%= @client.birthday %></p>
+  <p><strong>電話:</strong><%= @client.tel %></p>
+  <p><strong>地址:</strong><%= @client.address %></p>
+  <p><strong>職業:</strong><%= @client.job %></p>
+  <p><strong>提醒(外):</strong><%= @client.reminder %></p>
+  <p><strong>備註(內):</strong><%= @client.note %></p>
+
+  <hr />
+  <h3>客戶訂單資料</h3>
+
+  <hr />
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="active">
+        <th>入住日期</th>
+        <th>退房日期</th>
+        <th>姓名</th>
+        <th>性別</th>
+        <th>手機</th>
+        <th>國籍</th>
+        <th>身分證/護照</th>
+        <th>生日</th>
+        <th>電話</th>
+        <th>地址</th>
+        <th>職業</th>
+        <th>提醒(外)</th>
+        <th>備註(內)</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+
+
+
+<%= link_to '返回', clients_path %>
+
+</div>
+
+

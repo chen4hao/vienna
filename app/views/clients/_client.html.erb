@@ -1,0 +1,18 @@
+<tr>
+  <td><%= link_to(client.name, client_path(client)) %></td>
+  <td><%= client.sex %></td>
+  <td><%= client.mobile %></td>
+  <td><%= client.country %></td>
+  <td><%= client.id_no %></td>
+  <td><%= client.birthday %></td>
+  <td><%= client.tel %></td>
+  <td><%= client.address %></td>
+  <td><%= client.job %></td>
+  <td><%= client.reminder %></td>
+  <td><%= client.note %></td>
+  <td>
+    <%= link_to("編輯", edit_client_path(client), class: "btn btn-primary")%>
+    <%= link_to("刪除", client_path(client), class: "btn btn-danger",
+                  method: :delete, data: { confirm: "你確定要刪除嗎?" } )%>
+  </td>
+</tr>

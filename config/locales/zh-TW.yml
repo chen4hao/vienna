@@ -29,6 +29,19 @@ zh-TW:
         hotday_price: "旺日價"
         weekday_price: "平日價"
         add_bed_fee: "加床費"
+      client:
+        name: "姓名"
+        sex: "性別"
+        mobile: "手機"
+        country: "國籍"
+        id_no: "身分證/護照"
+        birthday: "生日"
+        tel: "電話"
+        address: "住址"
+        job: "職業"
+        email: "電子郵件"
+        reminder: "提醒(外)"
+        note: "備註(內)"
 
 
   errors:
