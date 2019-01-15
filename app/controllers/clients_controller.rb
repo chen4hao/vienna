@@ -12,11 +12,14 @@ class ClientsController < ApplicationController
   end
 
   def search
-    if params.has_key?(:name)
-      @search_name = params[:name]
-      @clients = Client.where('lower(name) LIKE ?', "%#{@search_name.downcase}%")
+    if params.has_key?(:client_name) && params.has_key?(:client_mobile)
+      @clients = Client.where('lower(name) LIKE ?', "%#{params[:client_name].downcase}%").where('lower(mobile) LIKE ?', "%#{params[:client_mobile].downcase}%")
+    elsif params.has_key?(:client_name)
+      @clients = Client.where('lower(name) LIKE ?', "%#{params[:client_name].downcase}%")
+    elsif params.has_key?(:client_mobile)
+      @clients = Client.where('lower(mobile) LIKE ?', "%#{params[:client_mobile].downcase}%")
     else
-      @clients = Client.all
+      # @clients = nil
     end
   end
 
