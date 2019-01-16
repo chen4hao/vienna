@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_14_061339) do
+ActiveRecord::Schema.define(version: 2019_01_15_071945) do
 
   create_table "clients", force: :cascade do |t|
     t.string "name"
@@ -27,6 +27,42 @@ ActiveRecord::Schema.define(version: 2019_01_14_061339) do
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+  end
+
+  create_table "order_items", force: :cascade do |t|
+    t.string "name"
+    t.string "type"
+    t.integer "price", default: 0
+    t.integer "item_id"
+    t.integer "adult_no", default: 0
+    t.integer "kid_no", default: 0
+    t.integer "baby_no", default: 0
+    t.integer "order_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["order_id"], name: "index_order_items_on_order_id"
+  end
+
+  create_table "orders", force: :cascade do |t|
+    t.date "checkin_date"
+    t.date "checkout_date"
+    t.string "aasm_state"
+    t.string "source"
+    t.integer "room_subtotal", default: 0
+    t.integer "bed_subtotal", default: 0
+    t.integer "service_subtotal", default: 0
+    t.integer "total", default: 0
+    t.integer "downpay", default: 0
+    t.integer "credit_card", default: 0
+    t.integer "balance", default: 0
+    t.string "pay_type"
+    t.string "pay_info"
+    t.string "created_by"
+    t.string "updated_by"
+    t.integer "client_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["client_id"], name: "index_orders_on_client_id"
   end
 
   create_table "room_calendars", force: :cascade do |t|

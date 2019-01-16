@@ -125,6 +125,57 @@ def setup_clients
 
 end
 
+def setup_orders
+  d0=Date.new(2019,1,19)
+  d1=Date.new(2019,1,21)
+  d3=Date.new(2019,1,26)
+  d4=Date.new(2019,2,2)
+
+  c1 = Client.find(1)
+  order11 = c1.orders.create(checkin_date: d0, checkout_date: d0.tomorrow, aasm_state: "order_pending", source: "電話")
+  order11.order_items << RoomItem.create(name: "301-雅緻二人房", price: 2980, item_id: 1, adult_no: 2, kid_no: 2)
+  order11.order_items << ServiceItem.create(name: "火鍋", price: 150, item_id: 1)
+  order11.update(room_subtotal: 2980, bed_subtotal: 1000, service_subtotal: 150, total: 4130, downpay: 1000, credit_card: 1000, balance: 2130, pay_type: "現金", pay_info: "0000")
+  RoomCalendar.find_by(day: d0).update(r301: "#{c1.name}(#{c1.mobile}) x 4")
+
+  order12 = c1.orders.create(checkin_date: d4, checkout_date: d4.tomorrow, aasm_state: "order_pending", source: "網路")
+  order12.order_items << RoomItem.create(name: "301-雅緻二人房", price: 6600, item_id: 1, adult_no: 2, kid_no: 0)
+  order12.order_items << RoomItem.create(name: "302-雅緻二人房", price: 6600, item_id: 2, adult_no: 2, kid_no: 0)
+  order12.order_items << ServiceItem.create(name: "火鍋", price: 150, item_id: 1)
+  order12.update(room_subtotal: 13200, bed_subtotal: 0, service_subtotal: 150, total: 13350, downpay: 5000, credit_card: 5000, balance: 3350, pay_type: "現金", pay_info: "0000")
+  RoomCalendar.find_by(day: d4).update(r301: "#{c1.name}(#{c1.mobile}) x 2")
+  RoomCalendar.find_by(day: d4).update(r302: "#{c1.name}(#{c1.mobile}) x 2")
+
+  c2 = Client.find(2)
+  order21 = c2.orders.create(checkin_date: d1, checkout_date: d1.tomorrow, aasm_state: "order_pending", source: "電話")
+  order21.order_items << RoomItem.create(name: "303-經典二人房", price: 4620, item_id: 3, adult_no: 2, kid_no: 1)
+  order21.update(room_subtotal: 4620, bed_subtotal: 1000, service_subtotal: 0, total: 5620, downpay: 1000, credit_card: 0, balance: 4620, pay_type: "現金", pay_info: "2222")
+  RoomCalendar.find_by(day: d1).update(r303: "#{c2.name}(#{c2.mobile}) x 3")
+
+  c3 = Client.find(3)
+  order31 = c3.orders.create(checkin_date: d0, checkout_date: d0.tomorrow, aasm_state: "order_pending", source: "電話")
+  order31.order_items << RoomItem.create(name: "101-迎曦四人房", price: 3500, item_id: 6, adult_no: 4, kid_no: 1)
+  order31.update(room_subtotal: 3500, bed_subtotal: 1000, service_subtotal: 0, total: 4500, downpay: 1000, credit_card: 1000, balance: 2500, pay_type: "現金", pay_info: "3333")
+  RoomCalendar.find_by(day: d0).update(r101: "#{c3.name}[HK](#{c3.mobile}) x 5")
+
+  order32 = c3.orders.create(checkin_date: d3, checkout_date: d3.tomorrow, aasm_state: "order_pending", source: "網路")
+  order31.order_items << RoomItem.create(name: "103-迎曦四人房", price: 4350, item_id: 8, adult_no: 4, kid_no: 1)
+  order32.update(room_subtotal: 4350, bed_subtotal: 1000, service_subtotal: 0, total: 5350, downpay: 2000, credit_card: 0, balance: 2350, pay_type: "現金", pay_info: "3333")
+  RoomCalendar.find_by(day: d3).update(r103: "#{c3.name}[HK](#{c3.mobile}) x 5")
+
+  c4 = Client.find(4)
+  order41 = c4.orders.create(checkin_date: d1, checkout_date: d1.tomorrow, aasm_state: "order_pending", source: "電話")
+  order41.order_items << RoomItem.create(name: "201-迎曦六人/家庭房", price: 5500, item_id: 10, adult_no: 5, kid_no: 2)
+  order41.update(room_subtotal: 5500, bed_subtotal: 1000, service_subtotal: 0, total: 6500, downpay: 1000, credit_card: 1000, balance: 4500, pay_type: "現金", pay_info: "4444")
+  RoomCalendar.find_by(day: d1).update(r201: "#{c4.name}[HK](#{c4.mobile}) x 7")
+
+  order42 = c4.orders.create(checkin_date: d4, checkout_date: d4.tomorrow, aasm_state: "order_pending", source: "網路")
+  order42.order_items << RoomItem.create(name: "202-迎曦六人/家庭房", price: 8500, item_id: 11, adult_no: 5, kid_no: 2)
+  order42.update(room_subtotal: 8500, bed_subtotal: 1000, service_subtotal: 0, total: 9500, downpay: 5000, credit_card: 0, balance: 4500, pay_type: "現金", pay_info: "4444")
+  RoomCalendar.find_by(day: d1).update(r202: "#{c4.name}[HK](#{c4.mobile}) x 7")
+
+end
+
 
 # ------------------------------
 # Main
@@ -135,4 +186,5 @@ end
 # setup_calandar(2019)
 # setup_2019calandar_special_days
 
-setup_clients
+# setup_clients
+setup_orders
