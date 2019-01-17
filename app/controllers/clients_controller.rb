@@ -19,7 +19,7 @@ class ClientsController < ApplicationController
     elsif params.has_key?(:client_mobile)
       @clients = Client.where('lower(mobile) LIKE ?', "%#{params[:client_mobile].downcase}%")
     else
-      # @clients = nil
+      @clients = []
     end
   end
 

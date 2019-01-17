@@ -16,4 +16,27 @@
 //= require jquery
 //= require bootstrap/alert
 //= require bootstrap/dropdown
+//= require bootstrap-sprockets
+//= require bootstrap-datepicker/core
+//= require bootstrap-datepicker/locales/bootstrap-datepicker.zh-TW.js
 //= require_tree .
+
+//= require moment
+//= require fullcalendar
+//= require fullcalendar/locale-all
+
+function eventCalendar() {
+  return $('#calendar').fullCalendar({ });
+};
+
+function clearCalendar() {
+  $('#calendar').fullCalendar('delete');
+  $('#calendar').html('');
+};
+
+$(document).on('turbolinks:load', function(){
+  eventCalendar();
+});
+
+$(document).on('turbolinks:before-cache', clearCalendar);
+

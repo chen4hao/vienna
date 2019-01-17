@@ -1,5 +1,5 @@
 
-<div class="col-md-8 col-md-offset-2">
+<div class="col-md-10 col-md-offset-1">
   <h2>客戶資料</h2>
 
   <hr />
@@ -11,39 +11,57 @@
   <p><strong>生日:</strong><%= @client.birthday %></p>
   <p><strong>電話:</strong><%= @client.tel %></p>
   <p><strong>地址:</strong><%= @client.address %></p>
+  <p><strong>email:</strong><%= @client.email %></p>
   <p><strong>職業:</strong><%= @client.job %></p>
   <p><strong>提醒(外):</strong><%= @client.reminder %></p>
   <p><strong>備註(內):</strong><%= @client.note %></p>
 
   <hr />
   <h3>客戶訂單資料</h3>
-
   <hr />
   <table class="table table-bordered table-hover">
     <thead>
       <tr class="active">
         <th>入住日期</th>
         <th>退房日期</th>
-        <th>姓名</th>
-        <th>性別</th>
-        <th>手機</th>
-        <th>國籍</th>
-        <th>身分證/護照</th>
-        <th>生日</th>
-        <th>電話</th>
-        <th>地址</th>
-        <th>職業</th>
-        <th>提醒(外)</th>
-        <th>備註(內)</th>
-        <th></th>
+        <th>房號─房型</th>
+        <th>來源</th>
+        <th>人數</th>
+        <th>房價</th>
+        <th>加床</th>
+        <th>服務費</th>
+        <th>總額</th>
+        <th>訂金</th>
+        <th>信用卡</th>
+        <th>餘額</th>
+        <th>支付方式</th>
+        <th>末4碼</th>
       </tr>
     </thead>
     <tbody>
+      <% @client.orders.each do |order| %>
+        <% order.room_items.each do |item| %>
+          <tr>
+            <td><%= order.checkin_date %></td>
+            <td><%= order.checkout_date %></td>
+            <td><%= item.name %></td>
+            <td><%= order.source %></td>
+            <td><%= item.adult_no + item.kid_no + item.baby_no %></td>
+            <td><%= order.room_subtotal %></td>
+            <td><%= order.bed_subtotal %></td>
+            <td><%= order.service_subtotal %></td>
+            <td><%= order.total %></td>
+            <td><%= order.downpay %></td>
+            <td><%= order.credit_card %></td>
+            <td><%= order.balance %></td>
+            <td><%= order.pay_type %></td>
+            <td><%= order.pay_info %></td>
+          </tr>
+        <% end %>
+      <% end %>
 
     </tbody>
   </table>
-
-
 
 <%= link_to '返回', clients_path %>
 

@@ -3,7 +3,7 @@ module DashboardHelper
     if ENV['RAILS_ENV'] == 'production'
       "維也納小木屋客房管理系統"
     else
-      "Vienna v0.2"
+      "Vienna v0.4"
     end
   end
 end

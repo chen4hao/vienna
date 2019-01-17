@@ -1,0 +1,15 @@
+
+<% order.room_items.each do |item| %>
+  <tr>
+    <td><%= order.checkin_date %></td>
+    <td><%= item.name %></td>
+    <td><%= order.client.name %></td>
+    <td><%= order.client.mobile %></td>
+    <td><%= client.country %></td>
+    <td><%= client.id_no %></td>
+    <td><%= client.birthday %></td>
+    <td><%= client.address %></td>
+    <td><%= client.reminder %></td>
+    <td><%= client.note %></td>
+  </tr>
+<% end %>

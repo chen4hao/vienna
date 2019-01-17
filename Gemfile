@@ -45,6 +45,10 @@ gem 'devise'
 
 gem 'hirb-unicode'
 
+gem 'bootstrap-datepicker-rails'
+
+gem 'fullcalendar-rails'
+gem 'momentjs-rails'
 
 
 group :development, :test do

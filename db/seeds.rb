@@ -118,10 +118,10 @@ def setup_clients
   Client.create(name:"譚意敏", sex:"女", mobile:"0928143215", country:"台灣", id_no:"K221597123", reminder:"", note:"")
   Client.create(name:"郭文鳳", sex:"女", mobile:"0929049528", country:"香港", id_no:"", reminder:"", note:"")
 
-  Client.create(name: "陳一", mobile: "0911111111")
-  Client.create(name: "林二", mobile: "0922222222")
-  Client.create(name: "張三", mobile: "0933333333")
-  Client.create(name: "李四", mobile: "0944444444")
+  # Client.create(name: "陳一", mobile: "0911111111")
+  # Client.create(name: "林二", mobile: "0922222222")
+  # Client.create(name: "張三", mobile: "0933333333")
+  # Client.create(name: "李四", mobile: "0944444444")
 
 end
 
@@ -159,7 +159,7 @@ def setup_orders
   RoomCalendar.find_by(day: d0).update(r101: "#{c3.name}[HK](#{c3.mobile}) x 5")
 
   order32 = c3.orders.create(checkin_date: d3, checkout_date: d3.tomorrow, aasm_state: "order_pending", source: "網路")
-  order31.order_items << RoomItem.create(name: "103-迎曦四人房", price: 4350, item_id: 8, adult_no: 4, kid_no: 1)
+  order32.order_items << RoomItem.create(name: "103-迎曦四人房", price: 4350, item_id: 8, adult_no: 4, kid_no: 1)
   order32.update(room_subtotal: 4350, bed_subtotal: 1000, service_subtotal: 0, total: 5350, downpay: 2000, credit_card: 0, balance: 2350, pay_type: "現金", pay_info: "3333")
   RoomCalendar.find_by(day: d3).update(r103: "#{c3.name}[HK](#{c3.mobile}) x 5")
 

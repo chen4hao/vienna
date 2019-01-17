@@ -1,0 +1,67 @@
+<div class="col-md-10 col-md-offset-1">
+  <h2>搜尋訂單列表</h2>
+  <div class="form-group search-form">
+    <%= form_with url: orders_path, method: :get, local: true do |f| %>
+      <%= f.label :date_label, "日期 ( 訂房 或 入住 日期皆可) :" %>
+      <%= f.text_field :search_date, id: "search_date" %>
+      <%= f.submit "查詢", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="active">
+        <th>訂房日期</th>
+        <th>入住日期</th>
+        <th>房號─房型</th>
+        <th>姓名</th>
+        <th>手機</th>
+        <th>email</th>
+        <th>國籍</th>
+        <th>身分證/護照</th>
+        <th>生日</th>
+        <th>地址</th>
+        <th>提醒(外)</th>
+        <th>備註(內)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+        <% order.room_items.each do |item| %>
+          <tr>
+            <td><%= order.created_at.to_date %></td>
+            <td><%= order.checkin_date %></td>
+            <td><%= item.name %></td>
+            <td><%= order.client.name %></td>
+            <td><%= order.client.mobile %></td>
+            <td><%= order.client.email %></td>
+            <td><%= order.client.country %></td>
+            <td><%= order.client.id_no %></td>
+            <td><%= order.client.birthday %></td>
+            <td><%= order.client.address %></td>
+            <td><%= order.client.reminder %></td>
+            <td><%= order.client.note %></td>
+          </tr>
+        <% end %>
+      <% end %>
+
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  <!-- 點選訂房開始日期跳出小月曆 -->
+  $('#search_date').datepicker({
+    format: "yyyy/mm/dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+});
+
+
+</script>
