@@ -5,12 +5,20 @@ class Admin::RoomCalendarsController < ApplicationController
   before_action :set_room_calendar, only: [:to_dealday, :to_holiday, :to_hotday, :to_weekday]
 
 
+  # 行事曆設定
   def index
     @room_calendars = RoomCalendar.all.order(:day)
   end
 
+  # 依房間查詢(月曆形式)
   def calendar
-    @room_calendars = RoomCalendar.all.order(:day)
+    @room_no = "r301"
+    @room_no = params[:room] if params.has_key?(:room) && params[:room].present?
+    @events_url = "/admin/room_calendars/calendar.json?room=#{@room_no}"
+    @room_calendars = RoomCalendar.select("id, day, day_info, #{@room_no} AS title")
+      .where("day >= :start_date AND day <= :end_date",
+      {start_date: Date.current.beginning_of_month, end_date: Date.current.end_of_month}).order(:day)
+
   end
 
   # 當月訂房狀況

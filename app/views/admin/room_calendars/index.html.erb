@@ -1,43 +1,30 @@
 <div class="col-md-10 col-md-offset-1">
-  <h2>週訂房一覽表</h2>
+  <h2>行事曆設定</h2>
 
   <table class="table table-bordered table-hover">
     <thead>
       <tr class="active">
         <th>日期</th>
-        <th>R301</th>
-        <th>R302</th>
-        <th>R303</th>
-        <th>R305</th>
-        <th>R306</th>
-        <th>R101</th>
-        <th>R102</th>
-        <th>R103</th>
-        <th>R105</th>
-        <th>R201</th>
-        <th>R202</th>
-        <th>R203</th>
-        <th>R205</th>
+        <th>型態</th>
+        <th>備註</th>
+        <th>設定</th>
       </tr>
     </thead>
     <tbody>
       <% @room_calendars.each do |room_calendar| %>
-        <tr>
+        <tr class="<%= render_tr_class(room_calendar) %>" >
           <td><%= render_day(room_calendar.day) %></td>
-          <td><%= room_calendar.r301 %></td>
-          <td><%= room_calendar.r302 %></td>
-          <td><%= room_calendar.r303 %></td>
-          <td><%= room_calendar.r305 %></td>
-          <td><%= room_calendar.r306 %></td>
-          <td><%= room_calendar.r101 %></td>
-          <td><%= room_calendar.r102 %></td>
-          <td><%= room_calendar.r103 %></td>
-          <td><%= room_calendar.r105 %></td>
-          <td><%= room_calendar.r201 %></td>
-          <td><%= room_calendar.r202 %></td>
-          <td><%= room_calendar.r203 %></td>
-          <td><%= room_calendar.r205 %></td>
+          <td><%= render_day_mode(room_calendar) %></td>
+          <td><%= room_calendar.day_info %></td>
+          <td>
+            <%= link_to("轉平日", to_weekday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default")%>
+            <%= link_to("轉旺日", to_hotday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default btn-success")%>
+            <%= link_to("轉假日", to_holiday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default btn-warning")%>
+            <%= link_to("轉定價", to_dealday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default btn-danger")%>
+
+          </td>
         </tr>
+
       <% end %>
     </tbody>
   </table>

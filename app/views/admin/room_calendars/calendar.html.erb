@@ -1,31 +1,46 @@
-<div class="col-md-10 col-md-offset-1">
-  <h2>行事曆設定</h2>
+<div class="col-md-10 col-md-offset-1" data-turbolinks="false">
+  <h3>依房間查詢 (<%= @room_no.upcase %>)</h3>
 
-  <table class="table table-bordered table-hover">
-    <thead>
-      <tr class="active">
-        <th>日期</th>
-        <th>型態</th>
-        <th>備註</th>
-        <th>設定</th>
-      </tr>
-    </thead>
-    <tbody>
-      <% @room_calendars.each do |room_calendar| %>
-        <tr class="<%= render_tr_class(room_calendar) %>" >
-          <td><%= render_day(room_calendar.day) %></td>
-          <td><%= render_day_mode(room_calendar) %></td>
-          <td><%= room_calendar.day_info %></td>
-          <td>
-            <%= link_to("轉平日", to_weekday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default")%>
-            <%= link_to("轉旺日", to_hotday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default btn-success")%>
-            <%= link_to("轉假日", to_holiday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default btn-warning")%>
-            <%= link_to("轉定價", to_dealday_admin_room_calendar_path(room_calendar), method: :post, class: "btn btn-default btn-danger")%>
+  <div id="events_url" data-events_url="<%= @events_url %>" />
 
-          </td>
-        </tr>
+  選擇房間：
+  <div class="btn-group" role="group" aria-label="..." data-turbolinks="false">
+    <%= link_to("R301", calendar_admin_room_calendars_path(room: 'r301'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R302", calendar_admin_room_calendars_path(room: 'r302'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R303", calendar_admin_room_calendars_path(room: 'r303'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R305", calendar_admin_room_calendars_path(room: 'r305'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R306", calendar_admin_room_calendars_path(room: 'r306'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R101", calendar_admin_room_calendars_path(room: 'r101'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R102", calendar_admin_room_calendars_path(room: 'r102'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R103", calendar_admin_room_calendars_path(room: 'r103'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R105", calendar_admin_room_calendars_path(room: 'r105'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R201", calendar_admin_room_calendars_path(room: 'r201'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R202", calendar_admin_room_calendars_path(room: 'r202'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R203", calendar_admin_room_calendars_path(room: 'r203'), method: :get, class: "btn btn-default")%>
+    <%= link_to("R205", calendar_admin_room_calendars_path(room: 'r205'), method: :get, class: "btn btn-default")%>
 
-      <% end %>
-    </tbody>
-  </table>
+  </div>
+  <br/>
+
+
+  <br/><div id="calendar"></div><br/>
+
 </div>
+
+<script type="text/javascript">
+  events_url = $("#events_url").data("events_url");
+
+  $('#calendar').fullCalendar({
+    locale: 'zh-TW',
+    height: 500,
+
+    header: {
+      left: '',
+      center: 'title',
+      right: ''
+    },
+
+    events: events_url
+  });
+
+</script>
