@@ -2,6 +2,7 @@ class ClientsController < ApplicationController
   before_action :authenticate_user!
   before_action :set_client, only: [:edit, :update, :destroy, :show]
 
+  # 接待/客戶管理 -> 列出所有客戶
   def index
     if params.has_key?(:name)
       @search_name = params[:name]
@@ -11,6 +12,7 @@ class ClientsController < ApplicationController
     end
   end
 
+  # 接待/客戶管理 -> 依客戶查詢
   def search
     if params.has_key?(:client_name) && params.has_key?(:client_mobile)
       @clients = Client.where('lower(name) LIKE ?', "%#{params[:client_name].downcase}%").where('lower(mobile) LIKE ?', "%#{params[:client_mobile].downcase}%")
@@ -60,7 +62,7 @@ class ClientsController < ApplicationController
   private
 
   def client_params
-    params.require(:client).permit(:name, :sex, :mobile, :country, :id_no, :birthday, :job, :tel, :address, :email, :remider, :note)
+    params.require(:client).permit(:name, :sex, :mobile, :country, :id_no, :birthday, :job, :tel, :address, :email, :reminder, :note)
   end
 
   def set_client

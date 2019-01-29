@@ -1,0 +1,4 @@
+<!-- 將 _searchModal.html.erb 的 資料塞入 我們先前就建立好的 #searchModal div -->
+$('#searchModal').html("<%= escape_javascript(render 'searchmodal') %>");
+<!-- 讓#searchModal 呈現出來 -->
+$("#searchModal").modal("show");

@@ -42,6 +42,34 @@ zh-TW:
         email: "電子郵件"
         reminder: "提醒(外)"
         note: "備註(內)"
+      order:
+        checkin_date: "入住日期："
+        checkout_date: "退房日期："
+        aasm_state: "狀態："
+        source: "來源："
+        # client info
+        name: "姓名："
+        sex: "性別："
+        mobile: "手機："
+        country: "國籍："
+        id_no: "身分證/護照："
+        birthday: "生日："
+        tel: "電話"
+        address: "住址"
+        job: "職業"
+        email: "email："
+        reminder: "提醒(外)："
+        note: "備註(內)："
+        # payment info
+        room_subtotal: "房費小計"
+        bed_subtotal: "加床小計"
+        service_subtotal: "服務小計"
+        total: "總額"
+        downpay: "訂金"
+        credit_card: "信用卡"
+        balance: "餘額"
+        pay_type: "支付方式"
+        pay_info: "末5碼"
 
 
   errors:

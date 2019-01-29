@@ -1,10 +1,10 @@
-<div class="col-md-10 col-md-offset-1" data-turbolinks="false">
+<div class="col-md-10 col-md-offset-1">
   <h3>依房間查詢 (<%= @room_no.upcase %>)</h3>
 
   <div id="events_url" data-events_url="<%= @events_url %>" />
 
   選擇房間：
-  <div class="btn-group" role="group" aria-label="..." data-turbolinks="false">
+  <div class="btn-group" role="group" aria-label="...">
     <%= link_to("R301", calendar_admin_room_calendars_path(room: 'r301'), method: :get, class: "btn btn-default")%>
     <%= link_to("R302", calendar_admin_room_calendars_path(room: 'r302'), method: :get, class: "btn btn-default")%>
     <%= link_to("R303", calendar_admin_room_calendars_path(room: 'r303'), method: :get, class: "btn btn-default")%>

@@ -1,0 +1,129 @@
+<%= simple_form_for order do |f| %>
+
+  <h4>客戶資料</h4>
+  <div class="form-group form-inline">
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :client_id, as: :hidden %>
+        <%= f.input :name, required: true, class: "form-control" %>
+        <%= link_to("查詢", search_clients_orders_path, remote: true, class: "btn btn-primary", id: "search_name") %>
+      </div>
+      <div class="col-md-4"><%= f.input :mobile, required: true, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :sex, collection: [ "男", "女", "第三性"], prompt: "---選擇性別---", class: "form-control" %></div>
+    </div>
+
+    <br/>
+    <div class="row">
+      <div class="col-md-4"><%= f.input :country, priority: [ "台灣" ], collection: [ "台灣", "香港", "日本", "韓國", "大陸"], prompt: "---選擇國家---", class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :id_no, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :email, class: "form-control" %></div>
+    </div>
+
+    <br/>
+    <div class="row">
+      <div class="col-md-4"><%= f.input :job, collection: [ "士", "農", "工", "商", "其他"], prompt: "---選擇職業---", class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :birthday, as: :string, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :tel, class: "form-control" %></div>
+    </div>
+
+  </div>
+
+  <hr/><h4>訂單資料</h4>
+  <div class="form-group form-inline">
+    訂單日期：<%= Date.today %>, client_id：<%= @order.client_id %>, client: <%= @client.id %>
+    <div class="row">
+      <div class="col-md-4"><%= f.input :checkin_date, as: :string, required: true, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :checkout_date, as: :string, required: true, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :source, collection: [ "電話", "網路", "現場"], prompt: "---選擇來源---", class: "form-control" %> </div>
+
+    </div>
+  </div>
+
+  <hr/><h4>房型設定</h4>
+  <div class="form-group form-inline">
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+
+  <hr/><h4>房間服務</h4>
+  <div class="form-group form-inline">
+    <div class="row">
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+
+
+  <hr/><h4>付款資料</h4>
+  <div class="form-group form-inline">
+    <div class="row">
+      <div class="col-md-4"><%= f.input :room_subtotal, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :bed_subtotal, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :service_subtotal, class: "form-control" %></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-4"><%= f.input :total, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :downpay, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :credit_card, class: "form-control" %></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-4"><%= f.input :balance, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :pay_type, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :pay_info, class: "form-control" %></div>
+    </div>
+  </div>
+
+  <%= f.button :submit, class: "btn btn-primary", :disable_with => "Submiting..." %>
+
+  <hr/><h4>訂房紀錄</h4>
+
+<% end %>
+
+<script type="text/javascript">
+
+  $("#search_name").click(function appendNameParam(){
+    var client_name = $("#order_name").val().trim();
+    var search_url = "/orders/search_clients";
+    if (client_name.length > 0) {
+      search_url += "?name="+ client_name;
+      // alert(search_url);
+    }
+    $("#search_name").attr("href",search_url);
+    // $("#search_name").attr("href","/orders/search_clients?name="+ client_name);
+  });
+
+
+  $('#order_checkin_date').datepicker({
+    format: "yyyy/mm/dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+  $('#order_checkout_date').datepicker({
+    format: "yyyy/mm/dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+  $('#order_birthday').datepicker({
+    format: "yyyy/mm/dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+</script>
+

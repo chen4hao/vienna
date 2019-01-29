@@ -50,6 +50,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'fullcalendar-rails'
 gem 'momentjs-rails'
 
+gem 'country_select'
 
 group :development, :test do
     gem 'sqlite3'
