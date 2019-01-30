@@ -22,7 +22,7 @@ def setup_services
     # Service.create(name: "東勢─民宿", list_price: 2500, category: "接送導覽")
     # Service.create(name: "飛牛牧場─民宿", list_price: 2800, category: "接送導覽")
     # Service.create(name: "霧社─民宿", list_price: 200, category: "接送導覽")
-    Service.create(name: "民宿─台中(8小時)", list_price: 3500, category: "接送導覽")
+    # Service.create(name: "民宿─台中(8小時)", list_price: 3500, category: "接送導覽")
     # Service.create(name: "民宿─關西六福莊", list_price: 6000, category: "接送導覽")
     # Service.create(name: "清境─日月潭(單趟)", list_price: 1500, category: "接送導覽")
     # Service.create(name: "泰安溫泉─民宿", list_price: 4000, category: "接送導覽")
@@ -36,11 +36,11 @@ def setup_services
     # Service.create(name: "合歡山日出＋Hiking", list_price: 750, category: "接送導覽")
     # Service.create(name: "合歡山半日遊", list_price: 700, category: "接送導覽")
     Service.create(name: "一日包車", list_price: 3500, category: "接送導覽")
-    Service.create(name: "台北─清境(平日來回)", list_price: 1200, category: "E-GO")
-    Service.create(name: "台北─清境(假日來回)", list_price: 1300, category: "E-GO")
-    Service.create(name: "台北─清境(平日)", list_price: 750, category: "E-GO")
-    Service.create(name: "台北─清境(假日)", list_price: 850, category: "E-GO")
-    Service.create(name: "中港轉運站─清境", list_price: 1360, category: "E-GO")
+    # Service.create(name: "台北─清境(平日來回)", list_price: 1200, category: "E-GO")
+    # Service.create(name: "台北─清境(假日來回)", list_price: 1300, category: "E-GO")
+    # Service.create(name: "台北─清境(平日)", list_price: 750, category: "E-GO")
+    # Service.create(name: "台北─清境(假日)", list_price: 850, category: "E-GO")
+    # Service.create(name: "中港轉運站─清境", list_price: 1360, category: "E-GO")
   end
 end
 
@@ -178,6 +178,26 @@ def setup_orders
   end
 end
 
+def test
+    @order_days = []
+    checkin_date = "2019/1/1"
+    checkout_date= "2019/1/3"
+    if checkin_date
+      begin_day = Date.parse(checkin_date)
+      @order_days << begin_day.to_s(:db)
+      if checkout_date
+
+        end_day = Date.parse(checkout_date)
+
+        day = begin_day.tomorrow
+        until day >= end_day do
+          @order_days << day.to_s(:db)
+          day = day.tomorrow
+        end
+      end
+    end
+    puts @order_days
+end
 
 # ------------------------------
 # Main
@@ -188,5 +208,6 @@ end
 # setup_calandar(2019)
 # setup_2019calandar_special_days
 
-setup_clients
-setup_orders
+# setup_clients
+# setup_orders
+test

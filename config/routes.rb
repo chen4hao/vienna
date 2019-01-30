@@ -27,6 +27,7 @@ Rails.application.routes.draw do
 
   resources :orders do
     get :search_clients, on: :collection
+    get :list_services, on: :collection
   end
 
 

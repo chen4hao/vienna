@@ -1,4 +1,6 @@
 class Order < ApplicationRecord
+  validates_presence_of :checkin_date, :checkout_date, :name
+
   belongs_to :client
 
   has_many :order_items, dependent: :destroy

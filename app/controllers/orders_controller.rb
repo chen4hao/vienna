@@ -35,24 +35,15 @@ class OrdersController < ApplicationController
       @client = Client.new
     end
 
-    @client.name     = @order.name
-    @client.sex      = @order.sex
-    @client.mobile   = @order.mobile
-    @client.country  = @order.country
-    @client.id_no    = @order.id_no
-    @client.birthday = @order.birthday
-    @client.job      = @order.job
-    @client.tel      = @order.tel
-    @client.address  = @order.address
-    @client.email    = @order.email
-    @client.reminder = @order.reminder
-    @client.note     = @order.note
+    copy_client_data(@client, @order)
 
     @client.orders << @order
 
     if @client.save
+      update_room_calendar(@order)
       redirect_to new_order_path, notice: "新增訂單(#{@order.name})成功"
     else
+      flash[:warning] = "新增訂單(#{@order.name})失敗"
       render :new
     end
 
@@ -67,6 +58,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def list_services
+    # @order_days = ["2019/1/1", "2019/1/2", "2019/1/3"]
+    @order_days = get_order_days
+    @services = Service.all
+
+  end
+
 private
   def order_params
     params.require(:order).permit(:checkin_date, :checkout_date, :aasm_state, :source,
@@ -74,5 +72,49 @@ private
       :balance, :pay_type, :pay_info, :client_id,
       :name, :sex, :mobile, :country, :id_no, :birthday, :job, :tel, :address, :email, :reminder, :note)
   end
+
+  def copy_client_data(client, order)
+    client.name     = order.name
+    client.sex      = order.sex
+    client.mobile   = order.mobile
+    client.country  = order.country
+    client.id_no    = order.id_no
+    client.birthday = order.birthday
+    client.job      = order.job
+    client.tel      = order.tel
+    client.address  = order.address
+    client.email    = order.email
+    client.reminder = order.reminder
+    client.note     = order.note
+  end
+
+  # TODO: update_room_calendar
+  def update_room_calendar(order)
+
+
+    # RoomCalendar.find_by(day: d0).update(r301: "#{c1.name}(#{c1.mobile}) x 4")
+  end
+
+  # 回傳「入住日期」至「退房日期」的所有日期
+  def get_order_days
+    order_days = []
+    if params.has_key?(:checkin_date) && params[:checkin_date].size > 0
+      begin_day = Date.parse(params[:checkin_date])
+      order_days << begin_day.to_s(:db)
+
+      if params.has_key?(:checkout_date) && params[:checkout_date].size > 0
+        end_day = Date.parse(params[:checkout_date])
+
+        day = begin_day.tomorrow
+        until day >= end_day do
+          order_days << day.to_s(:db)
+          day = day.tomorrow
+        end
+      end
+    end
+
+    order_days
+  end
+
 
 end

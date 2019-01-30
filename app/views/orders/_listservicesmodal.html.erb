@@ -1,0 +1,38 @@
+
+<div class="modal-dialog" role="document">
+  <div class="modal-content">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+      <h4 class="modal-title" id="clientModalLabel">服務列表設定</h4>
+    </div>
+    <div class="modal-body">
+      <table class="table table-bordered table-hover">
+        <thead>
+          <tr class="active">
+            <th colspan="2">日期/項目</th>
+            <% @order_days.each do |day| %>
+              <th><%= day %></th>
+            <% end %>
+          </tr>
+        </thead>
+        <tbody>
+          <% @services.each do |service| %>
+              <tr>
+                <td><%= service.name %></td>
+                <td>定價：<%= service.list_price %></td>
+                <% @order_days.each do |day| %>
+                  <td data-id="<%= service.id %>" data-day="<%= day %>"></td>
+                <% end %>
+              </tr>
+
+          <% end %>
+        </tbody>
+      </table>
+
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+    </div>
+  </div>
+</div>
+
