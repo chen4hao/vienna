@@ -1,0 +1,4 @@
+<!-- 將 _listroomsmodal.html.erb 的 資料塞入 我們先前就建立好的 #listRoomsModal div -->
+$('#listRoomsModal').html("<%= escape_javascript(render 'listroomsmodal') %>");
+<!-- 讓#listRoomsModal 呈現出來 -->
+$("#listRoomsModal").modal("show");

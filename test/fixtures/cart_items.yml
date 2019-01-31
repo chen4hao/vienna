@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  type: 
+  price: 1
+  add_bed_no: 1
+  add_bed_fee: 1
+  adult_no: 1
+  kid_no: 1
+  baby_no: 1
+  cart_id: 1
+  item_id: 1
+
+two:
+  name: MyString
+  type: 
+  price: 1
+  add_bed_no: 1
+  add_bed_fee: 1
+  adult_no: 1
+  kid_no: 1
+  baby_no: 1
+  cart_id: 1
+  item_id: 1

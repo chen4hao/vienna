@@ -28,6 +28,8 @@ Rails.application.routes.draw do
   resources :orders do
     get :search_clients, on: :collection
     get :list_services, on: :collection
+    get :list_rooms, on: :collection
+    post :add_to_cart, on: :member
   end
 
 

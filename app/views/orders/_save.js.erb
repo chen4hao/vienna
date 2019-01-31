@@ -1,0 +1,21 @@
+<!--將先前存在的 errors 訊息刪除-->
+$("ul.errors").html("");
+
+<!--如果有任何的錯誤訊息，就印出來 -->
+<% if @cart_item.errors.any? %>
+  <% @cart_item.errors.full_messages.each do |message| %>
+    $("#errors").append($("<li />").html("<%= message.html_safe %>"));
+  <% end %>
+<% else %>
+
+<!-- 從上一頁 create.js.erb 判斷 actionName 是什麼，我們這邊是 create 所以會執行 else -->
+  <% if actionName == 'update' %>
+
+  <% else %>
+      <!--在 table 的最後一行 插入 item 的資料 會 render _product.html.erb -->
+      <!-- j render 為 escape_javascript(render 'cartitem') 的縮寫 -->
+      $('#services_table').append("<%= j render 'cartitem', item: @cart_item %>")
+
+  <% end %>
+
+<% end %>

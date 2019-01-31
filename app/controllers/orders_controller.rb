@@ -2,6 +2,9 @@ class OrdersController < ApplicationController
   before_action :authenticate_user!
   before_action :set_order, only: [:edit, :update, :destroy, :show]
 
+  # 讓 view 也能用，要掛上helper_method
+  helper_method :current_cart
+
   # 接待/客戶管理 -> 依日期查詢
   def index
     if params.has_key?(:search_date) && params[:search_date].present?
@@ -65,6 +68,48 @@ class OrdersController < ApplicationController
 
   end
 
+  def list_rooms
+    @order_days = get_order_days
+    @rooms = Room.all
+    # @room_calendars = []
+    @order_days.each do | day |
+      @rooms.each do |room|
+        item = CartItem.new
+        item.day = day
+        item.kind = "Room"
+        item.name = "#{room.no}-#{room.name}"
+        item.add_bed_fee = room.add_bed_fee
+
+        room_calendar = RoomCalendar.find_by_day(Date.parse(day))
+        case room_calendar.day_mode
+          when RoomCalendar.Day_Mode_Dealday
+            item.price = room.dealday_price
+          when RoomCalendar.Day_Mode_Holiday
+            item.price = room.holiday_price
+          when RoomCalendar.Day_Mode_Hotday
+            item.price = room.hotday_price
+          else
+            item.price = room.weekday_price
+        end
+
+        puts item
+      end
+    end
+  end
+
+  def current_cart
+    @current_cart ||= find_cart
+  end
+
+  def add_to_cart
+    if params[:kind].present? && params[:kind] == "Service"
+      @service = Service.find(params[:id])
+      @cart_item = current_cart.add_service_to_cart(@service, Date.parse(params[:day]), params[:price])
+    end
+      # redirect_back fallback_location: product_path(@product)
+  end
+
+
 private
   def order_params
     params.require(:order).permit(:checkin_date, :checkout_date, :aasm_state, :source,
@@ -114,6 +159,17 @@ private
     end
 
     order_days
+  end
+
+  def find_cart
+    cart = Cart.find_by(id: session[:cart_id])
+
+    unless cart.present?
+      cart = Cart.create
+    end
+
+    session[:cart_id] = cart.id
+    cart
   end
 
 

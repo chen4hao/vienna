@@ -3,7 +3,7 @@
   <div class="modal-content">
     <div class="modal-header">
       <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <h4 class="modal-title" id="clientModalLabel">服務列表設定</h4>
+      <h4 class="modal-title" id="clientModalLabel">房間列表設定</h4>
     </div>
     <div class="modal-body">
       <table class="table table-bordered table-hover">
@@ -13,22 +13,23 @@
             <% @order_days.each do |day| %>
               <th><%= day %></th>
             <% end %>
+
           </tr>
         </thead>
         <tbody>
-          <% @services.each do |service| %>
+          <% @rooms.each do |room| %>
               <tr>
-                <td><%= service.name %></td>
-                <td>定價：<%= service.list_price %></td>
+                <td><%= room.name %></td>
+                <td>定價：<%= room.list_price %></td>
                 <% @order_days.each do |day| %>
-                  <td data-id="<%= service.id %>" data-day="<%= day %>">
+                  <td data-id="<%= room.id %>" data-day="<%= day %>">
                     <div class="form-group add-form">
-                      <%= form_with url: add_to_cart_order_path(service), method: :post do |f| %>
+                      <%= form_with url: add_to_cart_order_path(room), method: :post do |f| %>
                         <%= f.label :price_label, "價格:" %>
                         <%= f.text_field :price, size: "7x10"%>
                         <input type="hidden" name="day" value="<%= day %>">
-                        <input type="hidden" name="name" value="<%= service.name %>">
-                        <input type="hidden" name="kind" value="Service">
+                        <input type="hidden" name="name" value="<%= room.name %>">
+                        <input type="hidden" name="kind" value="Room">
                         <%= f.submit "新增", class: "btn btn-primary" %>
                       <% end %>
                     </div>
@@ -42,7 +43,7 @@
 
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">完成</button>
     </div>
   </div>
 </div>

@@ -199,6 +199,36 @@ def test
     puts @order_days
 end
 
+def test2
+
+    @order_days = ["2019/01/01", "2019/01/02"]
+    @rooms = Room.all
+    # @room_calendars = []
+    @order_days.each do | day |
+      @rooms.each do |room|
+        item = CartItem.new
+        item.day = day
+        item.kind = "Room"
+        item.name = "#{room.no}-#{room.name}"
+        item.add_bed_fee = room.add_bed_fee
+
+        room_calendar = RoomCalendar.find_by_day(Date.parse(day))
+        case room_calendar.day_mode
+          when RoomCalendar.Day_Mode_Dealday
+            item.price = room.dealday_price
+          when RoomCalendar.Day_Mode_Holiday
+            item.price = room.holiday_price
+          when RoomCalendar.Day_Mode_Hotday
+            item.price = room.hotday_price
+          else
+            item.price = room.weekday_price
+        end
+
+        puts item
+      end
+    end
+  end
+
 # ------------------------------
 # Main
 # ------------------------------
@@ -210,4 +240,7 @@ end
 
 # setup_clients
 # setup_orders
-test
+
+# test
+# test2
+

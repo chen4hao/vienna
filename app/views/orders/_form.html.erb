@@ -40,22 +40,42 @@
   </div>
 
   <hr/><h4>房型設定</h4>
+
+<!--
+  order_id:[<%= @order.id %>], order.client_id：[<%= @order.client_id %>], client.id: <%= @client.id %>
   <div class="form-group form-inline">
     <div class="row">
       <div class="col-md-4">
+        <%= link_to("新增房間", list_rooms_orders_path, remote: true, class: "btn btn-primary", id: "list_rooms") %>
       </div>
       <div class="col-md-4"></div>
       <div class="col-md-4"></div>
     </div>
   </div>
+-->
 
-  order_id:[<%= @order.id %>], order.client_id：[<%= @order.client_id %>], client.id: <%= @client.id %>
+  <h5>房間列表</h5>
+  <table class="table table-bordered table-hover" id="rooms_table">
+    <thead>
+      <tr class="active">
+        <th>日期</th>
+        <th>房間</th>
+        <th>金額</th>
+        <th>加床</th>
+        <th>人數</th>
+      </tr>
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+
 
   <hr/><h4>房間服務</h4>
   <div class="form-group form-inline">
     <div class="row">
       <div class="col-md-4">
-        <%= link_to("服務列表", list_services_orders_path, remote: true, class: "btn btn-primary", id: "list_services") %>
+        <%= link_to("新增服務", list_services_orders_path, remote: true, class: "btn btn-primary", id: "list_services") %>
       </div>
       <div class="col-md-4">
       </div>
@@ -63,7 +83,7 @@
     </div>
   </div>
   <h5>服務列表</h5>
-  <table class="table table-bordered table-hover">
+  <table class="table table-bordered table-hover" id="services_table">
     <thead>
       <tr class="active">
         <th>日期</th>
@@ -98,7 +118,7 @@
     </div>
   </div>
 
-  <%= f.button :submit, class: "btn btn-primary", :disable_with => "Submiting..." %>
+  <%= f.button :submit, "新增訂單", class: "btn btn-success", :disable_with => "Submiting..." %>
 
   <hr/><h4>訂房紀錄</h4>
   <table class="table table-bordered table-hover">
@@ -147,14 +167,25 @@
   $("#list_services").click(function appendParams(){
     var checkin_date = $("#order_checkin_date").val().trim();
     var checkout_date = $("#order_checkout_date").val().trim();
-    var list_services_url = "/orders/list_services";
+    var list_services_url = $("#list_services").attr("href");
     if (checkin_date.length > 0) {
       list_services_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date;
       $("#list_services").attr("href",list_services_url);
     } else {
       // alert("請輸入「入住日期」");
     }
+  });
 
+  $("#list_rooms").click(function appendParams(){
+    var checkin_date = $("#order_checkin_date").val().trim();
+    var checkout_date = $("#order_checkout_date").val().trim();
+    var list_rooms_url = $("#list_rooms").attr("href");
+    if (checkin_date.length > 0) {
+      list_rooms_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date;
+      $("#list_rooms").attr("href",list_rooms_url);
+    } else {
+      // alert("請輸入「入住日期」");
+    }
   });
 
   $('#order_checkin_date').datepicker({
