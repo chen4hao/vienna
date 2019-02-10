@@ -8,13 +8,15 @@ $("ul.errors").html("");
   <% end %>
 <% else %>
 
-<!-- 從上一頁 create.js.erb 判斷 actionName 是什麼，我們這邊是 create 所以會執行 else -->
-  <% if actionName == 'update' %>
+  <!-- 從 actionName 判斷執行什麼 -->
+  <% if actionName == 'add_room' %>
+    <!--在 table 的最後一行 插入 product 的資料 會 render _product.html.erb -->
+    $('#rooms_table').append("<%= j render 'cartitem', item: @cart_item, kind: 'Room' %>")
+  <% elsif actionName == 'add_service' %>
+    <!--在 table 的最後一行 插入 product 的資料 會 render _product.html.erb -->
+    $('#services_table').append("<%= j render 'cartitem', item: @cart_item, kind: 'Service' %>")
 
   <% else %>
-      <!--在 table 的最後一行 插入 item 的資料 會 render _product.html.erb -->
-      <!-- j render 為 escape_javascript(render 'cartitem') 的縮寫 -->
-      $('#services_table').append("<%= j render 'cartitem', item: @cart_item %>")
 
   <% end %>
 

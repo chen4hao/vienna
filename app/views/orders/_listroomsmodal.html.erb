@@ -9,35 +9,59 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr class="active">
-            <th colspan="2">日期/項目</th>
+            <th>項目/日期</th>
             <% @order_days.each do |day| %>
               <th><%= day %></th>
             <% end %>
-
           </tr>
         </thead>
         <tbody>
-          <% @rooms.each do |room| %>
+          <% @calendar_items.each do | room_days | %>
               <tr>
-                <td><%= room.name %></td>
-                <td>定價：<%= room.list_price %></td>
-                <% @order_days.each do |day| %>
-                  <td data-id="<%= room.id %>" data-day="<%= day %>">
-                    <div class="form-group add-form">
-                      <%= form_with url: add_to_cart_order_path(room), method: :post do |f| %>
-                        <%= f.label :price_label, "價格:" %>
-                        <%= f.text_field :price, size: "7x10"%>
-                        <input type="hidden" name="day" value="<%= day %>">
-                        <input type="hidden" name="name" value="<%= room.name %>">
-                        <input type="hidden" name="kind" value="Room">
-                        <%= f.submit "新增", class: "btn btn-primary" %>
-                      <% end %>
-                    </div>
-                  </td>
+                <% index = 0 %>
+                <% room_days.each do | item | %>
+                  <% if index == 0 %>
+                    <td><%= item.name %></td>
+                  <% end %>
+                  <% index += 1 %>
+
+                  <% if item.price == RoomCalendar::Occupaied_Price %>
+                    <td>已訂</td>
+                  <% else %>
+                    <td>
+
+                      <div class="form-group add-form">
+                        <%= form_with model: item, url: add_to_cart_order_path(item.item_id), method: :post do |f| %>
+                          <%= f.label :price, "價格:" %>
+                          <%= f.text_field :price, size: "5x10"%>
+                          <%= f.label :add_bed_no, "床數:" %>
+                          <%= f.text_field :add_bed_no, size: "5x10"%>
+                          <%= f.label :add_bed_fee, "床費:" %>
+                          <%= f.text_field :add_bed_fee, size: "5x10"%>
+                          <br/>
+                          <%= f.label :adult_no, "大人:" %>
+                          <%= f.text_field :adult_no, size: "5x10"%>
+                          <%= f.label :kid_no, "小孩:" %>
+                          <%= f.text_field :kid_no, size: "5x10"%>
+                          <%= f.label :baby_no, "嬰兒:" %>
+                          <%= f.text_field :baby_no, size: "5x10"%>
+
+                          <%= f.hidden_field :day %>
+                          <%= f.hidden_field :kind %>
+                          <%= f.hidden_field :name %>
+                          <%= f.hidden_field :item_id %>
+                          <%= f.submit "新增", class: "btn btn-primary" %>
+                        <% end %>
+                      </div>
+
+                    </td>
+
+                  <% end %>
+
                 <% end %>
               </tr>
-
           <% end %>
+
         </tbody>
       </table>
 

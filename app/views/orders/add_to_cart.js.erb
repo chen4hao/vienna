@@ -1,2 +1,9 @@
-<!--因為 form 表單等下會在 update 也會用到，所以再render 到 _save.js.erb 的 partial js-->
-<%= render "save" , actionName: 'add_service' %>
+
+<% if @kind == CartItem::Room_Type %>
+  <%= render "save" , actionName: 'add_room' %>
+<% elsif @kind == CartItem::Service_Type %>
+  <%= render "save" , actionName: 'add_service' %>
+<% else %>
+
+<% end %>
+

@@ -9,7 +9,7 @@
       <table class="table table-bordered table-hover">
         <thead>
           <tr class="active">
-            <th colspan="2">日期/項目</th>
+            <th colspan="2">項目/日期</th>
             <% @order_days.each do |day| %>
               <th><%= day %></th>
             <% end %>
@@ -23,14 +23,16 @@
                 <% @order_days.each do |day| %>
                   <td data-id="<%= service.id %>" data-day="<%= day %>">
                     <div class="form-group add-form">
-                      <%= form_with url: add_to_cart_order_path(service), method: :post do |f| %>
-                        <%= f.label :price_label, "價格:" %>
-                        <%= f.text_field :price, size: "7x10"%>
-                        <input type="hidden" name="day" value="<%= day %>">
-                        <input type="hidden" name="name" value="<%= service.name %>">
-                        <input type="hidden" name="kind" value="Service">
+                      <%= form_with model: CartItem.new, url: add_to_cart_order_path(service.id), method: :post do |f| %>
+                        <%= f.label :price, "價格:" %>
+                        <%= f.text_field :price, size: "5x10"%>
+
+                        <input type="hidden" name="cart_item[day]" value="<%= day %>">
+                        <input type="hidden" name="cart_item[name]" value="<%= service.name %>">
+                        <input type="hidden" name="cart_item[kind]" value="Service">
                         <%= f.submit "新增", class: "btn btn-primary" %>
                       <% end %>
+
                     </div>
                   </td>
                 <% end %>
@@ -42,7 +44,7 @@
 
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal">完成</button>
     </div>
   </div>
 </div>

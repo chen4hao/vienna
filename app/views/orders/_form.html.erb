@@ -29,7 +29,7 @@
   </div>
 
   <hr/><h4>訂單資料</h4>
-  <div class="form-group form-inline">
+  <div class="form-group form-inline" >
     訂單日期：<%= Date.today %>
     <div class="row">
       <div class="col-md-4"><%= f.input :checkin_date, as: :string, required: true, class: "form-control" %></div>
@@ -40,8 +40,6 @@
   </div>
 
   <hr/><h4>房型設定</h4>
-
-<!--
   order_id:[<%= @order.id %>], order.client_id：[<%= @order.client_id %>], client.id: <%= @client.id %>
   <div class="form-group form-inline">
     <div class="row">
@@ -52,10 +50,9 @@
       <div class="col-md-4"></div>
     </div>
   </div>
--->
 
   <h5>房間列表</h5>
-  <table class="table table-bordered table-hover" id="rooms_table">
+  <table class="table table-bordered table-hover">
     <thead>
       <tr class="active">
         <th>日期</th>
@@ -65,7 +62,7 @@
         <th>人數</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="rooms_table">
 
     </tbody>
   </table>
@@ -83,7 +80,7 @@
     </div>
   </div>
   <h5>服務列表</h5>
-  <table class="table table-bordered table-hover" id="services_table">
+  <table class="table table-bordered table-hover">
     <thead>
       <tr class="active">
         <th>日期</th>
@@ -91,10 +88,10 @@
         <th>金額</th>
       </tr>
     </thead>
-    <tbody>
+    <tbody id="services_table">
 
     </tbody>
-  </table>
+ </table>
 
 
   <hr/><h4>付款資料</h4>
@@ -167,7 +164,7 @@
   $("#list_services").click(function appendParams(){
     var checkin_date = $("#order_checkin_date").val().trim();
     var checkout_date = $("#order_checkout_date").val().trim();
-    var list_services_url = $("#list_services").attr("href");
+    var list_services_url = "/orders/list_services";
     if (checkin_date.length > 0) {
       list_services_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date;
       $("#list_services").attr("href",list_services_url);
@@ -179,7 +176,7 @@
   $("#list_rooms").click(function appendParams(){
     var checkin_date = $("#order_checkin_date").val().trim();
     var checkout_date = $("#order_checkout_date").val().trim();
-    var list_rooms_url = $("#list_rooms").attr("href");
+    var list_rooms_url = "/orders/list_rooms";
     if (checkin_date.length > 0) {
       list_rooms_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date;
       $("#list_rooms").attr("href",list_rooms_url);

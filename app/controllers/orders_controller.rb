@@ -62,39 +62,13 @@ class OrdersController < ApplicationController
   end
 
   def list_services
-    # @order_days = ["2019/1/1", "2019/1/2", "2019/1/3"]
-    @order_days = get_order_days
+    @order_days = get_order_dates
     @services = Service.all
-
   end
 
   def list_rooms
-    @order_days = get_order_days
-    @rooms = Room.all
-    # @room_calendars = []
-    @order_days.each do | day |
-      @rooms.each do |room|
-        item = CartItem.new
-        item.day = day
-        item.kind = "Room"
-        item.name = "#{room.no}-#{room.name}"
-        item.add_bed_fee = room.add_bed_fee
-
-        room_calendar = RoomCalendar.find_by_day(Date.parse(day))
-        case room_calendar.day_mode
-          when RoomCalendar.Day_Mode_Dealday
-            item.price = room.dealday_price
-          when RoomCalendar.Day_Mode_Holiday
-            item.price = room.holiday_price
-          when RoomCalendar.Day_Mode_Hotday
-            item.price = room.hotday_price
-          else
-            item.price = room.weekday_price
-        end
-
-        puts item
-      end
-    end
+    @order_days = get_order_dates
+    @calendar_items = get_room_items(@order_days)
   end
 
   def current_cart
@@ -102,10 +76,23 @@ class OrdersController < ApplicationController
   end
 
   def add_to_cart
-    if params[:kind].present? && params[:kind] == "Service"
-      @service = Service.find(params[:id])
-      @cart_item = current_cart.add_service_to_cart(@service, Date.parse(params[:day]), params[:price])
+    if params[:cart_item][:kind].present? && params[:cart_item][:kind] == CartItem::Service_Type
+      @kind = CartItem::Service_Type
+      service_item = CartItem.new(day: params[:cart_item][:day], kind: @kind,
+        name: params[:cart_item][:name], price: params[:cart_item][:price], item_id: params[:id])
+      @cart_item = current_cart.add_item_to_cart(service_item)
     end
+
+    if params[:cart_item][:kind].present? && params[:cart_item][:kind] == CartItem::Room_Type
+      @kind = CartItem::Room_Type
+      room_item = CartItem.new(day: params[:cart_item][:day], kind: @kind,
+        name: params[:cart_item][:name], price: params[:cart_item][:price],
+        add_bed_no: params[:cart_item][:add_bed_no], add_bed_fee: params[:cart_item][:add_bed_fee],
+        adult_no: params[:cart_item][:adult_no], kid_no: params[:cart_item][:kid_no],
+        baby_no: params[:cart_item][:baby_no], item_id: params[:cart_item][:item_id])
+      @cart_item = current_cart.add_item_to_cart(room_item)
+    end
+
       # redirect_back fallback_location: product_path(@product)
   end
 
@@ -135,30 +122,59 @@ private
 
   # TODO: update_room_calendar
   def update_room_calendar(order)
-
-
     # RoomCalendar.find_by(day: d0).update(r301: "#{c1.name}(#{c1.mobile}) x 4")
   end
 
   # 回傳「入住日期」至「退房日期」的所有日期
-  def get_order_days
+  def get_order_dates
     order_days = []
     if params.has_key?(:checkin_date) && params[:checkin_date].size > 0
       begin_day = Date.parse(params[:checkin_date])
-      order_days << begin_day.to_s(:db)
+      order_days << begin_day
 
       if params.has_key?(:checkout_date) && params[:checkout_date].size > 0
         end_day = Date.parse(params[:checkout_date])
 
         day = begin_day.tomorrow
         until day >= end_day do
-          order_days << day.to_s(:db)
+          order_days << day
           day = day.tomorrow
         end
       end
     end
 
     order_days
+  end
+
+  def get_room_items(order_days)
+    rooms = Room.all
+
+    calendar_items = []
+    rooms.each do |room|
+      room_days = []
+      order_days.each do | day |
+        item = CartItem.new
+        item.day = day
+        item.kind = "Room"
+        item.name = "#{room.no}-#{room.name}"
+        item.add_bed_fee = room.add_bed_fee
+        item.item_id = room.id
+
+        room_calendar = RoomCalendar.find_by_day(day)
+
+        if room_calendar.is_occupaied?(room.no)
+          item.price = RoomCalendar::Occupaied_Price
+        else
+          item.price = room_calendar.get_price(room.no)
+        end
+
+        room_days << item
+      end
+
+      calendar_items << room_days
+    end
+
+    calendar_items
   end
 
   def find_cart
