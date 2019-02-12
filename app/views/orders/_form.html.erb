@@ -5,6 +5,7 @@
     <div class="row">
       <div class="col-md-4">
         <%= f.input :client_id, as: :hidden %>
+        <%= f.input :aasm_state, as: :hidden, input_html: { value:"order_placed" }%>
         <%= f.input :name, required: true, class: "form-control" %>
         <%= link_to("查詢", search_clients_orders_path, remote: true, class: "btn btn-primary", id: "search_name") %>
       </div>
@@ -40,7 +41,6 @@
   </div>
 
   <hr/><h4>房型設定</h4>
-  order_id:[<%= @order.id %>], order.client_id：[<%= @order.client_id %>], client.id: <%= @client.id %>
   <div class="form-group form-inline">
     <div class="row">
       <div class="col-md-4">
@@ -58,13 +58,13 @@
         <th>日期</th>
         <th>房間</th>
         <th>金額</th>
-        <th>加床</th>
-        <th>人數</th>
+        <th>加床費</th>
+        <th>大人</th>
+        <th>小孩</th>
+        <th>幼兒</th>
       </tr>
     </thead>
-    <tbody id="rooms_table">
-
-    </tbody>
+    <tbody id="rooms_table"></tbody>
   </table>
 
 
@@ -88,9 +88,7 @@
         <th>金額</th>
       </tr>
     </thead>
-    <tbody id="services_table">
-
-    </tbody>
+    <tbody id="services_table"></tbody>
  </table>
 
 
@@ -110,12 +108,31 @@
     <br/>
     <div class="row">
       <div class="col-md-4"><%= f.input :balance, class: "form-control" %></div>
-      <div class="col-md-4"><%= f.input :pay_type, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :pay_type, collection: [ "現金", "信用卡", "其他"], prompt: "---選擇支付方式---", class: "form-control" %></div>
       <div class="col-md-4"><%= f.input :pay_info, class: "form-control" %></div>
     </div>
+
   </div>
 
-  <%= f.button :submit, "新增訂單", class: "btn btn-success", :disable_with => "Submiting..." %>
+  <hr/><h4>其他資料</h4>
+  <div class="form-group form-inline">
+    <div class="row">
+      <div class="col-md-4"><%= f.input :adult_subtotal, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :kid_subtotal, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :baby_subtotal, class: "form-control" %></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-6"><%= f.input :reminder, class: "form-control", input_html: {size:50} %></div>
+      <div class="col-md-6"><%= f.input :note, class: "form-control", input_html: {size:50} %></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-6"><%= f.button :submit, "新增訂單", class: "btn btn-success", :disable_with => "Submiting..." %></div>
+
+    </div>
+
+  </div>
 
   <hr/><h4>訂房紀錄</h4>
   <table class="table table-bordered table-hover">
@@ -155,10 +172,8 @@
     var search_url = "/orders/search_clients";
     if (client_name.length > 0) {
       search_url += "?name="+ client_name;
-      // alert(search_url);
     }
     $("#search_name").attr("href",search_url);
-    // $("#search_name").attr("href","/orders/search_clients?name="+ client_name);
   });
 
   $("#list_services").click(function appendParams(){
@@ -169,7 +184,7 @@
       list_services_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date;
       $("#list_services").attr("href",list_services_url);
     } else {
-      // alert("請輸入「入住日期」");
+
     }
   });
 
@@ -181,7 +196,7 @@
       list_rooms_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date;
       $("#list_rooms").attr("href",list_rooms_url);
     } else {
-      // alert("請輸入「入住日期」");
+
     }
   });
 
@@ -208,6 +223,41 @@
     todayHighlight: true,
     toggleActive: true
   });
+
+  $("#order_room_subtotal").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_bed_subtotal").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_service_subtotal").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_downpay").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_credit_card").blur(function (){
+    updatePayment();
+  });
+
+  <!--計算總額、餘額 -->
+  function updatePayment(){
+    var roomSubtotal = parseInt($("#order_room_subtotal").val());
+    var bedSubtotal = parseInt($("#order_bed_subtotal").val());
+    var serviceSubtotal = parseInt($("#order_service_subtotal").val());
+
+    var downpay = parseInt($("#order_downpay").val());
+    var creditCard = parseInt($("#order_credit_card").val());
+
+    var total = roomSubtotal + bedSubtotal + serviceSubtotal;
+    $("#order_total").val(total);
+    var balance = total - downpay - creditCard;
+    $("#order_balance").val(balance);
+  }
 
 </script>
 

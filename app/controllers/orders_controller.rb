@@ -30,20 +30,23 @@ class OrdersController < ApplicationController
     end
   end
 
+  # 接待/客戶管理 -> 訂單登入(儲存)
   def create
     @order = Order.new(order_params)
-    if @order.client_id.present?
+    # 是否為現有客戶
+    if @order.is_old_client?
       @client = Client.find(@order.client_id)
     else
       @client = Client.new
     end
 
-    copy_client_data(@client, @order)
-
+    @order.copy_client_data(@client)
+    @order.build_items_from_cart(current_cart)
     @client.orders << @order
 
     if @client.save
-      update_room_calendar(@order)
+      current_cart.clean!
+
       redirect_to new_order_path, notice: "新增訂單(#{@order.name})成功"
     else
       flash[:warning] = "新增訂單(#{@order.name})失敗"
@@ -52,6 +55,7 @@ class OrdersController < ApplicationController
 
   end
 
+  # 搜尋客戶資料
   def search_clients
     if params.has_key?(:name)
       @search_name = params[:name]
@@ -61,11 +65,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  # 列出房間服務
   def list_services
     @order_days = get_order_dates
     @services = Service.all
   end
 
+  # 列出房間列表
   def list_rooms
     @order_days = get_order_dates
     @calendar_items = get_room_items(@order_days)
@@ -102,28 +108,44 @@ private
     params.require(:order).permit(:checkin_date, :checkout_date, :aasm_state, :source,
       :room_subtotal, :bed_subtotal, :service_subtotal, :total, :downpay, :credit_card,
       :balance, :pay_type, :pay_info, :client_id,
-      :name, :sex, :mobile, :country, :id_no, :birthday, :job, :tel, :address, :email, :reminder, :note)
+      :name, :sex, :mobile, :country, :id_no, :birthday, :job, :tel, :address, :email, :reminder, :note,
+      :adult_subtotal, :kid_subtotal, :baby_subtotal)
   end
 
-  def copy_client_data(client, order)
-    client.name     = order.name
-    client.sex      = order.sex
-    client.mobile   = order.mobile
-    client.country  = order.country
-    client.id_no    = order.id_no
-    client.birthday = order.birthday
-    client.job      = order.job
-    client.tel      = order.tel
-    client.address  = order.address
-    client.email    = order.email
-    client.reminder = order.reminder
-    client.note     = order.note
-  end
+  # def copy_client_data(client, order)
+  #   client.name     = order.name
+  #   client.sex      = order.sex
+  #   client.mobile   = order.mobile
+  #   client.country  = order.country
+  #   client.id_no    = order.id_no
+  #   client.birthday = order.birthday
+  #   client.job      = order.job
+  #   client.tel      = order.tel
+  #   client.address  = order.address
+  #   client.email    = order.email
+  #   client.reminder = order.reminder
+  #   client.note     = order.note
+  # end
 
-  # TODO: update_room_calendar
-  def update_room_calendar(order)
-    # RoomCalendar.find_by(day: d0).update(r301: "#{c1.name}(#{c1.mobile}) x 4")
-  end
+  # # TODO: update_room_calendar
+  # def update_room_calendar(order)
+
+  #   order.room_items.each do |room_item|
+  #     total_people = room_item.adult_no.to_i + room_item.kid_no.to_i + room_item.baby_no.to_i
+  #     room_no = room_item.name[0, 3]
+  #     country = ( order.country == ”台灣”  ) ? "" : "[#{order.country}]"
+  #     case room_no
+  #       when "301"
+  #         RoomCalendar.find_by(day: room_item.day).update(r301: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
+  #       when "302"
+  #         RoomCalendar.find_by(day: room_item.day).update(r302: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
+
+  #       else
+  #         puts ""
+  #     end
+
+  #   end
+  # end
 
   # 回傳「入住日期」至「退房日期」的所有日期
   def get_order_dates

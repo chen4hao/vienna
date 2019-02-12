@@ -1,17 +1,19 @@
 
 <% if kind == CartItem::Room_Type %>
-  <tr>
+  <tr data-id="<%= item.id %>">
     <td><%= item.day %></td>
     <td><%= item.name %></td>
-    <td>$<%= item.price %></td>
-    <td>$<%= item.add_bed_fee %>(<%= item.add_bed_no %>)</td>
-    <td><%= item.adult_no %>, <%= item.kid_no %>, <%= item.baby_no %></td>
+    <td><%= item.price %></td>
+    <td><%= item.add_bed_fee * item.add_bed_no %></td>
+    <td><%= item.adult_no %></td>
+    <td><%= item.kid_no %></td>
+    <td><%= item.baby_no %></td>
   </tr>
 <% elsif kind == CartItem::Service_Type %>
-  <tr>
+  <tr data-id="<%= item.id %>">
     <td><%= item.day %></td>
     <td><%= item.name %></td>
-    <td>$<%= item.price %></td>
+    <td><%= item.price %></td>
   </tr>
 <% else %>
 

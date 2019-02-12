@@ -70,6 +70,9 @@ zh-TW:
         balance: "餘額"
         pay_type: "支付方式"
         pay_info: "末5碼"
+        adult_subtotal: "大人"
+        kid_subtotal: "小孩"
+        baby_subtotal: "幼兒"
 
 
   errors:

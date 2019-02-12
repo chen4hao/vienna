@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_01_30_092419) do
+ActiveRecord::Schema.define(version: 2019_02_11_064012) do
 
   create_table "cart_items", force: :cascade do |t|
     t.string "name"
@@ -61,6 +61,9 @@ ActiveRecord::Schema.define(version: 2019_01_30_092419) do
     t.integer "order_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.date "day"
+    t.integer "add_bed_no", default: 0
+    t.integer "add_bed_fee", default: 0
     t.index ["order_id"], name: "index_order_items_on_order_id"
   end
 
@@ -95,6 +98,9 @@ ActiveRecord::Schema.define(version: 2019_01_30_092419) do
     t.string "email"
     t.string "reminder"
     t.string "note"
+    t.integer "adult_subtotal", default: 0
+    t.integer "kid_subtotal", default: 0
+    t.integer "baby_subtotal", default: 0
     t.index ["client_id"], name: "index_orders_on_client_id"
   end
 

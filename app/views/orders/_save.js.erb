@@ -8,16 +8,45 @@ $("ul.errors").html("");
   <% end %>
 <% else %>
 
+  var roomSubtotal=0, bedSubtotal=0, serviceSubtotal=0;
+  var total=0, downpay=0, creditCard=0, balance=0;
+  var adultSubtotal=0, kidSubtotal=0, babySubtotal=0;
+
   <!-- 從 actionName 判斷執行什麼 -->
   <% if actionName == 'add_room' %>
-    <!--在 table 的最後一行 插入 product 的資料 會 render _product.html.erb -->
-    $('#rooms_table').append("<%= j render 'cartitem', item: @cart_item, kind: 'Room' %>")
+    <!--在 table 的最後一行 插入 cartitem 的資料 會 render _cartitem.html.erb -->
+    $('#rooms_table').append("<%= j render 'cartitem', item: @cart_item, kind: 'Room' %>");
+
+    <!--計算房費小計、加床費、人數 -->
+    $("#rooms_table tr").each(function () {
+        roomSubtotal += parseInt($(this).find("td:eq(2)").text());
+        bedSubtotal += parseInt($(this).find("td:eq(3)").text());
+        adultSubtotal += parseInt($(this).find("td:eq(4)").text());
+        kidSubtotal += parseInt($(this).find("td:eq(5)").text());
+        babySubtotal += parseInt($(this).find("td:eq(6)").text());
+    });
+    $("#order_room_subtotal").val(roomSubtotal);
+    $("#order_bed_subtotal").val(bedSubtotal);
+    $("#order_adult_subtotal").val(adultSubtotal);
+    $("#order_kid_subtotal").val(kidSubtotal);
+    $("#order_baby_subtotal").val(babySubtotal);
+
+
   <% elsif actionName == 'add_service' %>
-    <!--在 table 的最後一行 插入 product 的資料 會 render _product.html.erb -->
-    $('#services_table').append("<%= j render 'cartitem', item: @cart_item, kind: 'Service' %>")
+    <!--在 table 的最後一行 插入 cartitem 的資料 會 render _cartitem.html.erb -->
+    $('#services_table').append("<%= j render 'cartitem', item: @cart_item, kind: 'Service' %>");
+
+    <!--計算服務小計、總額 -->
+    $("#services_table tr").each(function () {
+        serviceSubtotal += parseInt($(this).find("td:eq(2)").text());
+    });
+    $("#order_service_subtotal").val(serviceSubtotal);
 
   <% else %>
 
   <% end %>
+
+  <!--計算總額、餘額 -->
+  updatePayment();
 
 <% end %>
