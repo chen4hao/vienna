@@ -30,6 +30,9 @@ Rails.application.routes.draw do
     get :list_services, on: :collection
     get :list_rooms, on: :collection
     post :add_to_cart, on: :member
+    get :daily, on: :collection
+    get :weekly, on: :collection
+    get :monthly, on: :collection
   end
 
 

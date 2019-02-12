@@ -15,6 +15,13 @@ class OrdersController < ApplicationController
     end
   end
 
+  def daily
+    search_date = Date.today
+    search_date = Date.parse(params[:search_date]) if params.has_key?(:search_date) && params[:search_date].present?
+
+    @room_items = OrderItem.where("type='RoomItem' AND day = ?", search_date)
+  end
+
   # 接待/客戶管理 -> 訂單登入
   def new
     if params.has_key?(:client_id)
