@@ -1,44 +1,83 @@
-<div class="col-md-10 col-md-offset-1">
-  <h2>週訂房一覽表</h2>
+<div class="col-md-12 col-md-offset-0">
+  <h3>當週訂房狀況</h3>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class="form-group search-form">
+        <%= form_with url: weekly_admin_room_calendars_path, method: :get, local: true do |f| %>
+          <%= f.label :date_label, "日期:" %>
+          <%= f.text_field :search_date, id: "search_date", value: @search_date  %>
+          <%= f.submit "查詢", class: "btn btn-primary" %>
+        <% end %>
+      </div>
+    </div>
+
+    <div class="col-md-1"><%= link_to("上一週", weekly_admin_room_calendars_path(search_date: @search_date.prev_week), method: :get, class: "btn btn-primary")%></div>
+    <div class="col-md-1"><%= link_to("下一週", weekly_admin_room_calendars_path(search_date: @search_date.next_week), method: :get, class: "btn btn-primary")%></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-1"></div>
+    <div class="col-md-2">今天日期：<%= Date.today %></div>    <div class="col-md-1"></div>
+
+  </div>
 
   <table class="table table-bordered table-hover">
     <thead>
       <tr class="active">
         <th>日期</th>
-        <th>R301</th>
-        <th>R302</th>
-        <th>R303</th>
-        <th>R305</th>
-        <th>R306</th>
-        <th>R101</th>
-        <th>R102</th>
-        <th>R103</th>
-        <th>R105</th>
-        <th>R201</th>
-        <th>R202</th>
-        <th>R203</th>
-        <th>R205</th>
+        <th>301<br/>雅緻二人房</th>
+        <th>302<br/>經典二人房</th>
+        <th>303<br/>經典二人房</th>
+        <th>305<br/>浪漫情人房</th>
+        <th>306<br/>溫馨二人房</th>
+        <th>101<br/>迎曦四人房</th>
+        <th>102<br/>迎曦二人房</th>
+        <th>103<br/>迎曦四人房</th>
+        <th>105<br/>豪華四人房</th>
+        <th>201<br/>迎曦六人房</th>
+        <th>202<br/>迎曦六人房</th>
+        <th>203<br/>迎曦六人房</th>
+        <th>205<br/>豪華八人房</th>
       </tr>
     </thead>
     <tbody>
       <% @room_calendars.each do |room_calendar| %>
         <tr>
-          <td><%= render_day(room_calendar.day) %></td>
-          <td><%= room_calendar.r301 %></td>
-          <td><%= room_calendar.r302 %></td>
-          <td><%= room_calendar.r303 %></td>
-          <td><%= room_calendar.r305 %></td>
-          <td><%= room_calendar.r306 %></td>
-          <td><%= room_calendar.r101 %></td>
-          <td><%= room_calendar.r102 %></td>
-          <td><%= room_calendar.r103 %></td>
-          <td><%= room_calendar.r105 %></td>
-          <td><%= room_calendar.r201 %></td>
-          <td><%= room_calendar.r202 %></td>
-          <td><%= room_calendar.r203 %></td>
-          <td><%= room_calendar.r205 %></td>
+          <td width="90"><%= render_day(room_calendar.day) %></td>
+          <td width="90"><%= room_calendar.r301 %></td>
+          <td width="90"><%= room_calendar.r302 %></td>
+          <td width="90"><%= room_calendar.r303 %></td>
+          <td width="90"><%= room_calendar.r305 %></td>
+          <td width="90"><%= room_calendar.r306 %></td>
+          <td width="90"><%= room_calendar.r101 %></td>
+          <td width="90"><%= room_calendar.r102 %></td>
+          <td width="90"><%= room_calendar.r103 %></td>
+          <td width="90"><%= room_calendar.r105 %></td>
+          <td width="90"><%= room_calendar.r201 %></td>
+          <td width="90"><%= room_calendar.r202 %></td>
+          <td width="90"><%= room_calendar.r203 %></td>
+          <td width="90"><%= room_calendar.r205 %></td>
         </tr>
       <% end %>
     </tbody>
   </table>
 </div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  <!-- 點選訂房開始日期跳出小月曆 -->
+  $('#search_date').datepicker({
+    format: "yyyy-mm-dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+});
+
+
+</script>

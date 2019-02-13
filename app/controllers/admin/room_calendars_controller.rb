@@ -22,6 +22,15 @@ class Admin::RoomCalendarsController < ApplicationController
   end
 
   # 當月訂房狀況
+  def weekly
+    @search_date = Date.today
+    @search_date = Date.parse(params[:search_date]) if params.has_key?(:search_date) && params[:search_date].present?
+
+    @room_calendars = RoomCalendar.where("day >= :start_date AND day <= :end_date",
+      {start_date: @search_date.beginning_of_week, end_date: @search_date.end_of_week}).order(:day)
+  end
+
+  # 當月訂房狀況
   def monthly
     @room_calendars = RoomCalendar.where("day >= :start_date AND day <= :end_date",
       {start_date: Date.current.beginning_of_month, end_date: Date.current.end_of_month}).order(:day)

@@ -9,6 +9,7 @@ Rails.application.routes.draw do
     resources :room_calendars do
       get  :calendar, on: :collection
       get  :monthly, on: :collection
+      get  :weekly, on: :collection
       member do
         post :to_dealday
         post :to_holiday
@@ -31,8 +32,6 @@ Rails.application.routes.draw do
     get :list_rooms, on: :collection
     post :add_to_cart, on: :member
     get :daily, on: :collection
-    get :weekly, on: :collection
-    get :monthly, on: :collection
   end
 
 

@@ -1,0 +1,44 @@
+<div class="col-md-10 col-md-offset-1">
+  <h2>週訂房一覽表</h2>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="active">
+        <th>日期</th>
+        <th>R301</th>
+        <th>R302</th>
+        <th>R303</th>
+        <th>R305</th>
+        <th>R306</th>
+        <th>R101</th>
+        <th>R102</th>
+        <th>R103</th>
+        <th>R105</th>
+        <th>R201</th>
+        <th>R202</th>
+        <th>R203</th>
+        <th>R205</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @room_calendars.each do |room_calendar| %>
+        <tr>
+          <td><%= render_day(room_calendar.day) %></td>
+          <td><%= room_calendar.r301 %></td>
+          <td><%= room_calendar.r302 %></td>
+          <td><%= room_calendar.r303 %></td>
+          <td><%= room_calendar.r305 %></td>
+          <td><%= room_calendar.r306 %></td>
+          <td><%= room_calendar.r101 %></td>
+          <td><%= room_calendar.r102 %></td>
+          <td><%= room_calendar.r103 %></td>
+          <td><%= room_calendar.r105 %></td>
+          <td><%= room_calendar.r201 %></td>
+          <td><%= room_calendar.r202 %></td>
+          <td><%= room_calendar.r203 %></td>
+          <td><%= room_calendar.r205 %></td>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>

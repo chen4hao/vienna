@@ -15,11 +15,12 @@ class OrdersController < ApplicationController
     end
   end
 
+  # 接待/客戶管理 -> Check-in(當日入住名單)
   def daily
-    search_date = Date.today
-    search_date = Date.parse(params[:search_date]) if params.has_key?(:search_date) && params[:search_date].present?
+    @search_date = Date.today
+    @search_date = Date.parse(params[:search_date]) if params.has_key?(:search_date) && params[:search_date].present?
 
-    @room_items = OrderItem.where("type='RoomItem' AND day = ?", search_date)
+    @room_items = OrderItem.where("type='RoomItem' AND day = ?", @search_date)
   end
 
   # 接待/客戶管理 -> 訂單登入
