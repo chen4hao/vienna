@@ -22,8 +22,9 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr class="active">
-        <th>入住日期</th>
-        <th>退房日期</th>
+        <th>訂單入住日</th>
+        <th>訂單退房日</th>
+        <th>住房日期</th>
         <th>房號─房型</th>
         <th>來源</th>
         <th>人數</th>
@@ -44,6 +45,7 @@
           <tr>
             <td><%= order.checkin_date %></td>
             <td><%= order.checkout_date %></td>
+            <td><%= item.day %></td>
             <td><%= item.name %></td>
             <td><%= order.source %></td>
             <td><%= item.adult_no + item.kid_no + item.baby_no %></td>

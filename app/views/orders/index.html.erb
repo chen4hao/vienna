@@ -1,8 +1,8 @@
 <div class="col-md-10 col-md-offset-1">
-  <h2>搜尋訂單列表</h2>
+  <h3>搜尋訂單列表(依日期查詢)</h3>
   <div class="form-group search-form">
     <%= form_with url: orders_path, method: :get, local: true do |f| %>
-      <%= f.label :date_label, "日期 ( 訂房 或 入住 日期皆可) :" %>
+      <%= f.label :date_label, "日期 ( 訂房 或 住房 日期皆可) :" %>
       <%= f.text_field :search_date, id: "search_date" %>
       <%= f.submit "查詢", class: "btn btn-primary" %>
     <% end %>
@@ -11,8 +11,8 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr class="active">
-        <th>訂房日期</th>
-        <th>入住日期</th>
+        <th>訂單日期</th>
+        <th>住房日期</th>
         <th>房號─房型</th>
         <th>姓名</th>
         <th>手機</th>
@@ -30,7 +30,7 @@
         <% order.room_items.each do |item| %>
           <tr>
             <td><%= order.created_at.to_date %></td>
-            <td><%= order.checkin_date %></td>
+            <td><%= item.day %></td>
             <td><%= item.name %></td>
             <td><%= order.client.name %></td>
             <td><%= order.client.mobile %></td>

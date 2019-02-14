@@ -34,6 +34,11 @@ Rails.application.routes.draw do
     get :daily, on: :collection
   end
 
+  resources :statistics do
+    get :daily, on: :collection
+
+  end
+
 
   root 'dashboard#index'
 end

@@ -1,0 +1,115 @@
+<div class="col-md-12 col-md-offset-0">
+  <h4>日報(每日營收統計)</h4>
+  <div class="form-group search-form">
+    <%= form_with url: daily_orders_path, method: :get, local: true do |f| %>
+      <%= f.label :date_label, "日期:" %>
+      <%= f.text_field :search_date, id: "search_date", value: @search_date  %>
+      <%= f.submit "查詢", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+  <table class="table table-bordered table-hover">
+    <thead >
+      <tr class="active">
+        <th class="text-center" rowspan="2">日期</th>
+        <th class="text-center" colspan="3" >每日營收</th>
+        <th class="text-center" colspan="4" >木屋</th>
+        <th class="text-center" colspan="4" >迎曦</th>
+        <th class="text-center" rowspan="2" >平均住宿率</th>
+        <th class="text-center" colspan="3" >301</th>
+        <th class="text-center" colspan="3" >302</th>
+        <th class="text-center" colspan="3" >303</th>
+        <th class="text-center" colspan="3" >305</th>
+        <th class="text-center" colspan="3" >306</th>
+        <th class="text-center" colspan="3" >201</th>
+        <th class="text-center" colspan="3" >202</th>
+        <th class="text-center" colspan="3" >203</th>
+        <th class="text-center" colspan="3" >205</th>
+        <th class="text-center" colspan="3" >101</th>
+        <th class="text-center" colspan="3" >102</th>
+        <th class="text-center" colspan="3" >103</th>
+        <th class="text-center" colspan="3" >105</th>
+
+      </tr>
+      <tr class="active">
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">住用數</th>
+        <th class="text-center">住宿率</th>
+
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">住用數</th>
+        <th class="text-center">住宿率</th>
+
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+        <th class="text-center">現金</th>
+        <th class="text-center">刷卡</th>
+        <th class="text-center">合計</th>
+
+      </tr>
+
+    </thead>
+    <tbody>
+
+    </tbody>
+  </table>
+</div>
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  <!-- 點選訂房開始日期跳出小月曆 -->
+  $('#search_date').datepicker({
+    format: "yyyy-mm-dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+});
+
+
+</script>

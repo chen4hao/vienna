@@ -1,5 +1,5 @@
-<div class="col-md-10 col-md-offset-1">
-  <h2>當月訂房狀況</h2>
+<div class="col-md-12 col-md-offset-0">
+  <h4>當月訂房狀況</h4>
 
   <table class="table table-bordered table-hover">
     <thead>
@@ -21,24 +21,7 @@
       </tr>
     </thead>
     <tbody>
-      <% @room_calendars.each do |room_calendar| %>
-        <tr>
-          <td><%= render_day(room_calendar.day) %></td>
-          <td><%= room_calendar.r301 %></td>
-          <td><%= room_calendar.r302 %></td>
-          <td><%= room_calendar.r303 %></td>
-          <td><%= room_calendar.r305 %></td>
-          <td><%= room_calendar.r306 %></td>
-          <td><%= room_calendar.r101 %></td>
-          <td><%= room_calendar.r102 %></td>
-          <td><%= room_calendar.r103 %></td>
-          <td><%= room_calendar.r105 %></td>
-          <td><%= room_calendar.r201 %></td>
-          <td><%= room_calendar.r202 %></td>
-          <td><%= room_calendar.r203 %></td>
-          <td><%= room_calendar.r205 %></td>
-        </tr>
-      <% end %>
+      <%= render partial: "room_calendar", collection: @room_calendars %>
     </tbody>
   </table>
 </div>

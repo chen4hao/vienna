@@ -7,73 +7,99 @@ class OrderItem < ApplicationRecord
   def clear_room_calendar
     if type == "RoomItem"
       room_no = name[0, 3]
-      case room_no
-        when "301"
-          RoomCalendar.find_by(day: day).update(r301: "")
-        when "302"
-          RoomCalendar.find_by(day: day).update(r302: "")
-        when "303"
-          RoomCalendar.find_by(day: day).update(r303: "")
-        when "305"
-          RoomCalendar.find_by(day: day).update(r305: "")
-        when "306"
-          RoomCalendar.find_by(day: day).update(r306: "")
-        when "101"
-          RoomCalendar.find_by(day: day).update(r101: "")
-        when "102"
-          RoomCalendar.find_by(day: day).update(r102: "")
-        when "103"
-          RoomCalendar.find_by(day: day).update(r103: "")
-        when "105"
-          RoomCalendar.find_by(day: day).update(r105: "")
-        when "201"
-          RoomCalendar.find_by(day: day).update(r201: "")
-        when "202"
-          RoomCalendar.find_by(day: day).update(r202: "")
-        when "203"
-          RoomCalendar.find_by(day: day).update(r203: "")
-        when "205"
-          RoomCalendar.find_by(day: day).update(r205: "")
-        else
-          puts ""
+      room_calendar = RoomCalendar.find_by(day: day)
+      if room_calendar.present?
+        case room_no
+          when "301"
+            room_calendar.update(r301: "")
+          when "302"
+            room_calendar.update(r302: "")
+          when "303"
+            room_calendar.update(r303: "")
+          when "305"
+            room_calendar.update(r305: "")
+          when "306"
+            room_calendar.update(r306: "")
+          when "101"
+            room_calendar.update(r101: "")
+          when "102"
+            room_calendar.update(r102: "")
+          when "103"
+            room_calendar.update(r103: "")
+          when "105"
+            room_calendar.update(r105: "")
+          when "201"
+            room_calendar.update(r201: "")
+          when "202"
+            room_calendar.update(r202: "")
+          when "203"
+            room_calendar.update(r203: "")
+          when "205"
+            room_calendar.update(r205: "")
+          else
+            puts ""
+        end
       end
     end
+  end
+
+  def get_room_hash
+    room_hash = {}
+    room_hash.store("room_price", price)
+    bed_fee = add_bed_fee * add_bed_no
+    room_hash.store("bed_fee", bed_fee)
+    room_total = price + bed_fee
+    room_hash.store("room_total", room_total)
+    credit_card = order.credit_card
+    credit_card = room_total if credit_card > room_total
+    room_hash.store("credit_card", credit_card)
+    cash = room_total - credit_card
+    room_hash.store("cash", cash)
+    room_hash
   end
 
   def update_room_calendar
     if type == "RoomItem"
       room_no = name[0, 3]
       total_people = adult_no.to_i + kid_no.to_i + baby_no.to_i
-      country = ( order.country == "台灣" ) ? "" : "[#{order.country}]"
-      case room_no
-        when "301"
-          RoomCalendar.find_by(day: day).update(r301: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "302"
-          RoomCalendar.find_by(day: day).update(r302: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "303"
-          RoomCalendar.find_by(day: day).update(r303: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "305"
-          RoomCalendar.find_by(day: day).update(r305: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "306"
-          RoomCalendar.find_by(day: day).update(r306: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "101"
-          RoomCalendar.find_by(day: day).update(r101: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "102"
-          RoomCalendar.find_by(day: day).update(r102: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "103"
-          RoomCalendar.find_by(day: day).update(r103: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "105"
-          RoomCalendar.find_by(day: day).update(r105: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "201"
-          RoomCalendar.find_by(day: day).update(r201: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "202"
-          RoomCalendar.find_by(day: day).update(r202: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "203"
-          RoomCalendar.find_by(day: day).update(r203: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        when "205"
-          RoomCalendar.find_by(day: day).update(r205: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-        else
-          puts ""
+      country =  ( order.country.blank? || order.country == "台灣" ) ? "" : "[#{order.country}]"
+
+      summary = "#{order.name} #{country} (#{order.mobile}) x#{total_people}"
+      room_hash = get_room_hash
+      room_hash.store("summary", summary)
+
+      room_calendar = RoomCalendar.find_by(day: day)
+      if room_calendar.present?
+        case room_no
+          when "301"
+            room_calendar.update(r301: room_hash)
+          when "302"
+            room_calendar.update(r302: room_hash)
+          when "303"
+            room_calendar.update(r303: room_hash)
+          when "305"
+            room_calendar.update(r305: room_hash)
+          when "306"
+            room_calendar.update(r306: room_hash)
+          when "101"
+            room_calendar.update(r101: room_hash)
+          when "102"
+            room_calendar.update(r102: room_hash)
+          when "103"
+            room_calendar.update(r103: room_hash)
+          when "105"
+            room_calendar.update(r105: room_hash)
+          when "201"
+            room_calendar.update(r201: room_hash)
+          when "202"
+            room_calendar.update(r202: room_hash)
+          when "203"
+            room_calendar.update(r203: room_hash)
+          when "205"
+            room_calendar.update(r205: room_hash)
+          else
+            puts ""
+        end
       end
     end
   end
