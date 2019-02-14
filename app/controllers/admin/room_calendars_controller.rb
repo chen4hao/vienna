@@ -4,9 +4,6 @@ class Admin::RoomCalendarsController < ApplicationController
 
   before_action :set_room_calendar, only: [:to_dealday, :to_holiday, :to_hotday, :to_weekday]
 
-  helper_method :get_room_summary
-
-
   # 行事曆設定
   def index
     @room_calendars = RoomCalendar.all.order(:day)
@@ -17,24 +14,15 @@ class Admin::RoomCalendarsController < ApplicationController
     @room_no = "r301"
     @room_no = params[:room] if params.has_key?(:room) && params[:room].present?
     @events_url = "/admin/room_calendars/calendar.json?room=#{@room_no}"
-    @room_calendars = RoomCalendar.select("id, day, day_info, #{@room_no} AS title")
+    # @room_calendars = RoomCalendar.select("id, day, day_info, #{@room_no} AS title")
+    @room_calendars = RoomCalendar.select("id, day, day_info, #{@room_no}, #{@room_no} AS title")
       .where("day >= :start_date AND day <= :end_date",
       {start_date: Date.current.beginning_of_month, end_date: Date.current.end_of_month}).order(:day)
 
     @room_calendars.each do |cal|
-      cal.title = get_room_summary(cal.title)
+      cal.title = cal.room_summary(@room_no[1,3])
     end
 
-  end
-
-  def get_room_summary(room_json)
-    summary = ""
-    if room_json.present?
-      # json to hash
-      room_hash = JSON.parse room_json.gsub!('=>', ':')
-      summary = room_hash["summary"]
-    end
-    summary
   end
 
   # 當月訂房狀況

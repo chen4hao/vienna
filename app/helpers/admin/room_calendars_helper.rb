@@ -31,8 +31,4 @@ module Admin::RoomCalendarsHelper
     end
   end
 
-  def render_room_summary(room_json)
-    get_room_summary(room_json)
-  end
-
 end

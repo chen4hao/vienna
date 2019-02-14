@@ -43,7 +43,7 @@ class OrderItem < ApplicationRecord
     end
   end
 
-  def get_room_hash
+  def generate_room_hash
     room_hash = {}
     room_hash.store("room_price", price)
     bed_fee = add_bed_fee * add_bed_no
@@ -65,7 +65,7 @@ class OrderItem < ApplicationRecord
       country =  ( order.country.blank? || order.country == "台灣" ) ? "" : "[#{order.country}]"
 
       summary = "#{order.name} #{country} (#{order.mobile}) x#{total_people}"
-      room_hash = get_room_hash
+      room_hash = generate_room_hash
       room_hash.store("summary", summary)
 
       room_calendar = RoomCalendar.find_by(day: day)

@@ -6,6 +6,52 @@ class RoomCalendar < ApplicationRecord
 
   Occupaied_Price = -1
 
+  def room_summary(room_no)
+    room_hash = get_room_hash(room_no)
+    summary = room_hash["summary"]
+  end
+
+  def get_room_hash(room_no)
+    room_hash = {}
+    case room_no
+      when "301"
+        room_json = r301
+      when "302"
+        room_json = r302
+      when "303"
+        room_json = r303
+      when "305"
+        room_json = r305
+      when "306"
+        room_json = r306
+      when "101"
+        room_json = r101
+      when "102"
+        room_json = r102
+      when "103"
+        room_json = r103
+      when "105"
+        room_json = r105
+      when "201"
+        room_json = r201
+      when "202"
+        room_json = r202
+      when "203"
+        room_json = r203
+      when "205"
+        room_json = r205
+      else
+        room_json = ""
+    end
+
+    if room_json.present?
+      # json to hash
+      room_hash = JSON.parse room_json.gsub!('=>', ':')
+    end
+    room_hash
+  end
+
+
   def get_price(room_no)
     price = 0
     case day_mode
