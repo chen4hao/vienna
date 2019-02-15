@@ -1,0 +1,28 @@
+<div class="col-md-12 col-md-offset-0">
+  <h4>年報(每月營收統計)</h4>
+
+  <%= render partial: "summary", locals: { statistic_summary: @statistic_summary, title: "年" }  %>
+
+  <table class="table table-bordered table-hover">
+    <thead >
+      <tr class="active">
+        <td class="text-center">月份</td>
+        <td class="text-center">現金</td>
+        <td class="text-center">刷卡</td>
+        <td class="text-center">合計</td>
+        <td class="text-center">月住宿率</td>
+        <td class="text-center">住用數</td>
+      </tr>
+    </thead>
+    <tbody>
+      <% @yearly_statistics.each do | month_statistics | %>
+        <tr >
+          <% month_statistics.each do | item | %>
+            <td><%= item %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

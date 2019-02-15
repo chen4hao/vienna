@@ -1,0 +1,19 @@
+  <table class="table table-bordered table-hover">
+    <thead >
+    </thead>
+    <tbody>
+      <tr class="active">
+        <td class="text-center" rowspan="2">本<%= title %>營收</td>
+        <td class="text-center">現金</td>
+        <td class="text-center">刷卡</td>
+        <td class="text-center">合計</td>
+        <td class="text-center">本<%= title %>住宿率</td>
+        <td class="text-center">住用數</td>
+      </tr>
+      <tr >
+        <% statistic_summary.each do | item | %>
+          <td class="text-center"><%= item %></td>
+        <% end %>
+      </tr>
+    </tbody>
+  </table>

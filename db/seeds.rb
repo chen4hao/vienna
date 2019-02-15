@@ -260,6 +260,18 @@ end
     # puts room_statistics
     daily_statistics
   end
+
+def test_date
+    @search_date = Date.today
+
+    start_date =  @search_date.beginning_of_week
+    end_date = @search_date.end_of_week
+
+    start_date.upto(end_date) do |day|
+      puts day
+    end
+
+end
 # ------------------------------
 # Main
 # ------------------------------
@@ -274,4 +286,5 @@ end
 # test
 # test2
 
-calculate_daily_satistics(Date.today)
+# calculate_daily_satistics(Date.today)
+test_date

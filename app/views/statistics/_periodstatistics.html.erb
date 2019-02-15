@@ -1,0 +1,22 @@
+<div class="col-md-12 col-md-offset-0">
+  <h4><%= title %>報</h4>
+  <%= render partial: "common/searchday", locals: { search_path: period_statistics_path, search_date:search_date }  %>
+
+  <%= render partial: "summary", locals: { statistic_summary: statistic_summary, title: title }  %>
+
+  <table class="table table-bordered table-hover">
+    <thead >
+      <%= render partial: "dailyheader" %>
+    </thead>
+    <tbody>
+      <% period_statistics.each do | daily_statistics | %>
+        <tr >
+          <% daily_statistics.each do | item | %>
+            <td><%= item %></td>
+          <% end %>
+        </tr>
+      <% end %>
+    </tbody>
+  </table>
+</div>
+

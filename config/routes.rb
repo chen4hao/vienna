@@ -36,6 +36,9 @@ Rails.application.routes.draw do
 
   resources :statistics do
     get :daily, on: :collection
+    get :weekly, on: :collection
+    get :monthly, on: :collection
+    get :yearly, on: :collection
 
   end
 

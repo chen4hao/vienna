@@ -1,0 +1,25 @@
+
+  <div class="form-group search-form">
+    <%= form_with url: search_path, method: :get, local: true do |f| %>
+      <%= f.label :date_label, "日期:" %>
+      <%= f.text_field :search_date, id: "search_date", value: search_date  %>
+      <%= f.submit "查詢", class: "btn btn-primary" %>
+    <% end %>
+  </div>
+
+
+<script type="text/javascript">
+$(document).ready(function(){
+
+  <!-- 點選訂房開始日期跳出小月曆 -->
+  $('#search_date').datepicker({
+    format: "yyyy-mm-dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+});
+
+</script>

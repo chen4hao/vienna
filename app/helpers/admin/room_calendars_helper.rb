@@ -1,10 +1,5 @@
 module Admin::RoomCalendarsHelper
 
-  def render_day(day)
-    # day.strftime("%Y-%m-%d (%a)")
-    I18n.l(day, format: :calendar )
-  end
-
   def render_tr_class(calendar)
     case calendar.day_mode
       when 1
