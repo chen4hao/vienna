@@ -39,7 +39,12 @@ Rails.application.routes.draw do
     get :weekly, on: :collection
     get :monthly, on: :collection
     get :yearly, on: :collection
+  end
 
+  resources :print do
+    get :orders, on: :collection
+    get :abstract, on: :collection
+    get :client, on: :member
   end
 
 

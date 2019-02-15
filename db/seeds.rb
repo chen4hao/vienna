@@ -261,17 +261,14 @@ end
     daily_statistics
   end
 
-def test_date
-    @search_date = Date.today
+# require "prawn"
 
-    start_date =  @search_date.beginning_of_week
-    end_date = @search_date.end_of_week
+# def test_pdf
+#   Prawn::Document.generate("hello.pdf") do
+#     text "Hello World!"
+#   end
+# end
 
-    start_date.upto(end_date) do |day|
-      puts day
-    end
-
-end
 # ------------------------------
 # Main
 # ------------------------------
@@ -287,4 +284,4 @@ end
 # test2
 
 # calculate_daily_satistics(Date.today)
-test_date
+# test_pdf

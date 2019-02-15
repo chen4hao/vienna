@@ -1,0 +1,49 @@
+
+<div class="col-md-10 col-md-offset-1">
+  <div class="group">
+    <%= link_to("輸出PDF", "#", onclick: "previewPrint()", class: "btn btn-primary pull-right") %>
+    <!-- <input id="btnPrint" value="列印" type="button" onclick="previewPrint()";/> -->
+  </div>
+
+<!--startprint-->
+  <h4>當日房客明細</h4>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="active">
+        <th>房號</th>
+        <th>姓名</th>
+        <th>手機</th>
+        <th>車號</th>
+        <th>房價</th>
+        <th>訂金</th>
+        <th>餘額</th>
+        <th>來源</th>
+        <th>服務</th>
+        <th>備註</th>
+      </tr>
+    </thead>
+    <tbody>
+        <% @room_items.each do |item| %>
+          <tr>
+            <td><%= item.name[0, 3] %></td>
+            <td><%= item.order.name %></td>
+            <td><%= item.order.mobile %></td>
+            <td></td>
+            <td><%= item.price %></td>
+            <td><%= item.order.downpay %></td>
+            <td><%= item.order.balance %></td>
+            <td><%= item.order.source %></td>
+            <td></td>
+            <td><%= item.order.note %></td>
+          </tr>
+      <% end %>
+
+    </tbody>
+  </table>
+<!--endprint-->
+
+</div>
+
+<%= render "pdfpreview" %>
+

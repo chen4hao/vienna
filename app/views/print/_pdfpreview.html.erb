@@ -1,0 +1,18 @@
+
+
+<script type="text/javascript">
+  function btnPrintClick(){
+    window.print();
+  }
+
+  function previewPrint() {
+    bdhtml  = window.document.body.innerHTML;
+    sprnstr = "<!--startprint-->";
+    eprnstr = "<!--endprint-->";
+    prnhtml = bdhtml.substring(bdhtml.indexOf(sprnstr)+17);
+    prnhtml = prnhtml.substring(0,prnhtml.indexOf(eprnstr));
+    window.document.body.innerHTML = prnhtml;
+    window.print();
+  }
+
+</script>
