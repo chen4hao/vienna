@@ -1,0 +1,17 @@
+
+<div class="col-md-10 col-md-offset-1">
+  <div class="group">
+    <%= link_to("輸出PDF", "#", onclick: "previewPrint()", class: "btn btn-primary pull-right") %>
+    <!-- <input id="btnPrint" value="列印" type="button" onclick="previewPrint()";/> -->
+  </div>
+
+<!--startprint-->
+  <h4>當日房客資料表</h4>
+
+  <%= render partial: "common/clienttable", collection: @orders, as: :client, locals:{show_note: false} %>
+
+<!--endprint-->
+</div>
+
+<%= render "pdfpreview" %>
+

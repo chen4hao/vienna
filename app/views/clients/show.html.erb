@@ -1,23 +1,11 @@
 
 <div class="col-md-10 col-md-offset-1">
-  <h2>客戶資料</h2>
+  <h3>客戶資料</h3>
+
+  <%= render partial: "common/clienttable", locals:{ client: @client, show_note: true} %>
 
   <hr />
-  <p><strong>姓名:</strong><%= @client.name %></p>
-  <p><strong>性別:</strong><%= @client.sex %></p>
-  <p><strong>手機:</strong><%= @client.mobile %></p>
-  <p><strong>國籍:</strong><%= @client.country %></p>
-  <p><strong>身分證/護照:</strong><%= @client.id_no %></p>
-  <p><strong>生日:</strong><%= @client.birthday %></p>
-  <p><strong>電話:</strong><%= @client.tel %></p>
-  <p><strong>地址:</strong><%= @client.address %></p>
-  <p><strong>email:</strong><%= @client.email %></p>
-  <p><strong>職業:</strong><%= @client.job %></p>
-  <p><strong>提醒(外):</strong><%= @client.reminder %></p>
-  <p><strong>備註(內):</strong><%= @client.note %></p>
-
-  <hr />
-  <h3>客戶訂單資料</h3>
+  <h4>客戶訂單資料</h4>
   <hr />
   <table class="table table-bordered table-hover">
     <thead>

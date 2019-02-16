@@ -151,6 +151,7 @@ zh-TW:
       long: "%Y年%m月%d日"
       short: "%m月%d日"
       calendar: "%m-%d (%a)"
+      full: "%Y-%m-%d (%a)"
     month_names:
     -
     - 一月

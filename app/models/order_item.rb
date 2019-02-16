@@ -68,6 +68,8 @@ class OrderItem < ApplicationRecord
       room_hash = generate_room_hash
       room_hash.store("summary", summary)
       room_hash.store("order_id", order_id)
+      room_hash.store("client_name", order.name)
+      room_hash.store("client_mobile", order.mobile)
 
       room_calendar = RoomCalendar.find_by(day: day)
       if room_calendar.present?

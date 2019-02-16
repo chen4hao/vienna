@@ -44,7 +44,7 @@ Rails.application.routes.draw do
   resources :print do
     get :orders, on: :collection
     get :abstract, on: :collection
-    get :client, on: :member
+    get :clients, on: :collection
   end
 
 

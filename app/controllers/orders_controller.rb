@@ -55,7 +55,8 @@ class OrdersController < ApplicationController
     if @client.save
       current_cart.clean!
 
-      redirect_to new_order_path, notice: "新增訂單(#{@order.name})成功"
+      # redirect_to new_order_path, notice: "新增訂單(#{@order.name})成功"
+      redirect_to weekly_admin_room_calendars_path, notice: "新增訂單(#{@order.name})成功"
     else
       flash[:warning] = "新增訂單(#{@order.name})失敗"
       render :new

@@ -50,10 +50,10 @@ class StatisticsController < ApplicationController
 
   private
 
-  def set_search_date
-    @search_date = Date.today
-    @search_date = Date.parse(params[:search_date]) if params.has_key?(:search_date) && params[:search_date].present?
-  end
+  # def set_search_date
+  #   @search_date = Date.today
+  #   @search_date = Date.parse(params[:search_date]) if params.has_key?(:search_date) && params[:search_date].present?
+  # end
 
   # 抓取日期區間每週統計數字
   def get_weekly_statistics(day, statistics, summary)

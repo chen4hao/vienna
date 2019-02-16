@@ -1,0 +1,32 @@
+<table class="table table-bordered">
+  <thead>
+  </thead>
+  <tbody>
+    <tr class="active"><td class="text-center" colspan="6">客戶資料</td></tr>
+    <tr>
+      <td width="10%" class="active">姓名</td><td width="23%" ><%= client.name %></td>
+      <td width="10%" class="active">手機</td><td width="23%" ><%= client.mobile %></td>
+      <td width="10%" class="active">性別</td><td width="23%" ><%= client.sex %></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">國籍</td><td width="23%" ><%= client.country %></td>
+      <td width="10%" class="active">身分證/護照</td><td width="23%" ><%= client.id_no %></td>
+      <td width="10%" class="active">生日</td><td width="23%" ><%= client.birthday %></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">地址</td><td width="23%" colspan="3" ><%= client.address %></td>
+      <td width="10%" class="active">E-mail</td><td width="23%" ><%= client.tel %></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">提醒</td><td width="23%" colspan="3" ><%= client.reminder %></td>
+      <td width="10%" class="active">職業</td><td width="23%" ><%= client.job %></td>
+    </tr>
+    <% if show_note %>
+      <tr>
+        <td width="10%" class="active">備註</td><td width="23%" colspan="3" ><%= client.note %></td>
+        <td width="10%" class="active">電話</td><td width="23%" ><%= client.tel %></td>
+      </tr>
+    <% end %>
+
+  </tbody>
+</table>
