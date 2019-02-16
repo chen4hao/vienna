@@ -1,0 +1,267 @@
+<%= simple_form_for order do |f| %>
+
+  <h4>客戶資料</h4>
+  <div class="form-group form-inline">
+    <div class="row">
+      <div class="col-md-4">
+        <%= f.input :client_id, as: :hidden %>
+        <%= f.input :aasm_state, as: :hidden, input_html: { value:"order_placed" }%>
+        <%= f.input :name, required: true, class: "form-control" %>
+        <%= link_to("查詢", search_clients_orders_path, remote: true, class: "btn btn-primary", id: "search_name") %>
+      </div>
+      <div class="col-md-4"><%= f.input :mobile, required: true, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :sex, collection: [ "男", "女", "第三性"], prompt: "---選擇性別---", class: "form-control" %></div>
+    </div>
+
+    <br/>
+    <div class="row">
+      <div class="col-md-4"><%= f.input :country, priority: [ "台灣" ], collection: [ "台灣", "香港", "日本", "韓國", "大陸"], prompt: "---選擇國家---", class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :id_no, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :email, class: "form-control" %></div>
+    </div>
+
+    <br/>
+    <div class="row">
+      <div class="col-md-4"><%= f.input :job, collection: [ "士", "農", "工", "商", "其他"], prompt: "---選擇職業---", class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :birthday, as: :string, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :tel, class: "form-control" %></div>
+    </div>
+
+  </div>
+
+  <hr/><h4>訂單資料</h4>
+  <div class="form-group form-inline" >
+    訂單日期：<%= Date.today %>
+    <div class="row">
+      <div class="col-md-4"><%= f.input :checkin_date, as: :string, required: true, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :checkout_date, as: :string, required: true, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :source, collection: [ "電話", "官網", "現場", "Booking.com", "Ctrip"], prompt: "---選擇來源---", class: "form-control" %> </div>
+
+    </div>
+  </div>
+
+  <hr/><h4>房型設定</h4>
+  <div class="form-group form-inline">
+    <div class="row">
+      <div class="col-md-4">
+        <%= link_to("新增房間", list_rooms_orders_path, remote: true, class: "btn btn-primary", id: "list_rooms") %>
+      </div>
+      <div class="col-md-4"></div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+
+  <h5>房間列表</h5>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="active">
+        <th>日期</th>
+        <th>房間</th>
+        <th>金額</th>
+        <th>加床費</th>
+        <th>大人</th>
+        <th>小孩</th>
+        <th>幼兒</th>
+      </tr>
+    </thead>
+    <tbody id="rooms_table"></tbody>
+  </table>
+
+
+  <hr/><h4>房間服務</h4>
+  <div class="form-group form-inline">
+    <div class="row">
+      <div class="col-md-4">
+        <%= link_to("新增服務", list_services_orders_path, remote: true, class: "btn btn-primary", id: "list_services") %>
+      </div>
+      <div class="col-md-4">
+      </div>
+      <div class="col-md-4"></div>
+    </div>
+  </div>
+  <h5>服務列表</h5>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="active">
+        <th>日期</th>
+        <th>名稱</th>
+        <th>金額</th>
+      </tr>
+    </thead>
+    <tbody id="services_table"></tbody>
+ </table>
+
+
+  <hr/><h4>付款資料</h4>
+  <div class="form-group form-inline">
+    <div class="row">
+      <div class="col-md-4"><%= f.input :room_subtotal, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :bed_subtotal, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :service_subtotal, class: "form-control" %></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-4"><%= f.input :total, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :downpay, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :credit_card, class: "form-control" %></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-4"><%= f.input :balance, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :pay_type, collection: [ "現金", "信用卡", "其他"], prompt: "---選擇支付方式---", class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :pay_info, class: "form-control" %></div>
+    </div>
+
+  </div>
+
+  <hr/><h4>其他資料</h4>
+  <div class="form-group form-inline">
+    <div class="row">
+      <div class="col-md-4"><%= f.input :adult_subtotal, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :kid_subtotal, class: "form-control" %></div>
+      <div class="col-md-4"><%= f.input :baby_subtotal, class: "form-control" %></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-6"><%= f.input :reminder, class: "form-control", input_html: {size:50} %></div>
+      <div class="col-md-6"><%= f.input :note, class: "form-control", input_html: {size:50} %></div>
+    </div>
+    <br/>
+    <div class="row">
+      <div class="col-md-6"><%= f.button :submit, "新增訂單", class: "btn btn-success", :disable_with => "Submiting..." %></div>
+
+    </div>
+
+  </div>
+
+  <hr/><h4>訂房紀錄</h4>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="active">
+        <th>訂單入住日</th>
+        <th>訂單退房日</th>
+        <th>住房日期</th>
+        <th>訂單金額</th>
+        <th>房號─房型</th>
+        <th>提醒(外)</th>
+        <th>備註(內)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @client.present? && @client.orders.present? %>
+        <% @client.orders.each do |order| %>
+          <% order.room_items.each do |item| %>
+            <tr>
+              <td><%= order.checkin_date %></td>
+              <td><%= order.checkout_date %></td>
+              <td><%= item.day %></td>
+              <td><%= order.total %></td>
+              <td><%= item.name %></td>
+              <td><%= order.client.reminder %></td>
+              <td><%= order.client.note %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+
+    </tbody>
+  </table>
+
+<% end %>
+
+<script type="text/javascript">
+
+  $("#search_name").click(function appendNameParam(){
+    var client_name = $("#order_name").val().trim();
+    var search_url = "/orders/search_clients";
+    if (client_name.length > 0) {
+      search_url += "?name="+ client_name;
+    }
+    $("#search_name").attr("href",search_url);
+  });
+
+  $("#list_services").click(function appendParams(){
+    var checkin_date = $("#order_checkin_date").val().trim();
+    var checkout_date = $("#order_checkout_date").val().trim();
+    var list_services_url = "/orders/list_services";
+    if (checkin_date.length > 0) {
+      list_services_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date;
+      $("#list_services").attr("href",list_services_url);
+    } else {
+
+    }
+  });
+
+  $("#list_rooms").click(function appendParams(){
+    var checkin_date = $("#order_checkin_date").val().trim();
+    var checkout_date = $("#order_checkout_date").val().trim();
+    var list_rooms_url = "/orders/list_rooms";
+    if (checkin_date.length > 0) {
+      list_rooms_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date;
+      $("#list_rooms").attr("href",list_rooms_url);
+    } else {
+
+    }
+  });
+
+  $('#order_checkin_date').datepicker({
+    format: "yyyy-mm-dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+  $('#order_checkout_date').datepicker({
+    format: "yyyy-mm-dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+  $('#order_birthday').datepicker({
+    format: "yyyy-mm-dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+  $("#order_room_subtotal").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_bed_subtotal").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_service_subtotal").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_downpay").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_credit_card").blur(function (){
+    updatePayment();
+  });
+
+  <!--計算總額、餘額 -->
+  function updatePayment(){
+    var roomSubtotal = parseInt($("#order_room_subtotal").val());
+    var bedSubtotal = parseInt($("#order_bed_subtotal").val());
+    var serviceSubtotal = parseInt($("#order_service_subtotal").val());
+
+    var downpay = parseInt($("#order_downpay").val());
+    var creditCard = parseInt($("#order_credit_card").val());
+
+    var total = roomSubtotal + bedSubtotal + serviceSubtotal;
+    $("#order_total").val(total);
+    var balance = total - downpay - creditCard;
+    $("#order_balance").val(balance);
+  }
+
+</script>
+

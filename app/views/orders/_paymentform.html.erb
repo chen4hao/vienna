@@ -1,0 +1,75 @@
+<table class="table table-bordered table-condensed">
+  <thead></thead>
+  <tbody>
+    <tr class="active"><td class="text-center" colspan="6">付款、其他資料</td></tr>
+    <tr>
+      <td width="10%" class="active">房費小計</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :room_subtotal, label: false, class: "form-control" %></div>
+      </div></td>
+
+      <td width="10%" class="active">加床小計</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :bed_subtotal, label: false, class: "form-control" %></div>
+      </div></td>
+
+      <td width="10%" class="active">服務小計</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :service_subtotal, label: false, class: "form-control" %></div>
+      </div></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">總額</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :total, label: false, class: "form-control" %></div>
+      </div></td>
+
+      <td width="10%" class="active">訂金</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :downpay, label: false, class: "form-control" %></div>
+      </div></td>
+
+      <td width="10%" class="active">信用卡</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :credit_card, label: false, class: "form-control" %></div>
+      </div></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">餘額</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :balance, label: false, class: "form-control" %></div>
+      </div></td>
+
+      <td width="10%" class="active">支付方式</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :pay_type, label: false, collection: [ "現金", "信用卡", "其他"], prompt: "---選擇支付方式---", class: "form-control" %></div>
+      </div></td>
+
+      <td width="10%" class="active">末5碼</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :pay_info, label: false, class: "form-control" %></div>
+      </div></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">大人人數</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :adult_subtotal, label: false, class: "form-control" %></div>
+      </div></td>
+
+      <td width="10%" class="active">小孩人數</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :kid_subtotal, label: false, class: "form-control" %></div>
+      </div></td>
+
+      <td width="10%" class="active">幼兒人數</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :baby_subtotal, label: false, class: "form-control" %></div>
+      </div></td>
+    </tr>
+
+    <tr class="active">
+      <td class="text-center" colspan="6"><h4><%= f.button :submit, "新增訂單", class: "btn btn-lg btn-success", :disable_with => "Submiting..." %></h4></td>
+    </tr>
+
+  </tbody>
+</table>

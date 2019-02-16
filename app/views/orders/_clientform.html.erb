@@ -1,0 +1,99 @@
+<table class="table table-bordered table-condensed">
+  <thead></thead>
+  <tbody>
+
+    <tr class="active"><td class="text-center" colspan="6">客戶資料</td></tr>
+    <tr>
+      <td width="10%" class="active">姓名</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :client_id, as: :hidden %>
+        <%= f.input :aasm_state, as: :hidden, input_html: { value:"order_placed" }%>
+
+        <%= f.input :name, label: false, required: true,  class: "form-control", input_html: {size:14}%>
+        <%= link_to("查詢", search_clients_orders_path, remote: true, class: "btn btn-primary", id: "search_name") %>
+      </div></td>
+
+      <td width="10%" class="active">手機</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :mobile, label: false, required: true, class: "form-control" %>
+      </div></td>
+
+      <td width="10%" class="active">性別</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :sex, label: false, collection: [ "男", "女", "第三性"], prompt: "-----選擇性別-----", class: "form-control" %>
+      </div></td>
+    </tr>
+
+    <tr class="active"><td colspan="6">訂單日期：<%= Date.today %></td></tr>
+    <tr>
+      <td width="10%" class="active">入住日期</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :checkin_date, label: false, as: :string, required: true, class: "form-control" %></div>
+      </div></td>
+
+      <td width="10%" class="active">退房日期</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :checkout_date, label: false, as: :string, required: true, class: "form-control" %>
+      </div></td>
+
+      <td width="10%" class="active">訂購來源</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :source, label: false, collection: [ "電話", "官網", "現場", "Booking.com", "Ctrip"], prompt: "-----選擇來源-----", class: "form-control" %>
+      </div></td>
+    </tr>
+
+    <tr>
+      <td width="10%" class="active">國籍</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :country, label: false, priority: [ "台灣" ], collection: [ "台灣", "香港", "日本", "韓國", "大陸"], prompt: "-----選擇國家-----", class: "form-control" %>
+      </div></td>
+
+      <td width="10%" class="active">身分證/護照</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :id_no, label: false, class: "form-control" %>
+      </div></td>
+
+      <td width="10%" class="active">生日</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :birthday, label: false, as: :string, class: "form-control", input_html: {size:14}%>
+      </div></td>
+    </tr>
+<!--
+    <tr>
+      <td width="10%" class="active">地址</td>
+      <td width="23%" colspan="3"  ><div class="form-group form-inline">
+        <%= f.input :address, label: false, class: "form-control", input_html: {size:76} %>
+      </div></td>
+
+      <td width="10%" class="active">電話</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :tel, label: false, class: "form-control", input_html: {size:14} %>
+      </div></td>
+    </tr>
+-->
+    <tr>
+      <td width="10%" class="active">提醒</td>
+      <td width="23%" colspan="3" ><div class="form-group form-inline">
+        <%= f.input :reminder, label: false, class: "form-control", input_html: {size:76} %>
+      </div></td>
+
+      <td width="10%" class="active">職業</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :job, label: false, collection: [ "士", "農", "工", "商", "其他"], prompt: "-----選擇職業-----", class: "form-control" %>
+      </div></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">備註</td>
+      <td width="23%" colspan="3" ><div class="form-group form-inline">
+        <%= f.input :note, label: false, class: "form-control", input_html: {size:76} %>
+      </div></td>
+
+      <td width="10%" class="active">E-mail</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :email, label: false, class: "form-control", input_html: {size:14} %>
+      </div></td>
+    </tr>
+
+
+  </tbody>
+</table>

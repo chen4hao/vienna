@@ -1,0 +1,96 @@
+<script type="text/javascript">
+
+  $("#search_name").click(function appendNameParam(){
+    var client_name = $("#order_name").val().trim();
+    var search_url = "/orders/search_clients";
+    if (client_name.length > 0) {
+      search_url += "?name="+ client_name;
+    }
+    $("#search_name").attr("href",search_url);
+  });
+
+  $("#list_services").click(function appendParams(){
+    var checkin_date = $("#order_checkin_date").val().trim();
+    var checkout_date = $("#order_checkout_date").val().trim();
+    var list_services_url = "/orders/list_services";
+    if (checkin_date.length > 0) {
+      list_services_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date;
+      $("#list_services").attr("href",list_services_url);
+    } else {
+
+    }
+  });
+
+  $("#list_rooms").click(function appendParams(){
+    var checkin_date = $("#order_checkin_date").val().trim();
+    var checkout_date = $("#order_checkout_date").val().trim();
+    var list_rooms_url = "/orders/list_rooms";
+    if (checkin_date.length > 0) {
+      list_rooms_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date;
+      $("#list_rooms").attr("href",list_rooms_url);
+    } else {
+
+    }
+  });
+
+  $('#order_checkin_date').datepicker({
+    format: "yyyy-mm-dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+  $('#order_checkout_date').datepicker({
+    format: "yyyy-mm-dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+  $('#order_birthday').datepicker({
+    format: "yyyy-mm-dd",
+    language: "zh-TW",
+    autoclose: true,
+    todayHighlight: true,
+    toggleActive: true
+  });
+
+  $("#order_room_subtotal").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_bed_subtotal").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_service_subtotal").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_downpay").blur(function (){
+    updatePayment();
+  });
+
+  $("#order_credit_card").blur(function (){
+    updatePayment();
+  });
+
+  <!--計算總額、餘額 -->
+  function updatePayment(){
+    var roomSubtotal = parseInt($("#order_room_subtotal").val());
+    var bedSubtotal = parseInt($("#order_bed_subtotal").val());
+    var serviceSubtotal = parseInt($("#order_service_subtotal").val());
+
+    var downpay = parseInt($("#order_downpay").val());
+    var creditCard = parseInt($("#order_credit_card").val());
+
+    var total = roomSubtotal + bedSubtotal + serviceSubtotal;
+    $("#order_total").val(total);
+    var balance = total - downpay - creditCard;
+    $("#order_balance").val(balance);
+  }
+
+</script>
+

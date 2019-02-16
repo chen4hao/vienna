@@ -1,0 +1,32 @@
+  <hr/><h4>訂房紀錄</h4>
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="active">
+        <th>訂單入住日</th>
+        <th>訂單退房日</th>
+        <th>住房日期</th>
+        <th>訂單金額</th>
+        <th>房號─房型</th>
+        <th>提醒(外)</th>
+        <th>備註(內)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% if @client.present? && @client.orders.present? %>
+        <% @client.orders.each do |order| %>
+          <% order.room_items.each do |item| %>
+            <tr>
+              <td><%= order.checkin_date %></td>
+              <td><%= order.checkout_date %></td>
+              <td><%= item.day %></td>
+              <td><%= order.total %></td>
+              <td><%= item.name %></td>
+              <td><%= order.client.reminder %></td>
+              <td><%= order.client.note %></td>
+            </tr>
+          <% end %>
+        <% end %>
+      <% end %>
+
+    </tbody>
+  </table>
