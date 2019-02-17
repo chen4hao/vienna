@@ -1,0 +1,41 @@
+<?xml version='1.0'?>
+<Workbook xmlns="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:o="urn:schemas-microsoft-com:office:office"
+  xmlns:x="urn:schemas-microsoft-com:office:excel"
+  xmlns:ss="urn:schemas-microsoft-com:office:spreadsheet"
+  xmlns:html="http://www.w3.org/TR/REC-html40">
+  <Worksheet ss:Name="Clients">
+    <Table>
+      <Row>
+        <Cell><Data ss:Type="String">姓名</Data></Cell>
+        <Cell><Data ss:Type="String">性別</Data></Cell>
+        <Cell><Data ss:Type="String">手機</Data></Cell>
+        <Cell><Data ss:Type="String">國籍</Data></Cell>
+        <Cell><Data ss:Type="String">身分證/護照</Data></Cell>
+        <Cell><Data ss:Type="String">生日</Data></Cell>
+        <Cell><Data ss:Type="String">職業</Data></Cell>
+        <Cell><Data ss:Type="String">電話</Data></Cell>
+        <Cell><Data ss:Type="String">地址</Data></Cell>
+        <Cell><Data ss:Type="String">email</Data></Cell>
+        <Cell><Data ss:Type="String">提醒(外)</Data></Cell>
+        <Cell><Data ss:Type="String">備註(內)</Data></Cell>
+      </Row>
+    <% @clients.each do |client| %>
+      <Row>
+        <Cell><Data ss:Type="String"><%= client.name %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.sex %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.mobile %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.country %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.id_no %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.birthday %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.job %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.tel %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.address %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.email %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.reminder %></Data></Cell>
+        <Cell><Data ss:Type="String"><%= client.note %></Data></Cell>
+      </Row>
+    <% end %>
+    </Table>
+  </Worksheet>
+</Workbook>

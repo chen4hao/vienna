@@ -40,4 +40,36 @@ class PrintController < ApplicationController
     end
 
   end
+
+  def export
+    @option = params[:option] if params.has_key?(:option) && params[:option].present?
+    @target = params[:target] if params.has_key?(:target) && params[:target].present?
+
+    case @target
+    when "Clients"
+      @data_instances = Client.all
+    when "Rooms"
+      @data_instances = Room.all
+    when "Orders"
+      @data_instances = Order.all
+    when "Services"
+      @data_instances = Service.all
+    when "Calendars"
+      @data_instances = RoomCalendar.all
+    else
+    end
+
+    respond_to do |format|
+      format.html
+      format.csv {
+        if @option == "4DB"
+          send_data @data_instances.to_csv(true)
+        else
+          send_data @data_instances.to_csv
+        end
+      }
+      format.xls
+    end
+
+  end
 end

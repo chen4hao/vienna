@@ -119,4 +119,18 @@ class RoomCalendar < ApplicationRecord
     self.update_columns(day_mode: Weekday_Mode)
   end
 
+  # 輸出成csv格式 
+  def self.to_csv(is_4_db=false, options = {})
+    desired_columns = ["day", "day_mode", "day_info"]
+    export_columns = ["日期", "日期型態", "備註"]
+
+    export_columns = desired_columns if is_4_db
+    CSV.generate(options) do |csv|
+      csv << export_columns  #csv << column_names
+      all.each do |object|
+        csv << object.attributes.values_at(*desired_columns)
+      end
+    end
+  end
+
 end

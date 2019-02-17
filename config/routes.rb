@@ -45,8 +45,11 @@ Rails.application.routes.draw do
     get :orders, on: :collection
     get :abstract, on: :collection
     get :clients, on: :collection
+    get :export, on: :collection
   end
 
 
-  root 'dashboard#index'
+  # root 'dashboard#index'
+  root 'admin/room_calendars#weekly'
+
 end

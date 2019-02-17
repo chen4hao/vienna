@@ -1,0 +1,65 @@
+
+<div class="col-md-8 col-md-offset-2">
+  <div class="group">
+
+  </div>
+  <h4>資料備份與匯出</h4>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="active">
+        <th>名稱</th>
+        <th>功能</th>
+        <th>備註</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td width="30%">客戶明細資料表</td>
+        <td width="50%">
+<!--
+          <%= link_to("匯出至Eexcel檔", export_print_index_path(format: :xls, target: "Clients"), class: "btn btn-primary") %>
+          export_print_index_path(format: :csv, option: "4DB")
+-->
+          <%= link_to("匯出至CSV檔", export_print_index_path(format: :csv, target: "Clients"), class: "btn btn-primary") %>
+        </td>
+        <td width="20%"></td>
+      </tr>
+
+      <tr>
+        <td width="30%">訂單明細資料表</td>
+        <td width="50%">
+          <%= link_to("匯出至CSV檔", export_print_index_path(format: :csv, target: "Orders"), class: "btn btn-primary") %>
+        </td>
+        <td width="20%"></td>
+      </tr>
+
+      <tr>
+        <td width="30%">房價明細資料表</td>
+        <td width="50%">
+          <%= link_to("匯出至CSV檔", export_print_index_path(format: :csv, target: "Rooms"), class: "btn btn-primary") %>
+        </td>
+        <td width="20%"></td>
+      </tr>
+
+      <tr>
+        <td width="30%">服務明細資料表</td>
+        <td width="50%">
+          <%= link_to("匯出至CSV檔", export_print_index_path(format: :csv, target: "Services"), class: "btn btn-primary") %>
+        </td>
+        <td width="20%"></td>
+      </tr>
+
+      <tr>
+        <td width="30%">行事曆明細資料表</td>
+        <td width="50%">
+          <%= link_to("匯出至CSV檔", export_print_index_path(format: :csv, target: "Calendars"), class: "btn btn-primary") %>
+        </td>
+        <td width="20%"></td>
+      </tr>
+
+    </tbody>
+  </table>
+
+</div>
+

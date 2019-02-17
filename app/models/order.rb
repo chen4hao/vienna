@@ -43,4 +43,24 @@ class Order < ApplicationRecord
     end
   end
 
+  # 輸出成csv格式 
+  def self.to_csv(is_4_db=false, options = {})
+    desired_columns = ["checkin_date", "checkout_date", "aasm_state", "source",
+      "name", "sex", "mobile", "country", "id_no", "birthday", "job", "tel", "address", "email", "reminder", "note",
+      "room_subtotal", "bed_subtotal", "service_subtotal", "total", "downpay", "credit_card", "balance",
+      "pay_type", "pay_info", "adult_subtotal", "kid_subtotal", "baby_subtotal"]
+    export_columns = ["入住日", "退房日", "狀態", "來源",
+      "姓名", "性別", "手機", "國別", "身分證/護照", "生日", "職業", "電話", "地址", "email", "提醒(外)", "備註(內)",
+      "房費小計", "服務小計", "總額", "訂金", "信用卡", "餘額",
+      "支付方式", "末五碼", "大人人數", "小孩人數", "幼兒人數"]
+
+    export_columns = desired_columns if is_4_db
+    CSV.generate(options) do |csv|
+      csv << export_columns  #csv << column_names
+      all.each do |object|
+        csv << object.attributes.values_at(*desired_columns)
+      end
+    end
+  end
+
 end
