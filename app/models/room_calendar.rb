@@ -8,11 +8,12 @@ class RoomCalendar < ApplicationRecord
 
   def room_summary(room_no)
     room_hash = get_room_hash(room_no)
-    summary = room_hash["summary"]
+    summary = room_hash["summary"].presence
   end
 
   def get_room_hash(room_no)
     room_hash = {}
+    room_json = ""
     case room_no
       when "301"
         room_json = r301

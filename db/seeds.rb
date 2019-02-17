@@ -279,7 +279,7 @@ setup_calandar(2019)
 setup_2019calandar_special_days
 setup_clients
 
-setup_orders
+# setup_orders
 # test
 # test2
 
