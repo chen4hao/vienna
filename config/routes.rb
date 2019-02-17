@@ -48,8 +48,6 @@ Rails.application.routes.draw do
     get :export, on: :collection
   end
 
-
   # root 'dashboard#index'
   root 'admin/room_calendars#weekly'
-
 end
