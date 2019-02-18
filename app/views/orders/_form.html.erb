@@ -1,6 +1,6 @@
 <%= simple_form_for order do |f| %>
   <%= render partial: "clientform", locals:{ f: f}  %>
-  <%= render partial: "roomform", locals:{ f: f}  %>
+  <%= render partial: "roomform", locals:{ f: f, order: order}  %>
   <%= render partial: "paymentform", locals:{ f: f}  %>
 <% end %>
 

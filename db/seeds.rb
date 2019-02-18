@@ -118,10 +118,10 @@ def setup_clients
     Client.create(name:"Jaseph Chen", sex:"男", mobile:"65 96548875", country:"香港", id_no:"1645005537", reminder:"", note:"")
     Client.create(name:"譚意敏", sex:"女", mobile:"0928143215", country:"台灣", id_no:"K221597123", reminder:"", note:"")
     Client.create(name:"郭文鳳", sex:"女", mobile:"0929049528", country:"香港", id_no:"", reminder:"", note:"")
-    # Client.create(name: "t陳一", mobile: "0911111111" ,country:"日本")
-    # Client.create(name: "t林二", mobile: "0922222222" ,country:"韓國")
-    # Client.create(name: "t張三", mobile: "0933333333" ,country:"大陸")
-    # Client.create(name: "T李四", mobile: "0944444444" ,country:"日本")
+    Client.create(name: "t陳一", mobile: "1518282828" ,country:"日本")
+    Client.create(name: "t林二", mobile: "2333388888" ,country:"韓國")
+    Client.create(name: "t張三", mobile: "3999999484" ,country:"大陸")
+    Client.create(name: "t李四", mobile: "1383838838" ,country:"日本")
   end
 end
 

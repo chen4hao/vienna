@@ -3,7 +3,7 @@ class CreateOrders < ActiveRecord::Migration[5.2]
     create_table :orders do |t|
       t.date :checkin_date
       t.date :checkout_date
-      t.string :aasm_state
+      t.string :aasm_state, default: "order_placed"
       t.string :source
       t.integer :room_subtotal, default: 0
       t.integer :bed_subtotal, default: 0

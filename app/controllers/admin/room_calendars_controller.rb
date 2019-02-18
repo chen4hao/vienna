@@ -17,14 +17,17 @@ class Admin::RoomCalendarsController < ApplicationController
     @room_no = params[:room] if params.has_key?(:room) && params[:room].present?
     @events_url = "/admin/room_calendars/calendar.json?room=#{@room_no}"
     # @room_calendars = RoomCalendar.select("id, day, day_info, #{@room_no} AS title")
-    @room_calendars = RoomCalendar.select("id, day, day_info, #{@room_no}, #{@room_no} AS title, #{@room_no} AS color")
+    @room_calendars = RoomCalendar.select("id, day, day_info, #{@room_no}, #{@room_no} AS title, #{@room_no} AS color, #{@room_no} AS url")
       .where("day >= :start_date AND day <= :end_date",
       {start_date: Date.current.beginning_of_month, end_date: Date.current.end_of_month}).order(:day)
 
     @room_calendars.each do |cal|
       room_hash = cal.get_room_hash(@room_no[1,3])
       cal.title = room_hash["summary"]
+      order_id = (room_hash["order_id"].present?) ? room_hash["order_id"] : 0
 
+      cal.url = order_path(order_id)
+      # cal.url = link_to("", order_path(order_id), remote: true)
       index = (room_hash["order_id"].present?) ? room_hash["order_id"]%10 : 0
       cal.color = get_color(index)
     end
@@ -37,7 +40,7 @@ class Admin::RoomCalendarsController < ApplicationController
     td_bgcolors[index]
   end
 
-  # 當月訂房狀況
+  # 當周訂房狀況
   def weekly
     @search_date = Date.today
     @search_date = Date.parse(params[:search_date]) if params.has_key?(:search_date) && params[:search_date].present?

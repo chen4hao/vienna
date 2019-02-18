@@ -19,7 +19,9 @@
         <th width="10%">幼兒</th>
       </tr>
     </thead>
-    <tbody id="rooms_table"></tbody>
+    <tbody id="rooms_table">
+      <%= render partial: "cartitem", collection: order.room_items, as: :item, locals:{ kind: 'Room'}  %>
+    </tbody>
   </table>
   <table class="table table-bordered table-condensed">
     <thead>
@@ -34,5 +36,7 @@
         <th width="10%"></th>
       </tr>
     </thead>
-    <tbody id="services_table"></tbody>
+    <tbody id="services_table">
+      <%= render partial: "cartitem", collection: order.service_items, as: :item, locals:{ kind: 'Service'}  %>
+    </tbody>
   </table>

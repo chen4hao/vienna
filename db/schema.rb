@@ -70,7 +70,7 @@ ActiveRecord::Schema.define(version: 2019_02_13_030127) do
   create_table "orders", force: :cascade do |t|
     t.date "checkin_date"
     t.date "checkout_date"
-    t.string "aasm_state"
+    t.string "aasm_state", default: "order_placed"
     t.string "source"
     t.integer "room_subtotal", default: 0
     t.integer "bed_subtotal", default: 0

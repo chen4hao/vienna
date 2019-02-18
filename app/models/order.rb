@@ -8,6 +8,20 @@ class Order < ApplicationRecord
   has_many :room_items,  -> { where( type: "RoomItem" ) }, class_name: "OrderItem"
   has_many :service_items, -> { where( type: "ServiceItem" ) }, class_name: "OrderItem"
 
+  # after_destroy :clear_room_calendars
+  after_save :update_room_calendars
+
+  def update_room_calendars
+    room_items.each do |item|
+      item.update_room_calendar
+    end
+  end
+
+  # def clear_room_calendars
+  #   room_items.each do |item|
+  #     item.clear_room_calendar
+  #   end
+  # end
 
   def is_old_client?
     client_id.present?
@@ -60,6 +74,45 @@ class Order < ApplicationRecord
       all.each do |object|
         csv << object.attributes.values_at(*desired_columns)
       end
+    end
+  end
+
+  include AASM
+  aasm do
+    state :order_placed, initial: true
+    state :down_paid
+    state :full_paid
+    state :checked_in
+    state :checked_out
+    state :order_pending
+    state :order_cancelled
+
+    event :down_pay do
+      transitions from: :order_placed,                to: :down_paid
+    end
+
+    event :full_pay do
+      transitions from: [:order_placed, :down_paid],  to: :full_paid
+    end
+
+    event :check_in do
+      transitions from: :full_paid,                   to: :checked_in
+    end
+
+    event :check_out do
+      transitions from: :checked_in,                  to: :checked_out
+    end
+
+    event :suspend do
+      transitions from: [:order_placed, :down_paid, :full_paid],  to: :order_pending
+    end
+
+    event :reorder do
+      transitions from: :order_pending,               to: :order_placed
+    end
+
+    event :cancel do
+      transitions from: :order_pending,               to: :order_cancelled
     end
   end
 

@@ -20,8 +20,11 @@ module Admin::RoomCalendarsHelper
       content_tag(:td, "")
     else
       summary = room_hash["summary"].presence
+      order_id = (room_hash["order_id"].present?) ? room_hash["order_id"] : 0
       index = (room_hash["order_id"].present?) ? room_hash["order_id"]%10 : 0
-      content_tag(:td, summary, bgcolor: get_color(index))
+      # content_tag(:td, summary, bgcolor: get_color(index))
+      # content_tag(:td, link_to(summary, order_path(order_id)), bgcolor: get_color(index))
+      content_tag(:td, link_to(summary, order_path(order_id), remote: true), bgcolor: get_color(index))
     end
   end
 

@@ -1,6 +1,6 @@
 class OrdersController < ApplicationController
   before_action :authenticate_user!
-  before_action :set_order, only: [:edit, :update, :destroy, :show]
+  before_action :set_order, only: [:edit, :update, :destroy, :show, :down_pay, :full_pay, :check_in, :check_out, :suspend, :reorder, :cancel]
 
   # 讓 view 也能用，要掛上helper_method
   helper_method :current_cart
@@ -25,6 +25,8 @@ class OrdersController < ApplicationController
 
   # 接待/客戶管理 -> 訂單登入
   def new
+    current_cart.clean!
+
     if params.has_key?(:client_id)
       @client = Client.find(params[:client_id])
       @order = @client.orders.build(name: @client.name, sex: @client.sex, mobile: @client.mobile,
@@ -48,10 +50,10 @@ class OrdersController < ApplicationController
       @client = Client.new
     end
 
-    @order.copy_client_data(@client)
     @order.build_items_from_cart(current_cart)
     @client.orders << @order
 
+    @order.copy_client_data(@client)
     if @client.save
       current_cart.clean!
 
@@ -111,8 +113,41 @@ class OrdersController < ApplicationController
       # redirect_back fallback_location: product_path(@product)
   end
 
+  def show
+  end
+
+  def edit
+    current_cart.clean!
+  end
+
+  def update
+    @client = Client.find(@order.client_id)
+    @order.build_items_from_cart(current_cart)
+
+    if @order.update(order_params)
+      @order.copy_client_data(@client)
+      @client.save
+
+      current_cart.clean!
+      # redirect_to new_order_path, notice: "新增訂單(#{@order.name})成功"
+      redirect_to weekly_admin_room_calendars_path, notice: "更新訂單(#{@order.name})成功"
+    else
+      flash[:warning] = "更新訂單(#{@order.name})失敗"
+      render :edit
+    end
+
+  end
+
+  def destroy
+    @order.destroy
+    redirect_to weekly_admin_room_calendars_path, alert: "訂單(#{@order.name})已刪除!"
+  end
 
 private
+  def set_order
+    @order = Order.find(params[:id])
+  end
+
   def order_params
     params.require(:order).permit(:checkin_date, :checkout_date, :aasm_state, :source,
       :room_subtotal, :bed_subtotal, :service_subtotal, :total, :downpay, :credit_card,
@@ -120,41 +155,6 @@ private
       :name, :sex, :mobile, :country, :id_no, :birthday, :job, :tel, :address, :email, :reminder, :note,
       :adult_subtotal, :kid_subtotal, :baby_subtotal)
   end
-
-  # def copy_client_data(client, order)
-  #   client.name     = order.name
-  #   client.sex      = order.sex
-  #   client.mobile   = order.mobile
-  #   client.country  = order.country
-  #   client.id_no    = order.id_no
-  #   client.birthday = order.birthday
-  #   client.job      = order.job
-  #   client.tel      = order.tel
-  #   client.address  = order.address
-  #   client.email    = order.email
-  #   client.reminder = order.reminder
-  #   client.note     = order.note
-  # end
-
-  # # TODO: update_room_calendar
-  # def update_room_calendar(order)
-
-  #   order.room_items.each do |room_item|
-  #     total_people = room_item.adult_no.to_i + room_item.kid_no.to_i + room_item.baby_no.to_i
-  #     room_no = room_item.name[0, 3]
-  #     country = ( order.country == ”台灣”  ) ? "" : "[#{order.country}]"
-  #     case room_no
-  #       when "301"
-  #         RoomCalendar.find_by(day: room_item.day).update(r301: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-  #       when "302"
-  #         RoomCalendar.find_by(day: room_item.day).update(r302: "#{order.name}#{country}(#{order.mobile}) x #{total_people}")
-
-  #       else
-  #         puts ""
-  #     end
-
-  #   end
-  # end
 
   # 回傳「入住日期」至「退房日期」的所有日期
   def get_order_dates
@@ -219,5 +219,46 @@ private
     cart
   end
 
+  def down_pay
+    @order = Order.find(params[:id])
+    @order.down_pay!
+    redirect_back fallback_location: order_path(@order)
+  end
+
+  def full_pay
+    @order = Order.find(params[:id])
+    @order.full_pay!
+    redirect_back fallback_location: order_path(@order)
+  end
+
+  def check_in
+    @order = Order.find(params[:id])
+    @order.check_in!
+    redirect_back fallback_location: order_path(@order)
+  end
+
+  def check_out
+    @order = Order.find(params[:id])
+    @order.check_out!
+    redirect_back fallback_location: order_path(@order)
+  end
+
+  def suspend
+    @order = Order.find(params[:id])
+    @order.suspend!
+    redirect_back fallback_location: order_path(@order)
+  end
+
+  def reorder
+    @order = Order.find(params[:id])
+    @order.reorder!
+    redirect_back fallback_location: order_path(@order)
+  end
+
+  def cancel
+    @order = Order.find(params[:id])
+    @order.cancel!
+    redirect_back fallback_location: order_path(@order)
+  end
 
 end

@@ -32,6 +32,16 @@ Rails.application.routes.draw do
     get :list_rooms, on: :collection
     post :add_to_cart, on: :member
     get :daily, on: :collection
+
+    member do
+      post :down_pay
+      post :full_pay
+      post :check_in
+      post :check_out
+      post :suspend
+      post :reorder
+      post :cancel
+    end
   end
 
   resources :statistics do

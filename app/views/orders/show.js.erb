@@ -1,0 +1,4 @@
+<!-- 將 _showordermodal.html.erb 的 資料塞入 我們先前就建立好的 #showOrderModal div -->
+$('#showOrderModal').html("<%= escape_javascript(render 'showordermodal') %>");
+<!-- 讓#listservicesmodal 呈現出來 -->
+$("#showOrderModal").modal("show");

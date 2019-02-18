@@ -2,11 +2,12 @@ zh-TW:
   orders:
     order_state:
       order_placed: 已下單
-      paid: 已付款
-      shipping: 出貨中
-      shipped: 已到貨
-      order_cancelled: 取消訂單
-      good_return: 退貨
+      down_paid: 已付訂
+      full_paid: 已付清
+      checked_in: 已入住
+      checked_out: 已退房
+      order_pending: 待處理
+      order_cancelled: 已取消
 
   activerecord:
     attributes:

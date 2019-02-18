@@ -52,6 +52,8 @@ gem 'momentjs-rails'
 
 gem 'country_select'
 
+gem "aasm"
+
 group :development, :test do
     gem 'sqlite3'
 end
