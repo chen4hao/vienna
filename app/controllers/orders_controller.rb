@@ -15,6 +15,11 @@ class OrdersController < ApplicationController
     end
   end
 
+  # 訂房/訂單管理 -> 待處理訂單
+  def pending
+    @orders = Order.where('aasm_state = ?', "order_pending")
+  end
+
   # 接待/客戶管理 -> Check-in(當日入住名單)
   def daily
     @search_date = Date.today
@@ -159,7 +164,7 @@ class OrdersController < ApplicationController
   end
 
   def check_out
-    @order.check_out!
+    @order.check_out
     if @order.save
       redirect_to weekly_admin_room_calendars_path, notice: "訂單(#{@order.name})退房成功"
     else
@@ -168,19 +173,33 @@ class OrdersController < ApplicationController
   end
 
   def suspend
-    @order.suspend!
-    redirect_back fallback_location: order_path(@order)
+    @order.suspend
+    if @order.save
+      redirect_to weekly_admin_room_calendars_path, notice: "訂單(#{@order.name})保留成功"
+    else
+      redirect_back fallback_location: order_path(@order)
+    end
+
   end
 
   def reorder
-    @order.reorder!
-    redirect_back fallback_location: order_path(@order)
+    @order.reorder
+    if @order.save
+      redirect_to weekly_admin_room_calendars_path, notice: "重新下單(#{@order.name})成功"
+    else
+      redirect_back fallback_location: order_path(@order)
+    end
+
   end
 
   def cancel
-    @order = Order.find(params[:id])
-    @order.cancel!
-    redirect_back fallback_location: order_path(@order)
+    @order.cancel
+    if @order.save
+      redirect_to weekly_admin_room_calendars_path, notice: "訂單(#{@order.name})取消成功"
+    else
+      redirect_back fallback_location: order_path(@order)
+    end
+
   end
 
 private

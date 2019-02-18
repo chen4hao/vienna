@@ -17,11 +17,11 @@ class Order < ApplicationRecord
     end
   end
 
-  # def clear_room_calendars
-  #   room_items.each do |item|
-  #     item.clear_room_calendar
-  #   end
-  # end
+  def clear_room_calendars
+    room_items.each do |item|
+      item.clear_room_calendar
+    end
+  end
 
   def is_old_client?
     client_id.present?

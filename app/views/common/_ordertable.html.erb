@@ -14,7 +14,7 @@
       <td width="12%" class="text-center" >
         <%= link_to("訂單保留", suspend_order_path(order), method: :post, class: "btn btn-warning") %></td>
       <td width="12%" class="text-center" >
-        <%= link_to("訂單取消", suspend_order_path(order), method: :post, class: "btn btn-warning") %></td>
+        <%= link_to("訂單取消", cancel_order_path(order), method: :post, class: "btn btn-warning") %></td>
       <td width="12%" class="text-center" >
         <%= link_to("訂單刪除", order_path(order), class: "btn btn-danger",
                   method: :delete, data: { confirm: "你確定要刪除嗎?" } )%></td>

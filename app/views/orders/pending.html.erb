@@ -1,0 +1,44 @@
+<div class="col-md-10 col-md-offset-1">
+  <h4>待處理訂單列表</h4>
+
+  <table class="table table-bordered table-hover">
+    <thead>
+      <tr class="active">
+        <th>功能</th>
+        <th>訂單狀態</th>
+        <th>訂單日期</th>
+        <th>住房日期</th>
+        <th>房號─房型</th>
+        <th>姓名</th>
+        <th>手機</th>
+        <th>國籍</th>
+        <th>提醒(外)</th>
+        <th>備註(內)</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% @orders.each do |order| %>
+
+          <tr>
+            <td>
+              <%= link_to("訂單取消", cancel_order_path(order), method: :post, class: "btn btn-warning") %>
+              <%= link_to("重新下單", reorder_order_path(order), method: :post, class: "btn btn-primary") %>
+              <%= link_to("訂單刪除", order_path(order), class: "btn btn-danger",
+                  method: :delete, data: { confirm: "你確定要刪除嗎?" } )%>
+            </td>
+            <td><%= render_order_state(order) %></td>
+            <td><%= order.created_at.to_date %></td>
+            <td><%= order.room_items[0].day %></td>
+            <td><%= order.room_items[0].name %></td>
+            <td><%= order.client.name %></td>
+            <td><%= order.client.mobile %></td>
+            <td><%= order.client.country %></td>
+            <td><%= order.client.reminder %></td>
+            <td><%= order.client.note %></td>
+          </tr>
+
+      <% end %>
+
+    </tbody>
+  </table>
+</div>
