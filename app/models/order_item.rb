@@ -64,7 +64,9 @@ class OrderItem < ApplicationRecord
       total_people = adult_no.to_i + kid_no.to_i + baby_no.to_i
       country =  ( order.country.blank? || order.country == "台灣" ) ? "" : "[#{order.country}]"
 
-      summary = "#{order.name} #{country} (#{order.mobile}) x#{total_people}"
+      state = I18n.t("orders.order_state.#{order.aasm_state}")
+
+      summary = "#{order.name} #{country} (#{order.mobile}) x#{total_people} <#{state}>"
       room_hash = generate_room_hash
       room_hash.store("summary", summary)
       room_hash.store("order_id", order_id)

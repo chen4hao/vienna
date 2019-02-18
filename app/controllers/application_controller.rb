@@ -26,7 +26,7 @@ class ApplicationController < ActionController::Base
 
   # 設定搜尋日期，預設為今日
   def set_search_date
-    @search_date = Date.today
+    @search_date = Date.current
     @search_date = Date.parse(params[:search_date]) if params.has_key?(:search_date) && params[:search_date].present?
   end
 

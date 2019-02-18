@@ -51,6 +51,8 @@ class OrdersController < ApplicationController
     end
 
     @order.build_items_from_cart(current_cart)
+    @order.down_pay if @order.total > @order.balance
+    @order.full_pay if @order.balance == 0
     @client.orders << @order
 
     @order.copy_client_data(@client)
@@ -128,6 +130,10 @@ class OrdersController < ApplicationController
       @order.copy_client_data(@client)
       @client.save
 
+      @order.down_pay if @order.total > @order.balance
+      @order.full_pay if @order.balance == 0
+      @order.save
+
       current_cart.clean!
       # redirect_to new_order_path, notice: "新增訂單(#{@order.name})成功"
       redirect_to weekly_admin_room_calendars_path, notice: "更新訂單(#{@order.name})成功"
@@ -141,6 +147,40 @@ class OrdersController < ApplicationController
   def destroy
     @order.destroy
     redirect_to weekly_admin_room_calendars_path, alert: "訂單(#{@order.name})已刪除!"
+  end
+
+  def check_in
+    @order.check_in
+    if @order.save
+      redirect_to weekly_admin_room_calendars_path, notice: "訂單(#{@order.name})入住成功"
+    else
+      redirect_back fallback_location: order_path(@order)
+    end
+  end
+
+  def check_out
+    @order.check_out!
+    if @order.save
+      redirect_to weekly_admin_room_calendars_path, notice: "訂單(#{@order.name})退房成功"
+    else
+      redirect_back fallback_location: order_path(@order)
+    end
+  end
+
+  def suspend
+    @order.suspend!
+    redirect_back fallback_location: order_path(@order)
+  end
+
+  def reorder
+    @order.reorder!
+    redirect_back fallback_location: order_path(@order)
+  end
+
+  def cancel
+    @order = Order.find(params[:id])
+    @order.cancel!
+    redirect_back fallback_location: order_path(@order)
   end
 
 private
@@ -219,46 +259,5 @@ private
     cart
   end
 
-  def down_pay
-    @order = Order.find(params[:id])
-    @order.down_pay!
-    redirect_back fallback_location: order_path(@order)
-  end
-
-  def full_pay
-    @order = Order.find(params[:id])
-    @order.full_pay!
-    redirect_back fallback_location: order_path(@order)
-  end
-
-  def check_in
-    @order = Order.find(params[:id])
-    @order.check_in!
-    redirect_back fallback_location: order_path(@order)
-  end
-
-  def check_out
-    @order = Order.find(params[:id])
-    @order.check_out!
-    redirect_back fallback_location: order_path(@order)
-  end
-
-  def suspend
-    @order = Order.find(params[:id])
-    @order.suspend!
-    redirect_back fallback_location: order_path(@order)
-  end
-
-  def reorder
-    @order = Order.find(params[:id])
-    @order.reorder!
-    redirect_back fallback_location: order_path(@order)
-  end
-
-  def cancel
-    @order = Order.find(params[:id])
-    @order.cancel!
-    redirect_back fallback_location: order_path(@order)
-  end
 
 end

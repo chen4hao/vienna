@@ -3,6 +3,7 @@ class Admin::RoomCalendarsController < ApplicationController
   before_action :admin_required
 
   before_action :set_room_calendar, only: [:to_dealday, :to_holiday, :to_hotday, :to_weekday]
+  before_action :set_search_date, only: [:weekly, :monthly]
 
   helper_method :get_color
 
@@ -42,9 +43,6 @@ class Admin::RoomCalendarsController < ApplicationController
 
   # 當周訂房狀況
   def weekly
-    @search_date = Date.today
-    @search_date = Date.parse(params[:search_date]) if params.has_key?(:search_date) && params[:search_date].present?
-
     @room_calendars = RoomCalendar.where("day >= :start_date AND day <= :end_date",
       {start_date: @search_date.beginning_of_week, end_date: @search_date.end_of_week}).order(:day)
   end
@@ -52,7 +50,7 @@ class Admin::RoomCalendarsController < ApplicationController
   # 當月訂房狀況
   def monthly
     @room_calendars = RoomCalendar.where("day >= :start_date AND day <= :end_date",
-      {start_date: Date.current.beginning_of_month, end_date: Date.current.end_of_month}).order(:day)
+      {start_date: @search_date.beginning_of_month, end_date: @search_date.end_of_month}).order(:day)
   end
 
   def to_dealday
@@ -84,5 +82,8 @@ class Admin::RoomCalendarsController < ApplicationController
   def set_room_calendar
     @room_calendars = RoomCalendar.find(params[:id])
   end
+
+  private
+
 
 end

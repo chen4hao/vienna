@@ -96,7 +96,7 @@ class Order < ApplicationRecord
     end
 
     event :check_in do
-      transitions from: :full_paid,                   to: :checked_in
+      transitions from: [:order_placed, :down_paid, :full_paid], to: :checked_in
     end
 
     event :check_out do
@@ -115,5 +115,9 @@ class Order < ApplicationRecord
       transitions from: :order_pending,               to: :order_cancelled
     end
   end
+
+  # def check_in!
+  #   self.update_columns(aasm_state: true )
+  # end
 
 end

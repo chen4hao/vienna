@@ -1,6 +1,30 @@
 <table class="table table-bordered">
   <thead></thead>
   <tbody>
+    <tr class="active"><td class="text-center" colspan="7">功能維護</td></tr>
+    <tr>
+      <td width="12%" class="text-center" >
+        <%= link_to("訂單修改", edit_order_path(order), class: "btn btn-primary") %></td>
+      <td width="12%" class="text-center" >
+        <%= link_to("訂房確認", weekly_admin_room_calendars_path, class: "btn btn-primary") %></td>
+      <td width="12%" class="text-center" >
+        <%= link_to("入住", check_in_order_path(order), method: :post, class: "btn btn-success") %></td>
+      <td width="12%" class="text-center" >
+        <%= link_to("退房", check_out_order_path(order), method: :post, class: "btn btn-success") %></td>
+      <td width="12%" class="text-center" >
+        <%= link_to("訂單保留", suspend_order_path(order), method: :post, class: "btn btn-warning") %></td>
+      <td width="12%" class="text-center" >
+        <%= link_to("訂單取消", suspend_order_path(order), method: :post, class: "btn btn-warning") %></td>
+      <td width="12%" class="text-center" >
+        <%= link_to("訂單刪除", order_path(order), class: "btn btn-danger",
+                  method: :delete, data: { confirm: "你確定要刪除嗎?" } )%></td>
+    </tr>
+  </tbody>
+</table>
+
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
     <tr class="active"><td class="text-center" colspan="6">訂單資料</td></tr>
     <tr>
       <td width="10%" class="active">姓名</td><td width="23%" ><%= order.name %></td>
@@ -19,26 +43,13 @@
     </tr>
     <tr>
       <td width="10%" class="active">訂金</td><td width="23%" ><%= order.downpay %></td>
+      <td width="10%" class="active">信用卡</td><td width="23%" ><%= order.credit_card %></td>
+      <td width="10%" class="active">餘額</td><td width="23%" ><%= order.balance %></td>
+    </tr>
+    <tr>
       <td width="10%" class="active">備註</td><td width="23%" colspan="3" ><%= order.note %></td>
     </tr>
-  </tbody>
-</table>
 
-<table class="table table-bordered">
-  <thead></thead>
-  <tbody>
-    <tr class="active"><td class="text-center" colspan="8">功能維護</td></tr>
-    <tr>
-      <td width="12%"><%= link_to("訂單修改", edit_order_path(order), class: "btn btn-primary") %></td>
-      <td width="12%"><%= link_to("訂房確認", weekly_admin_room_calendars_path, class: "btn btn-primary") %></td>
-      <td width="12%"></td>
-      <td width="12%"><%= link_to("入住", orders_path, class: "btn btn-primary") %></td>
-      <td width="12%"><%= link_to("退房", orders_path, class: "btn btn-primary") %></td>
-      <td width="12%"><%= link_to("訂單保留", orders_path, class: "btn btn-primary") %></td>
-      <td width="12%"><%= link_to("訂單取消", orders_path, class: "btn btn-primary") %></td>
-      <td width="12%"><%= link_to("訂單刪除", order_path(order), class: "btn btn-danger",
-                  method: :delete, data: { confirm: "你確定要刪除嗎?" } )%></td>
-    </tr>
   </tbody>
 </table>
 
