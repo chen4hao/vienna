@@ -4,6 +4,8 @@ class Admin::RoomCalendarsController < ApplicationController
 
   before_action :set_room_calendar, only: [:to_dealday, :to_holiday, :to_hotday, :to_weekday]
 
+  helper_method :get_color
+
   # 行事曆設定
   def index
     @room_calendars = RoomCalendar.all.order(:day)
@@ -15,14 +17,24 @@ class Admin::RoomCalendarsController < ApplicationController
     @room_no = params[:room] if params.has_key?(:room) && params[:room].present?
     @events_url = "/admin/room_calendars/calendar.json?room=#{@room_no}"
     # @room_calendars = RoomCalendar.select("id, day, day_info, #{@room_no} AS title")
-    @room_calendars = RoomCalendar.select("id, day, day_info, #{@room_no}, #{@room_no} AS title")
+    @room_calendars = RoomCalendar.select("id, day, day_info, #{@room_no}, #{@room_no} AS title, #{@room_no} AS color")
       .where("day >= :start_date AND day <= :end_date",
       {start_date: Date.current.beginning_of_month, end_date: Date.current.end_of_month}).order(:day)
 
     @room_calendars.each do |cal|
-      cal.title = cal.room_summary(@room_no[1,3])
+      room_hash = cal.get_room_hash(@room_no[1,3])
+      cal.title = room_hash["summary"]
+
+      index = (room_hash["order_id"].present?) ? room_hash["order_id"]%10 : 0
+      cal.color = get_color(index)
     end
 
+  end
+
+  def get_color(index)
+    td_bgcolors = ["lightcyan", "lightblue", "palegreen", "lightyellow", "lightpink", "lavender" ,"lightgray", "lightgreen", "yellow", "lightskyblue"]
+    index %= 10
+    td_bgcolors[index]
   end
 
   # 當月訂房狀況
