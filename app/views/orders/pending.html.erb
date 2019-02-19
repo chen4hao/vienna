@@ -4,7 +4,6 @@
   <table class="table table-bordered table-hover">
     <thead>
       <tr class="active">
-        <th>功能</th>
         <th>訂單狀態</th>
         <th>訂單日期</th>
         <th>住房日期</th>
@@ -18,14 +17,7 @@
     </thead>
     <tbody>
       <% @orders.each do |order| %>
-
-          <tr>
-            <td>
-              <%= link_to("訂單取消", cancel_order_path(order), method: :post, class: "btn btn-warning") %>
-              <%= link_to("重新下單", reorder_order_path(order), method: :post, class: "btn btn-primary") %>
-              <%= link_to("訂單刪除", order_path(order), class: "btn btn-danger",
-                  method: :delete, data: { confirm: "你確定要刪除嗎?" } )%>
-            </td>
+          <tr data-link="<%= order_path(order) %>">
             <td><%= render_order_state(order) %></td>
             <td><%= order.created_at.to_date %></td>
             <td><%= order.room_items[0].day %></td>
@@ -42,3 +34,10 @@
     </tbody>
   </table>
 </div>
+
+<script type="text/javascript">
+$("tr[data-link]").click(function() {
+  window.location = $(this).data("link")
+});
+
+</script>
