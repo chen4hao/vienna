@@ -3,7 +3,8 @@ class PrintController < ApplicationController
 
   # 表單列印 -> 當日房客明細表
   def orders
-    @room_items = OrderItem.where("type='RoomItem' AND day = ?", @search_date)
+    # @room_items = OrderItem.where("type='RoomItem' AND day = ?", @search_date)
+    @room_items = get_daily_room_items(@search_date)
   end
 
   # 表單列印 -> 當日住宿簡表
@@ -33,10 +34,18 @@ class PrintController < ApplicationController
 
   # 表單列印 -> 當日房客資料表
   def clients
-    order_ids = OrderItem.select(:order_id).distinct.where(day: @search_date)
+    # order_ids = OrderItem.select(:order_id).distinct.where(day: @search_date)
+    # @orders = []
+    # order_ids.each do |item|
+    #   order = Order.find(item.order_id)
+    #   @orders << order if (order.aasm_state == "order_placed" || order.aasm_state == "down_paid" || order.aasm_state == "full_paid" )
+    # end
+
     @orders = []
-    order_ids.each do |item|
-      @orders << Order.find(item.order_id)
+    room_items = get_daily_room_items(@search_date)
+    room_items.each do |item|
+      order = Order.find(item.order_id)
+      @orders << order
     end
 
   end

@@ -14,12 +14,15 @@ class ClientsController < ApplicationController
 
   # 接待/客戶管理 -> 依客戶查詢
   def search
-    if params.has_key?(:client_name) && params.has_key?(:client_mobile)
-      @clients = Client.where('lower(name) LIKE ?', "%#{params[:client_name].downcase}%").where('lower(mobile) LIKE ?', "%#{params[:client_mobile].downcase}%")
-    elsif params.has_key?(:client_name)
-      @clients = Client.where('lower(name) LIKE ?', "%#{params[:client_name].downcase}%")
-    elsif params.has_key?(:client_mobile)
-      @clients = Client.where('lower(mobile) LIKE ?', "%#{params[:client_mobile].downcase}%")
+    @search_name = params[:search_name] if params.has_key?(:search_name) && params[:search_name].present?
+    @search_mobile = params[:search_mobile] if params.has_key?(:search_mobile) && params[:search_mobile].present?
+
+    if @search_name.present? && @search_mobile.present?
+      @clients = Client.where('lower(name) LIKE ?', "%#{@search_name.downcase}%").where('lower(mobile) LIKE ?', "%#{@search_mobile.downcase}%")
+    elsif @search_name.present?
+      @clients = Client.where('lower(name) LIKE ?', "%#{@search_name.downcase}%")
+    elsif @search_mobile.present?
+      @clients = Client.where('lower(mobile) LIKE ?', "%#{@search_mobile.downcase}%")
     else
       @clients = []
     end

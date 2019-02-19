@@ -30,4 +30,23 @@ class ApplicationController < ActionController::Base
     @search_date = Date.parse(params[:search_date]) if params.has_key?(:search_date) && params[:search_date].present?
   end
 
+  # 抓取當日訂單房間項目
+  def get_daily_room_items(search_date)
+    room_items = []
+
+    room_calendar = RoomCalendar.find_by(day: search_date)
+    rooms = Room.select(:no)
+    rooms.each do |room|
+      if room_calendar.is_occupaied?(room.no.to_s)
+        room_hash = room_calendar.get_room_hash(room.no.to_s)
+        order_id = room_hash["order_id"]
+        order = Order.find(order_id)
+        order.room_items.each do | item |
+          room_items << item if item.day == search_date
+        end
+      end
+    end
+    room_items
+  end
+
 end

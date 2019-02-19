@@ -27,7 +27,7 @@
     </thead>
     <tbody>
         <% @room_items.each do |item| %>
-          <tr>
+          <tr data-link="<%= order_path(item.order) %>">
             <td><%= item.day %></td>
             <td><%= item.name %></td>
             <td><%= item.price %></td>
@@ -61,5 +61,8 @@ $(document).ready(function(){
 
 });
 
+$("tr[data-link]").click(function() {
+  window.location = $(this).data("link")
+});
 
 </script>

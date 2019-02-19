@@ -31,7 +31,14 @@
     <tbody>
       <% @client.orders.each do |order| %>
         <% order.room_items.each do |item| %>
+
+        <% if (order.aasm_state == "order_placed" ||
+               order.aasm_state == "down_paid" ||
+               order.aasm_state == "full_paid" ) %>
+          <tr data-link="<%= order_path(order) %>">
+        <% else %>
           <tr>
+        <% end %>
             <td><%= render_order_state(order) %></td>
             <td><%= order.checkin_date %></td>
             <td><%= order.checkout_date %></td>
@@ -60,3 +67,10 @@
 </div>
 
 
+<script type="text/javascript">
+
+$("tr[data-link]").click(function() {
+  window.location = $(this).data("link")
+});
+
+</script>
