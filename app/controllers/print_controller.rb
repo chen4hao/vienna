@@ -40,13 +40,14 @@ class PrintController < ApplicationController
     #   order = Order.find(item.order_id)
     #   @orders << order if (order.aasm_state == "order_placed" || order.aasm_state == "down_paid" || order.aasm_state == "full_paid" )
     # end
+    @orders = get_daily_room_orders(@search_date)
 
-    @orders = []
-    room_items = get_daily_room_items(@search_date)
-    room_items.each do |item|
-      order = Order.find(item.order_id)
-      @orders << order
-    end
+    # @orders = []
+    # room_items = get_daily_room_items(@search_date)
+    # room_items.each do |item|
+    #   order = Order.find(item.order_id)
+    #   @orders << order
+    # end
 
   end
 

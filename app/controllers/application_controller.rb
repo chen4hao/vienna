@@ -42,11 +42,30 @@ class ApplicationController < ActionController::Base
         order_id = room_hash["order_id"]
         order = Order.find(order_id)
         order.room_items.each do | item |
-          room_items << item if item.day == search_date
+          if !room_items.include?(item)
+            room_items << item if item.day == search_date
+          end
         end
       end
     end
     room_items
+  end
+
+  # 抓取當日訂單
+  def get_daily_room_orders(search_date)
+    room_orders = []
+
+    room_calendar = RoomCalendar.find_by(day: search_date)
+    rooms = Room.select(:no)
+    rooms.each do |room|
+      if room_calendar.is_occupaied?(room.no.to_s)
+        room_hash = room_calendar.get_room_hash(room.no.to_s)
+        order_id = room_hash["order_id"]
+        order = Order.find(order_id)
+        room_orders << order if !room_orders.include?(order)
+      end
+    end
+    room_orders
   end
 
 end

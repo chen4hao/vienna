@@ -8,12 +8,14 @@ class OrdersController < ApplicationController
 
   # 接待/客戶管理 -> 依日期查詢
   def index
-    if params.has_key?(:search_date) && params[:search_date].present?
-      @search_date = Date.parse(params[:search_date])
-      @orders = Order.where('checkin_date = ? OR (created_at >= ? and created_at <= ?)', @search_date, @search_date.beginning_of_day, @search_date.end_of_day)
-    else
-      @orders = []
-    end
+    # if params.has_key?(:search_date) && params[:search_date].present?
+    #   @search_date = Date.parse(params[:search_date])
+    #   @orders = Order.where('checkin_date = ? OR (created_at >= ? and created_at <= ?)', @search_date, @search_date.beginning_of_day, @search_date.end_of_day)
+    # else
+    #   @orders = []
+    # end
+    @room_items = get_daily_room_items(@search_date)
+
   end
 
   # 訂房/訂單管理 -> 待處理訂單
@@ -23,8 +25,8 @@ class OrdersController < ApplicationController
 
   # 接待/客戶管理 -> Check-in(當日入住名單)
   def daily
-    @room_items = get_daily_room_items(@search_date)
-
+    @orders = get_daily_room_orders(@search_date)
+    # @room_items = get_daily_room_items(@search_date)
     # @room_items = OrderItem.where("type='RoomItem' AND day = ?", @search_date)
   end
 

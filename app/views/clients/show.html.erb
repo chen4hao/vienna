@@ -33,8 +33,9 @@
         <% order.room_items.each do |item| %>
 
         <% if (order.aasm_state == "order_placed" ||
-               order.aasm_state == "down_paid" ||
-               order.aasm_state == "full_paid" ) %>
+               order.aasm_state == "down_paid"    ||
+               order.aasm_state == "full_paid"    ||
+               order.aasm_state == "order_pending") %>
           <tr data-link="<%= order_path(order) %>">
         <% else %>
           <tr>

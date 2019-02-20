@@ -1,56 +1,3 @@
-
-<table class="table table-bordered">
-  <thead></thead>
-  <tbody>
-    <tr class="active"><td class="text-center" colspan="6">訂單資料</td></tr>
-    <tr>
-      <td width="10%" class="active">姓名</td><td width="23%" ><%= order.name %></td>
-      <td width="10%" class="active">狀態</td><td width="23%" ><%= render_order_state(order) %></td>
-      <td width="10%" class="active">國別</td><td width="23%" ><%= order.country %></td>
-    </tr>
-    <tr>
-      <td width="10%" class="active">日期</td><td width="23%" ><%= order.checkin_date %></td>
-      <td width="10%" class="active">手機</td><td width="23%" ><%= order.mobile %></td>
-      <td width="10%" class="active">房價</td><td width="23%" ><%= order.room_subtotal%></td>
-    </tr>
-    <tr>
-      <td width="10%" class="active">加床</td><td width="23%" ><%= order.bed_subtotal%>
-      <td width="10%" class="active">服務</td><td width="23%" ><%= order.service_subtotal %></td>
-      <td width="10%" class="active">總額</td><td width="23%" ><%= order.total %></td>
-    </tr>
-    <tr>
-      <td width="10%" class="active">訂金</td><td width="23%" ><%= order.downpay %></td>
-      <td width="10%" class="active">信用卡</td><td width="23%" ><%= order.credit_card %></td>
-      <td width="10%" class="active">餘額</td><td width="23%" ><%= order.balance %></td>
-    </tr>
-    <tr>
-      <td width="10%" class="active">備註</td><td width="23%" colspan="3" ><%= order.note %></td>
-    </tr>
-
-  </tbody>
-</table>
-
-<table class="table table-bordered table-condensed" id="order_items_table">
-  <thead></thead>
-  <tbody>
-    <tr class="active"><td class="text-center" colspan="7">訂單明細─房間列表</td></tr>
-    <tr class="active">
-      <th width="20%">日期</th>
-      <th width="30%">房間</th>
-      <th width="10%">金額</th>
-      <th width="10%">加床費</th>
-      <th width="10%">大人</th>
-      <th width="10%">小孩</th>
-      <th width="10%">幼兒</th>
-    </tr>
-    <%= render partial: "cartitem", collection: order.room_items, as: :item, locals:{ kind: 'Room'}  %>
-
-    <tr class="active"><td class="text-center" colspan="7">訂單明細─服務列表</td></tr>
-    <%= render partial: "cartitem", collection: order.service_items, as: :item, locals:{ kind: 'Service'}  %>
-
-  </tbody>
-</table>
-
 <table class="table table-bordered">
   <thead></thead>
   <tbody>
@@ -109,3 +56,56 @@
     </tr>
   </tbody>
 </table>
+
+<table class="table table-bordered">
+  <thead></thead>
+  <tbody>
+    <tr class="active"><td class="text-center" colspan="6">訂單資料</td></tr>
+    <tr>
+      <td width="10%" class="active">姓名</td><td width="23%" ><%= order.name %></td>
+      <td width="10%" class="active">狀態</td><td width="23%" ><%= render_order_state(order) %></td>
+      <td width="10%" class="active">國別</td><td width="23%" ><%= order.country %></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">日期</td><td width="23%" ><%= order.checkin_date %></td>
+      <td width="10%" class="active">手機</td><td width="23%" ><%= order.mobile %></td>
+      <td width="10%" class="active">房價</td><td width="23%" ><%= order.room_subtotal%></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">加床</td><td width="23%" ><%= order.bed_subtotal%>
+      <td width="10%" class="active">服務</td><td width="23%" ><%= order.service_subtotal %></td>
+      <td width="10%" class="active">總額</td><td width="23%" ><%= order.total %></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">訂金</td><td width="23%" ><%= order.downpay %></td>
+      <td width="10%" class="active">信用卡</td><td width="23%" ><%= order.credit_card %></td>
+      <td width="10%" class="active">餘額</td><td width="23%" ><%= order.balance %></td>
+    </tr>
+    <tr>
+      <td width="10%" class="active">備註</td><td width="23%" colspan="3" ><%= order.note %></td>
+    </tr>
+
+  </tbody>
+</table>
+
+<table class="table table-bordered table-condensed" id="order_items_table">
+  <thead></thead>
+  <tbody>
+    <tr class="active"><td class="text-center" colspan="7">訂單明細─房間列表</td></tr>
+    <tr class="active">
+      <th width="20%">日期</th>
+      <th width="30%">房間</th>
+      <th width="10%">金額</th>
+      <th width="10%">加床費</th>
+      <th width="10%">大人</th>
+      <th width="10%">小孩</th>
+      <th width="10%">幼兒</th>
+    </tr>
+    <%= render partial: "cartitem", collection: order.room_items, as: :item, locals:{ kind: 'Room'}  %>
+
+    <tr class="active"><td class="text-center" colspan="7">訂單明細─服務列表</td></tr>
+    <%= render partial: "cartitem", collection: order.service_items, as: :item, locals:{ kind: 'Service'}  %>
+
+  </tbody>
+</table>
+
