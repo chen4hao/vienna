@@ -1,4 +1,6 @@
 class RoomCalendar < ApplicationRecord
+  extend Utility
+
   ListPrice_Mode = 3
   Holiday_Mode = 2
   Hotday_Mode  = 1
@@ -125,13 +127,7 @@ class RoomCalendar < ApplicationRecord
     desired_columns = ["day", "day_mode", "day_info"]
     export_columns = ["日期", "日期型態", "備註"]
 
-    export_columns = desired_columns if is_4_db
-    CSV.generate(options) do |csv|
-      csv << export_columns  #csv << column_names
-      all.each do |object|
-        csv << object.attributes.values_at(*desired_columns)
-      end
-    end
+    to_csv_string(desired_columns, export_columns)
   end
 
 end
