@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_13_030127) do
+ActiveRecord::Schema.define(version: 2019_02_20_080427) do
 
   create_table "cart_items", force: :cascade do |t|
     t.string "name"
@@ -48,6 +48,8 @@ ActiveRecord::Schema.define(version: 2019_02_13_030127) do
     t.string "note"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["mobile"], name: "index_clients_on_mobile"
+    t.index ["name"], name: "index_clients_on_name"
   end
 
   create_table "order_items", force: :cascade do |t|
@@ -64,7 +66,9 @@ ActiveRecord::Schema.define(version: 2019_02_13_030127) do
     t.date "day"
     t.integer "add_bed_no", default: 0
     t.integer "add_bed_fee", default: 0
+    t.index ["day"], name: "index_order_items_on_day"
     t.index ["order_id"], name: "index_order_items_on_order_id"
+    t.index ["type"], name: "index_order_items_on_type"
   end
 
   create_table "orders", force: :cascade do |t|
@@ -101,7 +105,10 @@ ActiveRecord::Schema.define(version: 2019_02_13_030127) do
     t.integer "adult_subtotal", default: 0
     t.integer "kid_subtotal", default: 0
     t.integer "baby_subtotal", default: 0
+    t.index ["aasm_state"], name: "index_orders_on_aasm_state"
     t.index ["client_id"], name: "index_orders_on_client_id"
+    t.index ["mobile"], name: "index_orders_on_mobile"
+    t.index ["name"], name: "index_orders_on_name"
   end
 
   create_table "room_calendars", force: :cascade do |t|
@@ -123,6 +130,7 @@ ActiveRecord::Schema.define(version: 2019_02_13_030127) do
     t.string "r205"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["day"], name: "index_room_calendars_on_day"
   end
 
   create_table "rooms", force: :cascade do |t|
@@ -136,6 +144,7 @@ ActiveRecord::Schema.define(version: 2019_02_13_030127) do
     t.integer "add_bed_fee", default: 0
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["no"], name: "index_rooms_on_no"
   end
 
   create_table "services", force: :cascade do |t|
@@ -145,6 +154,7 @@ ActiveRecord::Schema.define(version: 2019_02_13_030127) do
     t.string "category"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["name"], name: "index_services_on_name"
   end
 
   create_table "statistics", force: :cascade do |t|
@@ -158,6 +168,8 @@ ActiveRecord::Schema.define(version: 2019_02_13_030127) do
     t.decimal "checkin_ratio", precision: 3, scale: 2, default: "0.0"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["day"], name: "index_statistics_on_day"
+    t.index ["kind"], name: "index_statistics_on_kind"
   end
 
   create_table "users", force: :cascade do |t|
