@@ -68,11 +68,14 @@ def setup_calandar(start_year=Date.current.year, end_year=start_year)
   start_year.upto(end_year) do |year|
     day = Date.new(year, 1, 1)
     1.upto(365) do
-      puts "日期:#{day.strftime("%Y-%m-%d %a")}(#{day.wday})"
-      if day.saturday?
-        RoomCalendar.create(day: day, day_mode: 2, day_info: "週六假日")
-      else
-        RoomCalendar.create(day: day)
+      if !RoomCalendar.find_by(day: day).present?
+        if day.saturday?
+          RoomCalendar.create(day: day, day_mode: 2, day_info: "週六假日")
+        else
+          RoomCalendar.create(day: day)
+        end
+
+        puts "日期:#{day.strftime("%Y-%m-%d %a")}(#{day.wday})"
       end
       day = day.tomorrow
     end
@@ -275,7 +278,7 @@ end
 setup_accounts
 setup_rooms
 setup_services
-setup_calandar(2019)
+setup_calandar(2019, 2021)
 setup_2019calandar_special_days
 setup_clients
 

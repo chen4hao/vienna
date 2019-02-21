@@ -2,14 +2,16 @@ class Admin::RoomCalendarsController < ApplicationController
   before_action :authenticate_user!
   before_action :admin_required
 
-  before_action :set_room_calendar, only: [:to_dealday, :to_holiday, :to_hotday, :to_weekday]
-  before_action :set_search_date, only: [:weekly, :monthly]
+  before_action :set_room_calendar, only: [:to_dealday, :to_holiday, :to_hotday, :to_weekday, :edit]
+  before_action :set_search_date, only: [:weekly, :monthly, :index]
 
   helper_method :get_color
 
   # 行事曆設定
   def index
-    @room_calendars = RoomCalendar.all.order(:day)
+    # @room_calendars = RoomCalendar.all.order(:day)
+    @room_calendars = RoomCalendar.where("day >= :start_date AND day <= :end_date",
+      {start_date: @search_date.beginning_of_year, end_date: @search_date.end_of_year}).order(:day)
   end
 
   # 依房間查詢(月曆形式)
@@ -83,7 +85,8 @@ class Admin::RoomCalendarsController < ApplicationController
     @room_calendars = RoomCalendar.find(params[:id])
   end
 
-  private
-
+  # def room_calendar_params
+  #   params.require(:room_calendar).permit(:day, :day_mode, :day_info)
+  # end
 
 end

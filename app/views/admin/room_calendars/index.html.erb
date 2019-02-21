@@ -1,6 +1,16 @@
 <div class="col-md-10 col-md-offset-1">
   <h2>行事曆設定</h2>
 
+  <table class="table" >
+    <thead>
+      <tr>
+        <td class="text-left"><%= link_to("上一年", admin_room_calendars_path(search_date: @search_date.prev_year), method: :get, class: "btn btn-primary")%></td>
+        <td class="text-right"><%= link_to("下一年", admin_room_calendars_path(search_date: @search_date.next_year), method: :get, class: "btn btn-primary")%></td>
+      </tr>
+    </thead>
+  </table>
+
+
   <table class="table table-bordered table-hover">
     <thead>
       <tr class="active">
@@ -13,7 +23,7 @@
     <tbody>
       <% @room_calendars.each do |room_calendar| %>
         <tr class="<%= render_tr_class(room_calendar) %>" >
-          <td><%= render_day(room_calendar.day) %></td>
+          <td><%= render_fullday(room_calendar.day) %></td>
           <td><%= render_day_mode(room_calendar) %></td>
           <td><%= room_calendar.day_info %></td>
           <td>
