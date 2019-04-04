@@ -48,18 +48,43 @@
         <%= f.input :country, label: false, as: :string, class: "form-control" %>
       </div></td>
 
+      <td width="10%" class="active">地址</td>
+      <td width="23%" colspan="3"  ><div class="form-group form-inline">
+        <%= f.input :address, label: false, class: "form-control", input_html: {size:76} %>
+      </div></td>
+    </tr>
+
+    <tr>
       <td width="10%" class="active">身分證/護照</td>
       <td width="23%" ><div class="form-group form-inline">
         <%= f.input :id_no, label: false, class: "form-control" %>
       </div></td>
-
-      <td width="10%" class="active">生日</td>
-      <td width="23%" ><div class="form-group form-inline">
-        <%= f.input :birthday, label: false, as: :string, class: "form-control", input_html: {size:14}%>
+      <td width="10%" class="active">提醒</td>
+      <td width="23%" colspan="3" ><div class="form-group form-inline">
+        <%= f.input :reminder, label: false, class: "form-control", input_html: {size:76} %>
       </div></td>
     </tr>
-<!--
+
     <tr>
+      <td width="10%" class="active">E-mail</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :email, label: false, class: "form-control" %>
+      </div></td>
+
+      <td width="10%" class="active">備註</td>
+      <td width="23%" colspan="3" ><div class="form-group form-inline">
+        <%= f.input :note, label: false, class: "form-control", input_html: {size:76} %>
+      </div></td>
+    </tr>
+
+<!--
+  <td width="10%" class="active">生日</td>
+  <td width="23%" ><div class="form-group form-inline">
+    <%= f.input :birthday, label: false, as: :string, class: "form-control", input_html: {size:14}%>
+  </div></td>
+
+    <tr>
+
       <td width="10%" class="active">地址</td>
       <td width="23%" colspan="3"  ><div class="form-group form-inline">
         <%= f.input :address, label: false, class: "form-control", input_html: {size:76} %>
@@ -70,7 +95,7 @@
         <%= f.input :tel, label: false, class: "form-control", input_html: {size:14} %>
       </div></td>
     </tr>
--->
+
     <tr>
       <td width="10%" class="active">提醒</td>
       <td width="23%" colspan="3" ><div class="form-group form-inline">
@@ -93,7 +118,7 @@
         <%= f.input :email, label: false, class: "form-control", input_html: {size:14} %>
       </div></td>
     </tr>
-
+-->
 
   </tbody>
 </table>
