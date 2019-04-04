@@ -28,7 +28,7 @@
     <tr>
       <td width="10%" class="active">入住日期</td>
       <td width="23%" ><div class="form-group form-inline">
-        <%= f.input :checkin_date, label: false, as: :string, required: true, class: "form-control" %></div>
+        <%= f.input :checkin_date, label: false, as: :string, required: true, class: "form-control" %>
       </div></td>
 
       <td width="10%" class="active">退房日期</td>
@@ -45,7 +45,7 @@
     <tr>
       <td width="10%" class="active">國籍</td>
       <td width="23%" ><div class="form-group form-inline">
-        <%= f.input :country, label: false, priority: [ "台灣" ], collection: [ "台灣", "香港", "日本", "韓國", "大陸"], prompt: "-----選擇國家-----", class: "form-control" %>
+        <%= f.input :country, label: false, as: :string, class: "form-control" %>
       </div></td>
 
       <td width="10%" class="active">身分證/護照</td>

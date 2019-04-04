@@ -65,7 +65,7 @@ class OrderItem < ApplicationRecord
       else
         room_no = name[0, 3]
         total_people = adult_no.to_i + kid_no.to_i + baby_no.to_i
-        country =  ( order.country.blank? || order.country == "台灣" ) ? "" : "[#{order.country}]"
+        country =  ( order.country.blank? || order.country == "台灣" || order.country.upcase == "TW" ) ? "" : "[#{order.country}]"
 
         state = I18n.t("orders.order_state.#{order.aasm_state}")
 
