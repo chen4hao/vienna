@@ -98,7 +98,7 @@ class StatisticsController < ApplicationController
     # daily_statistics << render_day(search_date)
     daily_statistics << search_date
 
-    Room.select(:no).each do | room |
+    Room.select(:no).order("created_at").each do | room |
       room_hash = RoomCalendar.find_by(day: search_date).get_room_hash(room.no.to_s)
       if room_hash.size > 0
         cash = room_hash["cash"]

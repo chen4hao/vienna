@@ -43,6 +43,7 @@ class OrderItem < ApplicationRecord
     end
   end
 
+  # 計算/紀錄訂單金額：
   def generate_room_hash
     room_hash = {}
     room_hash.store("room_price", price)
