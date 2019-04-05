@@ -11,6 +11,7 @@ class Order < ApplicationRecord
 
   # after_destroy :clear_room_calendars
   after_save :update_room_calendars
+  # after_commit :update_room_calendars
 
   def update_room_calendars
     room_items.each do |item|

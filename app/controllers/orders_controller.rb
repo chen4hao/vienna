@@ -58,6 +58,7 @@ class OrdersController < ApplicationController
     end
 
     @order.build_items_from_cart(current_cart)
+    # 根據相關金額更改狀態
     @order.down_pay if @order.total > @order.balance
     @order.full_pay if @order.balance == 0
     @client.orders << @order
@@ -137,9 +138,11 @@ class OrdersController < ApplicationController
       @order.copy_client_data(@client)
       @client.save
 
+      # 根據相關金額更改狀態
       @order.down_pay if @order.total > @order.balance
       @order.full_pay if @order.balance == 0
       @order.save
+      # @order.update_room_calendars
 
       current_cart.clean!
       # redirect_to new_order_path, notice: "新增訂單(#{@order.name})成功"
