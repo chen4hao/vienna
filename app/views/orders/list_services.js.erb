@@ -2,3 +2,10 @@
 $('#listServicesModal').html("<%= escape_javascript(render 'listservicesmodal') %>");
 <!-- 讓#listservicesmodal 呈現出來 -->
 $("#listServicesModal").modal("show");
+
+<!-- Turn off submit on "Enter" key -->
+$("form").on("keypress", function (e) {
+  if (e.keyCode == 13) {
+    return false;
+  }
+});

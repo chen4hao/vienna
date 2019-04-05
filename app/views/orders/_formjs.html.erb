@@ -77,6 +77,13 @@
     updatePayment();
   });
 
+  <!-- Turn off submit on "Enter" key -->
+  $("form").on("keypress", function (e) {
+      if (e.keyCode == 13) {
+          return false;
+      }
+  });
+
   <!--計算總額、餘額 -->
   function updatePayment(){
     var roomSubtotal = parseInt($("#order_room_subtotal").val());
@@ -90,7 +97,7 @@
     $("#order_total").val(total);
     var balance = total - downpay - creditCard;
     $("#order_balance").val(balance);
-  }
+  };
+
 
 </script>
-

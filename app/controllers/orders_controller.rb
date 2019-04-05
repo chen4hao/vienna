@@ -70,6 +70,8 @@ class OrdersController < ApplicationController
       redirect_to order_path(@order), notice: "新增訂單(#{@order.name})成功"
       # redirect_to weekly_admin_room_calendars_path, notice: "新增訂單(#{@order.name})成功"
     else
+      current_cart.clean!
+
       flash[:warning] = "新增訂單(#{@order.name})失敗"
       render :new
     end
@@ -148,6 +150,8 @@ class OrdersController < ApplicationController
       # redirect_to new_order_path, notice: "新增訂單(#{@order.name})成功"
       redirect_to weekly_admin_room_calendars_path, notice: "更新訂單(#{@order.name})成功"
     else
+      current_cart.clean!
+
       flash[:warning] = "更新訂單(#{@order.name})失敗"
       render :edit
     end
@@ -155,6 +159,7 @@ class OrdersController < ApplicationController
   end
 
   def destroy
+    current_cart.clean!
     @order.destroy
     redirect_to weekly_admin_room_calendars_path, alert: "訂單(#{@order.name})已刪除!"
   end
