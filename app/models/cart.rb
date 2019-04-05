@@ -7,6 +7,11 @@ class Cart < ApplicationRecord
     item
   end
 
+  def remove_item_to_cart(item)
+    cart_items.delete(item)
+    item.destroy
+  end
+
   def clean!
     cart_items.destroy_all
   end

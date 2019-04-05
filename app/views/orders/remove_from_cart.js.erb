@@ -1,0 +1,7 @@
+<% if @cart_item.kind == CartItem::Room_Type %>
+  <%= render "save" , actionName: 'remove_room' %>
+<% elsif @cart_item.kind == CartItem::Service_Type %>
+  <%= render "save" , actionName: 'remove_service' %>
+<% else %>
+
+<% end %>

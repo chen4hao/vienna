@@ -1,5 +1,5 @@
 
-<% if kind == CartItem::Room_Type %>
+<% if kind == OrderItem::Room_Type %>
   <tr data-id="<%= item.id %>">
     <td><%= item.day %></td>
     <td><%= item.name %></td>
@@ -8,12 +8,8 @@
     <td><%= item.adult_no %></td>
     <td><%= item.kid_no %></td>
     <td><%= item.baby_no %></td>
-    <td>
-      <%= link_to("刪除", remove_from_cart_order_path(item), class: "btn btn-danger",
-                    method: :delete, remote:true, data: { confirm: "你確定要刪除嗎?" } )%>
-    </td>
   </tr>
-<% elsif kind == CartItem::Service_Type %>
+<% elsif kind == OrderItem::Service_Type %>
   <tr data-id="<%= item.id %>">
     <td><%= item.day %></td>
     <td><%= item.name %></td>
@@ -22,10 +18,6 @@
     <td></td>
     <td></td>
     <td></td>
-    <td>
-      <%= link_to("刪除", remove_from_cart_order_path(item), class: "btn btn-danger",
-                    method: :delete, remote:true, data: { confirm: "你確定要刪除嗎?" } )%>
-    </td>
   </tr>
 <% else %>
 

@@ -1,4 +1,7 @@
 class OrderItem < ApplicationRecord
+  Service_Type = "Service"
+  Room_Type = "Room"
+
   belongs_to :order
 
   after_destroy :clear_room_calendar

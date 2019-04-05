@@ -125,6 +125,12 @@ class OrdersController < ApplicationController
       # redirect_back fallback_location: product_path(@product)
   end
 
+  def remove_from_cart
+    @cart_item = CartItem.find(params[:id])
+    # @kind = @cart_item.kind
+    current_cart.remove_item_to_cart(@cart_item)
+  end
+
   def show
   end
 

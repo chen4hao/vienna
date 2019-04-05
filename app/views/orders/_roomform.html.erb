@@ -1,22 +1,23 @@
   <table class="table table-bordered table-condensed">
     <thead>
       <tr class="active">
-        <td colspan="7">
+        <td colspan="8">
           <h4>房型設定、服務設定：
             <%= link_to("新增房間", list_rooms_orders_path, remote: true, class: "btn btn-primary", id: "list_rooms") %>
             <%= link_to("新增服務", list_services_orders_path, remote: true, class: "btn btn-primary", id: "list_services") %>
           </h4>
         </td>
       </tr>
-      <tr class="active"><td class="text-center" colspan="7">房間列表</td></tr>
+      <tr class="active"><td class="text-center" colspan="8">房間列表</td></tr>
       <tr class="active">
-        <th width="20%">日期</th>
+        <th width="10%">日期</th>
         <th width="30%">房間</th>
         <th width="10%">金額</th>
         <th width="10%">加床費</th>
         <th width="10%">大人</th>
         <th width="10%">小孩</th>
         <th width="10%">幼兒</th>
+        <th width="10%">編輯</th>
       </tr>
     </thead>
     <tbody id="rooms_table">
@@ -25,15 +26,17 @@
   </table>
   <table class="table table-bordered table-condensed">
     <thead>
-      <tr class="active"><td class="text-center" colspan="7">服務列表</td></tr>
+      <tr class="active"><td class="text-center" colspan="8">服務列表</td></tr>
       <tr class="active">
-        <th width="20%">日期</th>
+        <th width="10%">日期</th>
         <th width="30%">名稱</th>
         <th width="10%">金額</th>
         <th width="10%"></th>
         <th width="10%"></th>
         <th width="10%"></th>
         <th width="10%"></th>
+        <th width="10%">編輯</th>
+        
       </tr>
     </thead>
     <tbody id="services_table">
