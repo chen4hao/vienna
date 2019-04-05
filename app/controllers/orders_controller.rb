@@ -131,6 +131,13 @@ class OrdersController < ApplicationController
     current_cart.remove_item_to_cart(@cart_item)
   end
 
+  # def remove_order_item
+  #   @order_item = OrderItem.find(params[:id])
+  #   @order = @order_item.order
+  #   @order_item.destroy
+  #   redirect_to edit_order_path(@order)
+  # end
+
   def show
   end
 

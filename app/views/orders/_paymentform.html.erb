@@ -68,7 +68,13 @@
     </tr>
 
     <tr class="active">
-      <td class="text-center" colspan="6"><h4><%= f.button :submit, class: "btn btn-lg btn-success", :disable_with => "Submiting..." %></h4></td>
+      <td class="text-center" colspan="6">
+        <h5>
+          <%= f.button :submit, class: "btn btn-lg btn-success", :disable_with => "Submiting..." %>
+          <%= link_to("取消", root_path, class: "btn btn-lg btn-warning") %>
+        </h5>
+      </td>
+
     </tr>
 
   </tbody>

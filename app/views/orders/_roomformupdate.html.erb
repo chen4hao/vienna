@@ -1,0 +1,35 @@
+<table class="table table-bordered table-condensed">
+  <thead>
+    <tr class="active"><td class="text-center" colspan="7">房間列表</td></tr>
+    <tr class="active">
+      <th width="10%">日期</th>
+      <th width="30%">房間</th>
+      <th width="10%">金額</th>
+      <th width="10%">加床費</th>
+      <th width="10%">大人</th>
+      <th width="10%">小孩</th>
+      <th width="10%">幼兒</th>
+    </tr>
+  </thead>
+  <tbody id="rooms_table">
+    <%= render partial: "orderitem", collection: order.room_items, as: :item, locals:{ kind: 'Room', deletable: false}  %>
+  </tbody>
+</table>
+<table class="table table-bordered table-condensed">
+  <thead>
+    <tr class="active"><td class="text-center" colspan="7">服務列表</td></tr>
+    <tr class="active">
+      <th width="10%">日期</th>
+      <th width="30%">名稱</th>
+      <th width="10%">金額</th>
+      <th width="10%"></th>
+      <th width="10%"></th>
+      <th width="10%"></th>
+      <th width="10%"></th>
+
+    </tr>
+  </thead>
+  <tbody id="services_table">
+    <%= render partial: "orderitem", collection: order.service_items, as: :item, locals:{ kind: 'Service', deletable: false}  %>
+  </tbody>
+</table>

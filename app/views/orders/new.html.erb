@@ -1,8 +1,13 @@
 
 <div class="col-md-10 col-md-offset-1">
   <h3>新增訂單</h3>
-  <%= render "form", order: @order %>
-
+  <%= simple_form_for @order do |f| %>
+    <%= render partial: "clientform", locals:{ f: f}  %>
+    <%= render partial: "roomform", locals:{ f: f, order: @order}  %>
+    <%= render partial: "paymentform", locals:{ f: f}  %>
+  <% end %>
+  <%= render partial: "booking", locals:{ }  %>
+  <%= render partial: "formjs", locals:{ }  %>
 </div>
 
 <!--bootstrap modal放的地方，初始值沒有任何東西-->

@@ -102,10 +102,10 @@
       <th width="10%">小孩</th>
       <th width="10%">幼兒</th>
     </tr>
-    <%= render partial: "orderitem", collection: order.room_items, as: :item, locals:{ kind: 'Room'}  %>
+    <%= render partial: "orderitem", collection: order.room_items, as: :item, locals:{ kind: 'Room', deletable: false}  %>
 
     <tr class="active"><td class="text-center" colspan="7">訂單明細─服務列表</td></tr>
-    <%= render partial: "orderitem", collection: order.service_items, as: :item, locals:{ kind: 'Service'}  %>
+    <%= render partial: "orderitem", collection: order.service_items, as: :item, locals:{ kind: 'Service', deletable: false}  %>
 
   </tbody>
 </table>
