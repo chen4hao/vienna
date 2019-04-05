@@ -6,9 +6,9 @@ class ClientsController < ApplicationController
   def index
     if params.has_key?(:name)
       @search_name = params[:name]
-      @clients = Client.where('lower(name) LIKE ?', "%#{@search_name.downcase}%")
+      @clients = Client.recent.where('lower(name) LIKE ?', "%#{@search_name.downcase}%")
     else
-      @clients = Client.all
+      @clients = Client.recent
     end
   end
 
