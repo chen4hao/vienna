@@ -28,8 +28,8 @@
                   <% if item.price == RoomCalendar::Occupaied_Price %>
                     <td>已訂</td>
                   <% else %>
-                    <td>
-
+                    <% td_id = "#{item.day}-#{item.item_id}" %>
+                    <td data-id="<%= td_id %>">
                       <div class="form-group add-form">
                         <%= form_with model: item, url: add_to_cart_order_path(item.item_id), method: :post do |f| %>
                           <%= f.label :price, "價格:" %>
@@ -50,7 +50,7 @@
                           <%= f.hidden_field :kind %>
                           <%= f.hidden_field :name %>
                           <%= f.hidden_field :item_id %>
-                          <%= f.submit "新增", class: "btn btn-primary" %>
+                          <%= f.submit "新增", class: "btn btn-primary"%>
                         <% end %>
                       </div>
 

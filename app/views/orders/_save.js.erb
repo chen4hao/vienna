@@ -1,3 +1,4 @@
+
 <!--將先前存在的 errors 訊息刪除-->
 $("ul.errors").html("");
 
@@ -31,6 +32,12 @@ $("ul.errors").html("");
     $("#order_kid_subtotal").val(kidSubtotal);
     $("#order_baby_subtotal").val(babySubtotal);
 
+    var td_selector = "td[data-id=" + "<%= @td_id %>" + "]";
+    $(td_selector).css('background-color', 'lightGray');
+    var td_input = td_selector + " input";
+    $(td_input).prop("disabled", true);
+    var td_submit = td_selector + " input[name='commit']";
+    $(td_submit).hide('fast');
 
   <% elsif actionName == 'add_service' %>
     <!--在 table 的最後一行 插入 cartitem 的資料 會 render _cartitem.html.erb -->
@@ -44,7 +51,7 @@ $("ul.errors").html("");
 
   <% elsif actionName == 'remove_room' %>
     <!-- 找到是哪一列tr，刪掉整列 -->
-    $('#rooms_table tr[data-id="<%= @cart_item.id %>"]').fadeOut(900,function(){
+    $('#rooms_table tr[data-id="<%= @cart_item.id %>"]').fadeOut(500,function(){
       $(this).remove();
 
       <!--計算房費小計、加床費、人數 -->
@@ -66,7 +73,7 @@ $("ul.errors").html("");
     });
   <% elsif actionName == 'remove_service' %>
     <!-- 找到是哪一列tr，刪掉整列 -->
-    $('#services_table tr[data-id="<%= @cart_item.id %>"]').fadeOut(900,function(){
+    $('#services_table tr[data-id="<%= @cart_item.id %>"]').fadeOut(500,function(){
       $(this).remove();
 
       <!--計算服務小計、總額 -->

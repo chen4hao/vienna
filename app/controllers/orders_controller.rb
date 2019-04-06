@@ -120,8 +120,9 @@ class OrdersController < ApplicationController
         adult_no: params[:cart_item][:adult_no], kid_no: params[:cart_item][:kid_no],
         baby_no: params[:cart_item][:baby_no], item_id: params[:cart_item][:item_id])
       @cart_item = current_cart.add_item_to_cart(room_item)
-    end
 
+      @td_id = "#{room_item.day}-#{room_item.item_id}"
+    end
       # redirect_back fallback_location: product_path(@product)
   end
 

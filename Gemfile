@@ -54,6 +54,8 @@ gem 'country_select'
 
 gem "aasm"
 
+# gem 'gon'
+
 group :development, :test do
     gem 'sqlite3'
 end
