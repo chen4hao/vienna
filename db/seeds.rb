@@ -278,7 +278,7 @@ end
 setup_accounts
 setup_rooms
 setup_services
-setup_calandar(2019, 2021)
+setup_calandar(2019, 2022)
 setup_2019calandar_special_days
 setup_clients
 
