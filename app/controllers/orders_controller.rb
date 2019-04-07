@@ -151,17 +151,15 @@ class OrdersController < ApplicationController
     @order.build_items_from_cart(current_cart)
 
     if @order.update(order_params)
-      @order.copy_client_data(@client)
+      reload_order = Order.find(@order.id)
+      reload_order.copy_client_data(@client)
       @client.save
-
       # 根據相關金額更改狀態
-      @order.down_pay if @order.total > @order.balance
-      @order.full_pay if @order.balance == 0
-      @order.save
-      # @order.update_room_calendars
+      reload_order.down_pay if reload_order.total > reload_order.balance
+      reload_order.full_pay if reload_order.balance == 0
+      reload_order.save
 
       current_cart.clean!
-      # redirect_to new_order_path, notice: "新增訂單(#{@order.name})成功"
       redirect_to weekly_admin_room_calendars_path, notice: "更新訂單(#{@order.name})成功"
     else
       current_cart.clean!
@@ -169,7 +167,6 @@ class OrdersController < ApplicationController
       flash[:warning] = "更新訂單(#{@order.name})失敗"
       render :edit
     end
-
   end
 
   def destroy
