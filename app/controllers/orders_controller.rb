@@ -23,6 +23,11 @@ class OrdersController < ApplicationController
     @orders = Order.where('aasm_state = ?', "order_pending")
   end
 
+  # 訂房/訂單管理 -> 未付訂清單
+  def unpaid
+    @orders = Order.where('aasm_state = ?', "order_placed")
+  end
+
   # 接待/客戶管理 -> Check-in(當日入住名單)
   def daily
     @orders = get_daily_room_orders(@search_date)

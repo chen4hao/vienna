@@ -35,6 +35,7 @@ Rails.application.routes.draw do
     # delete :remove_order_item, on: :member
     get :daily, on: :collection
     get :pending, on: :collection
+    get :unpaid, on: :collection
 
     member do
       post :down_pay
