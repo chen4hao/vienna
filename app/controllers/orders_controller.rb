@@ -175,6 +175,15 @@ class OrdersController < ApplicationController
     redirect_to weekly_admin_room_calendars_path, alert: "訂單(#{@order.name})已刪除!"
   end
 
+  def down_pay
+    @order.down_pay
+    if @order.save
+      redirect_to weekly_admin_room_calendars_path, notice: "訂單(#{@order.name})已付訂"
+    else
+      redirect_back fallback_location: order_path(@order)
+    end
+  end
+
   def check_in
     @order.check_in
     if @order.save

@@ -4,13 +4,18 @@
     <tr class="active"><td class="text-center" colspan="8">功能維護</td></tr>
     <tr>
       <td width="12%" class="text-center" >
-        <%= link_to("訂房確認", weekly_admin_room_calendars_path, class: "btn btn-primary") %></td>
-      <td width="12%" class="text-center" >
         <% if (order.aasm_state == "order_placed" || order.aasm_state == "down_paid" ||
                order.aasm_state == "full_paid"    || order.aasm_state == "order_pending" )%>
           <%= link_to("訂單修改", edit_order_path(order), class: "btn btn-primary") %>
         <% else %>
           <%= link_to("訂單修改", edit_order_path(order), class: "btn btn-primary disabled" ) %>
+        <% end %>
+      </td>
+      <td width="12%" class="text-center" >
+        <% if (order.aasm_state == "order_placed") %>
+          <%= link_to("付訂", down_pay_order_path(order), method: :post, class: "btn btn-success") %>
+        <% else %>
+          <%= link_to("付訂", down_pay_order_path(order), method: :post, class: "btn btn-success disabled") %>
         <% end %>
       </td>
       <td width="12%" class="text-center" >

@@ -37,7 +37,7 @@ Rails.application.routes.draw do
     get :pending, on: :collection
 
     member do
-      # post :down_pay
+      post :down_pay
       # post :full_pay
       post :check_in
       post :check_out
