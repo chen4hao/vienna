@@ -38,7 +38,7 @@
 
       <td width="10%" class="active">訂購來源</td>
       <td width="23%" ><div class="form-group form-inline">
-        <%= f.input :source, label: false, collection: [ "電話", "官網", "現場", "Booking.com", "Ctrip"], prompt: "-----選擇來源-----", class: "form-control" %>
+        <%= f.input :source, label: false, as: :string, class: "form-control" %>
       </div></td>
     </tr>
 
