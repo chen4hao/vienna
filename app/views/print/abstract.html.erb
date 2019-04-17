@@ -5,6 +5,9 @@
     <!-- <input id="btnPrint" value="列印" type="button" onclick="previewPrint()";/> -->
   </div>
 
+  <!--日期搜尋功能(含顯示月曆功能)-->
+  <%= render partial: "common/searchday", locals:{search_path: abstract_print_index_path, search_date: @search_date} %>
+
 <!--startprint-->
   <h4>當日住宿簡表</h4>
 
@@ -32,4 +35,3 @@
 </div>
 
 <%= render "pdfpreview" %>
-
