@@ -1,12 +1,7 @@
 <div class="col-md-10 col-md-offset-1">
   <h3>當日入住名單</h3>
-  <div class="form-group search-form">
-    <%= form_with url: daily_orders_path, method: :get, local: true do |f| %>
-      <%= f.label :date_label, "入住日期:" %>
-      <%= f.text_field :search_date, id: "search_date", value: @search_date  %>
-      <%= f.submit "查詢", class: "btn btn-primary" %>
-    <% end %>
-  </div>
+  <!--日期搜尋功能(含顯示月曆功能)-->
+  <%= render partial: "common/searchday", locals:{search_path: daily_orders_path, search_date: @search_date} %>
 
   <table class="table table-bordered table-hover">
     <thead>
@@ -41,22 +36,9 @@
 </div>
 
 <script type="text/javascript">
-$(document).ready(function(){
-
-  <!-- 點選訂房開始日期跳出小月曆 -->
-  $('#search_date').datepicker({
-    format: "yyyy-mm-dd",
-    language: "zh-TW",
-    autoclose: true,
-    todayHighlight: true,
-    toggleActive: true
-  });
-
-});
 
 $("tr[data-link]").click(function() {
   window.location = $(this).data("link")
 });
 
 </script>
-
