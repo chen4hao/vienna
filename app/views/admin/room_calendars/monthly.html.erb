@@ -3,7 +3,7 @@
   <div class="row">
     <div class="col-md-3">
       <!--日期搜尋功能(含顯示月曆功能)-->
-      <%= render partial: "common/searchday", locals:{search_path: monthly_admin_room_calendars_path, search_date: @search_date} %>      
+      <%= render partial: "common/searchday", locals:{search_path: monthly_admin_room_calendars_path, search_date: @search_date} %>
     </div>
 
     <div class="col-md-1"><%= link_to("上一月", monthly_admin_room_calendars_path(search_date: @search_date.prev_month), method: :get, class: "btn btn-primary")%></div>
@@ -16,7 +16,6 @@
     <div class="col-md-2">今天日期：<%= Date.today %></div>    <div class="col-md-1"></div>
 
   </div>
-
 
   <table class="table table-bordered table-hover">
     <thead>
@@ -42,3 +41,6 @@
     </tbody>
   </table>
 </div>
+
+<!--bootstrap modal放的地方，初始值沒有任何東西-->
+<div id="showOrderModal" class="modal fade" role="dialog"></div>

@@ -1,15 +1,9 @@
 <div class="col-md-12 col-md-offset-0">
   <h3>當週訂房狀況</h3>
-
   <div class="row">
     <div class="col-md-3">
-      <div class="form-group search-form">
-        <%= form_with url: weekly_admin_room_calendars_path, method: :get, local: true do |f| %>
-          <%= f.label :date_label, "日期:" %>
-          <%= f.text_field :search_date, id: "search_date", value: @search_date  %>
-          <%= f.submit "查詢", class: "btn btn-primary" %>
-        <% end %>
-      </div>
+      <!--日期搜尋功能(含顯示月曆功能)-->
+      <%= render partial: "common/searchday", locals:{search_path: weekly_admin_room_calendars_path, search_date: @search_date} %>
     </div>
 
     <div class="col-md-1"><%= link_to("上一週", weekly_admin_room_calendars_path(search_date: @search_date.prev_week), method: :get, class: "btn btn-primary")%></div>
@@ -50,20 +44,3 @@
 
 <!--bootstrap modal放的地方，初始值沒有任何東西-->
 <div id="showOrderModal" class="modal fade" role="dialog"></div>
-
-<script type="text/javascript">
-$(document).ready(function(){
-
-  <!-- 點選訂房開始日期跳出小月曆 -->
-  $('#search_date').datepicker({
-    format: "yyyy-mm-dd",
-    language: "zh-TW",
-    autoclose: true,
-    todayHighlight: true,
-    toggleActive: true
-  });
-
-});
-
-
-</script>
