@@ -47,6 +47,22 @@ class OrderItem < ApplicationRecord
   end
 
   # 計算/紀錄訂單金額：
+  # def generate_room_hash
+  #   room_hash = {}
+  #   room_hash.store("room_price", price)
+  #   bed_fee = add_bed_fee * add_bed_no
+  #   room_hash.store("bed_fee", bed_fee)
+  #   room_total = price + bed_fee
+  #   room_hash.store("room_total", room_total)
+  #   credit_card = order.credit_card
+  #   credit_card = room_total if credit_card > room_total
+  #   room_hash.store("credit_card", credit_card)
+  #   cash = room_total - credit_card
+  #   room_hash.store("cash", cash)
+  #   room_hash
+  # end
+
+  # 計算/紀錄訂單金額：
   def generate_room_hash
     room_hash = {}
     room_hash.store("room_price", price)
@@ -54,7 +70,12 @@ class OrderItem < ApplicationRecord
     room_hash.store("bed_fee", bed_fee)
     room_total = price + bed_fee
     room_hash.store("room_total", room_total)
+
     credit_card = order.credit_card
+    # 信用卡金額平均
+    if order.room_items.size >= 2
+      credit_card = order.credit_card / order.room_items.size
+    end
     credit_card = room_total if credit_card > room_total
     room_hash.store("credit_card", credit_card)
     cash = room_total - credit_card
