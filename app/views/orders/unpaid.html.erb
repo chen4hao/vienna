@@ -5,6 +5,7 @@
     <thead>
       <tr class="active">
         <th>訂單狀態</th>
+        <th>訂金</th>
         <th>訂單日期</th>
         <th>住房日期</th>
         <th>房號─房型</th>
@@ -19,6 +20,7 @@
       <% @orders.each do |order| %>
           <tr data-link="<%= order_path(order) %>">
             <td><%= render_order_state(order) %></td>
+            <td><%= order.downpay %></td>
             <td><%= order.created_at.to_date %></td>
             <td><%= order.room_items[0].day %></td>
             <td><%= order.room_items[0].name %></td>

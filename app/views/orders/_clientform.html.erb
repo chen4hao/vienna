@@ -7,7 +7,7 @@
       <td width="10%" class="active">姓名</td>
       <td width="23%" ><div class="form-group form-inline">
         <%= f.input :client_id, as: :hidden %>
-        <%= f.input :aasm_state, as: :hidden, input_html: { value:"order_placed" }%>
+        <%= f.input :aasm_state, as: :hidden %>
 
         <%= f.input :name, label: false, required: true,  class: "form-control", input_html: {size:14}%>
         <%= link_to("查詢", search_clients_orders_path, remote: true, class: "btn btn-primary", id: "search_name") %>

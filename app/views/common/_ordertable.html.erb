@@ -5,7 +5,8 @@
     <tr>
       <td width="12%" class="text-center" >
         <% if (order.aasm_state == "order_placed" || order.aasm_state == "down_paid" ||
-               order.aasm_state == "full_paid"    || order.aasm_state == "order_pending" )%>
+               order.aasm_state == "full_paid"    || order.aasm_state == "order_pending" ||
+               order.aasm_state == "checked_in" )%>
           <%= link_to("訂單修改", edit_order_path(order), class: "btn btn-primary") %>
         <% else %>
           <%= link_to("訂單修改", edit_order_path(order), class: "btn btn-primary disabled" ) %>
