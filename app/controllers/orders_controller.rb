@@ -64,8 +64,9 @@ class OrdersController < ApplicationController
 
     @order.build_items_from_cart(current_cart)
     # 根據相關金額更改狀態
-    @order.down_pay if @order.total > @order.balance
-    @order.full_pay if @order.balance == 0
+    # @order.down_pay if @order.total > @order.balance
+    # @order.full_pay if @order.balance == 0
+
     @client.orders << @order
 
     @order.copy_client_data(@client)
@@ -160,8 +161,8 @@ class OrdersController < ApplicationController
       reload_order.copy_client_data(@client)
       @client.save
       # 根據相關金額更改狀態
-      reload_order.down_pay if reload_order.total > reload_order.balance
-      reload_order.full_pay if reload_order.balance == 0
+      # reload_order.down_pay if reload_order.total > reload_order.balance
+      # reload_order.full_pay if reload_order.balance == 0      
       reload_order.save
 
       current_cart.clean!
