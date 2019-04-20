@@ -157,8 +157,10 @@ class OrdersController < ApplicationController
     @order.build_items_from_cart(current_cart)
 
     if @order.update(order_params)
-      @order.copy_client_data(@client)
+      reload_order = Order.find(@order.id)
+      reload_order.copy_client_data(@client)
       @client.save
+
       # 根據相關金額更改狀態
       # @order.down_pay if reload_order.total > reload_order.balance
       # @order.full_pay if reload_order.balance == 0
