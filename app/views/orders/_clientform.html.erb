@@ -8,7 +8,6 @@
       <td width="23%" ><div class="form-group form-inline">
         <%= f.input :client_id, as: :hidden %>
         <%= f.input :aasm_state, as: :hidden %>
-        <%= f.input :birthday, as: :hidden %>
         <%= f.input :job, as: :hidden %>
         <%= f.input :tel, as: :hidden %>
 
@@ -52,9 +51,15 @@
       </div></td>
 
       <td width="10%" class="active">地址</td>
-      <td width="23%" colspan="3"  ><div class="form-group form-inline">
-        <%= f.input :address, label: false, class: "form-control", input_html: {size:76} %>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :address, label: false, class: "form-control" %>
       </div></td>
+
+      <td width="10%" class="active">生日</td>
+      <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :birthday, label: false, as: :string, class: "form-control"%>
+      </div></td>
+
     </tr>
 
     <tr>
@@ -81,10 +86,6 @@
     </tr>
 
 <!--
-  <td width="10%" class="active">生日</td>
-  <td width="23%" ><div class="form-group form-inline">
-    <%= f.input :birthday, label: false, as: :string, class: "form-control", input_html: {size:14}%>
-  </div></td>
 
     <tr>
 
