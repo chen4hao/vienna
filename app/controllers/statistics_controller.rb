@@ -1,4 +1,5 @@
 class StatisticsController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_search_date, only: [:daily, :weekly, :monthly, :yearly]
 
   # 統計報表 -> 日報

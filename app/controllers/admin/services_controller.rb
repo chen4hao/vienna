@@ -1,6 +1,6 @@
 class Admin::ServicesController < ApplicationController
   before_action :authenticate_user!
-  before_action :admin_required
+  # before_action :admin_required
 
   before_action :set_service, only: [:edit, :update, :destroy]
 

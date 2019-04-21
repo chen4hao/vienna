@@ -55,6 +55,8 @@ class OrdersController < ApplicationController
   # 接待/客戶管理 -> 訂單登入(儲存)
   def create
     @order = Order.new(order_params)
+    @order.created_by = current_user.name
+
     # 是否為現有客戶
     if @order.is_old_client?
       @client = Client.find(@order.client_id)
@@ -242,6 +244,7 @@ class OrdersController < ApplicationController
 private
   def set_order
     @order = Order.find(params[:id])
+    @order.updated_by = current_user.name
   end
 
   def order_params

@@ -1,6 +1,6 @@
 class Admin::RoomCalendarsController < ApplicationController
   before_action :authenticate_user!
-  before_action :admin_required
+  # before_action :admin_required
 
   before_action :set_room_calendar, only: [:to_dealday, :to_holiday, :to_hotday, :to_weekday, :edit]
   before_action :set_search_date, only: [:weekly, :monthly, :index]

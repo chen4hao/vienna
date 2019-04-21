@@ -1,4 +1,5 @@
 class PrintController < ApplicationController
+  before_action :authenticate_user!
   before_action :set_search_date, only: [:orders, :abstract, :clients]
 
   # 表單列印 -> 當日房客明細表

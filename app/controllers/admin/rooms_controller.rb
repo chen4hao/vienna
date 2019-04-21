@@ -1,6 +1,6 @@
 class Admin::RoomsController < ApplicationController
   before_action :authenticate_user!
-  before_action :admin_required
+  # before_action :admin_required
 
   before_action :set_room, only: [:edit, :update, :destroy]
 
