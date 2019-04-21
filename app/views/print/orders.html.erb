@@ -18,7 +18,7 @@
         <th>姓名</th>
         <th>手機</th>
         <th>車號</th>
-        <th>房價</th>
+        <th>總價</th>
         <th>訂金</th>
         <th>餘額</th>
         <th>來源</th>
@@ -27,18 +27,33 @@
       </tr>
     </thead>
     <tbody>
-        <% @room_items.each do |item| %>
+        <% @orders.each do |order| %>
           <tr>
-            <td><%= item.name[0, 3] %></td>
-            <td><%= item.order.name %></td>
-            <td><%= item.order.mobile %></td>
+            <td>
+              <% room_name = "" %>
+              <% order.room_items.each do |item| %>
+                <% room_name += item.name[0, 3] if item.day == @search_date %>
+                <% room_name +=  "、" if item.day == @search_date && order.room_items.size > 1 %>
+              <% end %>
+              <%= room_name %>
+            </td>
+            <td><%= order.name %></td>
+            <td><%= order.mobile %></td>
             <td></td>
-            <td><%= item.price %></td>
-            <td><%= item.order.downpay %></td>
-            <td><%= item.order.balance %></td>
-            <td><%= item.order.source %></td>
-            <td></td>
-            <td><%= item.order.note %></td>
+            <td><%= order.total %></td>
+            <td><%= order.downpay %></td>
+            <td><%= order.balance %></td>
+            <td><%= order.source %></td>
+            <td>
+              <% service_name = "" %>
+              <% order.service_items.each do |item| %>
+                <% service_name += item.name if item.day == @search_date %>
+                <% service_name += "、" if item.day == @search_date && order.service_items.size > 1 %>
+              <% end %>
+              <%= service_name %>
+
+            </td>
+            <td><%= order.note %></td>
           </tr>
       <% end %>
 

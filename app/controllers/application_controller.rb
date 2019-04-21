@@ -34,7 +34,8 @@ class ApplicationController < ActionController::Base
     room_items = []
 
     room_calendar = RoomCalendar.find_by(day: search_date)
-    rooms = Room.select(:no)
+    # rooms = Room.select(:no)
+    rooms = Room.select(:no).order("created_at")
     rooms.each do |room|
       if room_calendar.is_occupaied?(room.no.to_s)
         room_hash = room_calendar.get_room_hash(room.no.to_s)
@@ -55,7 +56,8 @@ class ApplicationController < ActionController::Base
     room_orders = []
 
     room_calendar = RoomCalendar.find_by(day: search_date)
-    rooms = Room.select(:no)
+    # rooms = Room.select(:no)
+    rooms = Room.select(:no).order("created_at")
     rooms.each do |room|
       if room_calendar.is_occupaied?(room.no.to_s)
         room_hash = room_calendar.get_room_hash(room.no.to_s)
