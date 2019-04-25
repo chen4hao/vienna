@@ -13,7 +13,7 @@
     </thead>
     <tbody>
       <% if @client.present? && @client.orders.present? %>
-        <% @client.orders.each do |order| %>
+        <% @client.orders.recent.each do |order| %>
           <% order.room_items.take(1).each do |item| %>
             <tr>
               <td><%= order.checkin_date %></td>

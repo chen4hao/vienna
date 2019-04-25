@@ -9,6 +9,8 @@ class Order < ApplicationRecord
   has_many :room_items,  -> { where( type: "RoomItem" ) }, class_name: "OrderItem"
   has_many :service_items, -> { where( type: "ServiceItem" ) }, class_name: "OrderItem"
 
+  scope :recent, -> { order("created_at DESC")}
+
   # after_destroy :clear_room_calendars
   after_save :update_room_calendars
   # after_commit :update_room_calendars

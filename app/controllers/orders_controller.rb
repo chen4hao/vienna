@@ -65,23 +65,25 @@ class OrdersController < ApplicationController
     end
 
     @order.build_items_from_cart(current_cart)
-    # 根據相關金額更改狀態
-    # @order.down_pay if @order.total > @order.balance
-    # @order.full_pay if @order.balance == 0
-
-    @client.orders << @order
-
-    @order.copy_client_data(@client)
-    if @client.save
-      current_cart.clean!
-
-      redirect_to order_path(@order), notice: "新增訂單(#{@order.name})成功"
-      # redirect_to weekly_admin_room_calendars_path, notice: "新增訂單(#{@order.name})成功"
+    # 檢查是否有訂房
+    if @order.order_items.size < 1
+      flash[:warning] = "訂房不可為空白！"
+      redirect_back fallback_location: new_order_path(@order)
     else
-      current_cart.clean!
+      @client.orders << @order
 
-      flash[:warning] = "新增訂單(#{@order.name})失敗"
-      render :new
+      @order.copy_client_data(@client)
+      if @client.save
+        current_cart.clean!
+
+        redirect_to order_path(@order), notice: "新增訂單(#{@order.name})成功"
+        # redirect_to weekly_admin_room_calendars_path, notice: "新增訂單(#{@order.name})成功"
+      else
+        current_cart.clean!
+
+        flash[:warning] = "新增訂單(#{@order.name})失敗"
+        render :new
+      end
     end
 
   end
@@ -197,6 +199,7 @@ class OrdersController < ApplicationController
   end
 
   def edit
+    @client = @order.client
     current_cart.clean!
   end
 
@@ -204,23 +207,24 @@ class OrdersController < ApplicationController
     @client = Client.find(@order.client_id)
     @order.build_items_from_cart(current_cart)
 
-    if @order.update(order_params)
-      reload_order = Order.find(@order.id)
-      reload_order.copy_client_data(@client)
-      @client.save
-
-      # 根據相關金額更改狀態
-      # @order.down_pay if reload_order.total > reload_order.balance
-      # @order.full_pay if reload_order.balance == 0
-      # @order.save
-
-      current_cart.clean!
-      redirect_to weekly_admin_room_calendars_path, notice: "更新訂單(#{@order.name})成功"
+    # 檢查是否有訂房
+    if @order.order_items.size < 1
+      flash[:warning] = "訂房不可為空白！"
+      redirect_back fallback_location: edit_order_path(@order)
     else
-      current_cart.clean!
+      if @order.update(order_params)
+        reload_order = Order.find(@order.id)
+        reload_order.copy_client_data(@client)
+        @client.save
 
-      flash[:warning] = "更新訂單(#{@order.name})失敗"
-      render :edit
+        current_cart.clean!
+        redirect_to weekly_admin_room_calendars_path, notice: "更新訂單(#{@order.name})成功"
+      else
+        current_cart.clean!
+
+        flash[:warning] = "更新訂單(#{@order.name})失敗"
+        render :edit
+      end
     end
   end
 
@@ -269,12 +273,21 @@ class OrdersController < ApplicationController
 
   def reorder
     @order.reorder
+    # @order.checkin_date = ""
+    # @order.checkout_date = ""
+    @order.order_items.clear
     if @order.save
-      redirect_to weekly_admin_room_calendars_path, notice: "重新下單(#{@order.name})成功"
+      flash[:warning] = '請記得重新選擇入住/退房日期，以及修改訂房/服務資料～'
+      redirect_to edit_order_path(@order)
     else
       redirect_back fallback_location: order_path(@order)
     end
-
+    # @order.reorder
+    # if @order.save
+    #   redirect_to weekly_admin_room_calendars_path, notice: "重新下單(#{@order.name})成功"
+    # else
+    #   redirect_back fallback_location: order_path(@order)
+    # end
   end
 
   def cancel
