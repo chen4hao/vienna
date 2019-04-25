@@ -32,7 +32,12 @@ Rails.application.routes.draw do
     get :list_rooms, on: :collection
     post :add_to_cart, on: :member
     delete :remove_from_cart, on: :member
-    # delete :remove_order_item, on: :member
+
+    get :list_services_update, on: :collection
+    get :list_rooms_update, on: :collection
+    post :add_order_item, on: :member
+    delete :remove_order_item, on: :member
+
     get :daily, on: :collection
     get :pending, on: :collection
     get :unpaid, on: :collection

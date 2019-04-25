@@ -102,6 +102,20 @@ class OrdersController < ApplicationController
     @services = Service.all
   end
 
+  # 列出房間服務-Update
+  def list_services_update
+    list_services
+    @order = Order.find(params[:order_id])
+    @back_path = edit_order_url(@order)
+  end
+
+  # 列出房間列表-update
+  def list_rooms_update
+    list_rooms
+    @order = Order.find(params[:order_id])
+    @back_path = edit_order_url(@order)
+  end
+
   # 列出房間列表
   def list_rooms
     @order_days = get_order_dates
@@ -140,12 +154,44 @@ class OrdersController < ApplicationController
     current_cart.remove_item_to_cart(@cart_item)
   end
 
-  # def remove_order_item
-  #   @order_item = OrderItem.find(params[:id])
-  #   @order = @order_item.order
-  #   @order_item.destroy
-  #   redirect_to edit_order_path(@order)
-  # end
+  def remove_order_item
+    @order_item = OrderItem.find(params[:id])
+    @order = @order_item.order
+    @order_item.destroy
+    # 更新訂單金額數字
+    recalculate_payment(@order)
+
+    redirect_to edit_order_path(@order)
+  end
+
+  def add_order_item
+    @order = Order.find(params[:order_id])
+
+    if params[:cart_item][:kind].present? && params[:cart_item][:kind] == CartItem::Service_Type
+      @kind = CartItem::Service_Type
+      service_item = OrderItem.new(day: params[:cart_item][:day], type: "ServiceItem",
+        name: params[:cart_item][:name], price: params[:cart_item][:price], item_id: params[:item_id])
+      @order.order_items << service_item
+      # 更新訂單金額數字
+      recalculate_payment(@order)
+    end
+
+    if params[:cart_item][:kind].present? && params[:cart_item][:kind] == CartItem::Room_Type
+      @kind = CartItem::Room_Type
+      room_item = OrderItem.new(day: params[:cart_item][:day], type: "RoomItem",
+        name: params[:cart_item][:name], price: params[:cart_item][:price],
+        add_bed_no: params[:cart_item][:add_bed_no], add_bed_fee: params[:cart_item][:add_bed_fee],
+        adult_no: params[:cart_item][:adult_no], kid_no: params[:cart_item][:kid_no],
+        baby_no: params[:cart_item][:baby_no], item_id: params[:cart_item][:item_id])
+      @order.order_items << room_item
+      # 更新訂單金額數字
+      recalculate_payment(@order)
+
+      @td_id = "#{room_item.day}-#{room_item.item_id}"
+    end
+
+  end
+
 
   def show
   end
@@ -316,6 +362,31 @@ private
 
     session[:cart_id] = cart.id
     cart
+  end
+
+  # 更新訂單金額數字
+  def recalculate_payment(order)
+    order.room_subtotal = 0
+    order.bed_subtotal = 0
+    order.adult_subtotal = 0
+    order.kid_subtotal = 0
+    order.baby_subtotal = 0
+    order.room_items.each do |item|
+      order.room_subtotal += item.price
+      order.bed_subtotal += item.add_bed_no * item.add_bed_fee
+      order.adult_subtotal += item.adult_no
+      order.kid_subtotal += item.kid_no
+      order.baby_subtotal += item.baby_no
+    end
+
+    order.service_subtotal = 0
+    order.service_items.each do |item|
+      order.service_subtotal += item.price
+    end
+
+    order.total = order.room_subtotal + order.bed_subtotal + order.service_subtotal
+    order.balance = order.total - order.downpay - order.credit_card
+    order.save
   end
 
 

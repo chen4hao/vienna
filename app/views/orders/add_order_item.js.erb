@@ -1,0 +1,13 @@
+
+<% if @kind == CartItem::Room_Type %>
+  var td_selector = "td[data-id=" + "<%= @td_id %>" + "]";
+  $(td_selector).css('background-color', 'lightGray');
+  var td_input = td_selector + " input";
+  $(td_input).prop("disabled", true);
+  var td_submit = td_selector + " input[name='commit']";
+  $(td_submit).hide('fast');
+<% elsif @kind == CartItem::Service_Type %>
+  
+<% else %>
+
+<% end %>

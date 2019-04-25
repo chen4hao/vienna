@@ -1,6 +1,15 @@
 <table class="table table-bordered table-condensed">
   <thead>
-    <tr class="active"><td class="text-center" colspan="7">房間列表</td></tr>
+    <tr class="active">
+      <td colspan="8">
+        <h4>房型設定、服務設定：
+          <%= link_to("新增房間", list_rooms_update_orders_path, remote: true, class: "btn btn-primary", id: "list_rooms_update") %>
+          <%= link_to("新增服務", list_services_update_orders_path, remote: true, class: "btn btn-primary", id: "list_services_update") %>
+        </h4>
+      </td>
+    </tr>
+
+    <tr class="active"><td class="text-center" colspan="8">房間列表</td></tr>
     <tr class="active">
       <th width="10%">日期</th>
       <th width="30%">房間</th>
@@ -9,15 +18,16 @@
       <th width="10%">大人</th>
       <th width="10%">小孩</th>
       <th width="10%">幼兒</th>
+      <th width="10%">編輯</th>
     </tr>
   </thead>
   <tbody id="rooms_table">
-    <%= render partial: "orderitem", collection: order.room_items, as: :item, locals:{ kind: 'Room', deletable: false}  %>
+    <%= render partial: "orderitem", collection: order.room_items, as: :item, locals:{ kind: 'Room', deletable: true}  %>
   </tbody>
 </table>
 <table class="table table-bordered table-condensed">
   <thead>
-    <tr class="active"><td class="text-center" colspan="7">服務列表</td></tr>
+    <tr class="active"><td class="text-center" colspan="8">服務列表</td></tr>
     <tr class="active">
       <th width="10%">日期</th>
       <th width="30%">名稱</th>
@@ -26,10 +36,10 @@
       <th width="10%"></th>
       <th width="10%"></th>
       <th width="10%"></th>
-
+      <th width="10%">編輯</th>
     </tr>
   </thead>
   <tbody id="services_table">
-    <%= render partial: "orderitem", collection: order.service_items, as: :item, locals:{ kind: 'Service', deletable: false}  %>
+    <%= render partial: "orderitem", collection: order.service_items, as: :item, locals:{ kind: 'Service', deletable: true}  %>
   </tbody>
 </table>

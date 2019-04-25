@@ -1,0 +1,12 @@
+<!-- 將 _listservicesmodal.html.erb 的 資料塞入 我們先前就建立好的 #listservicesmodal div -->
+$('#listServicesModalUpdate').html("<%= escape_javascript(render partial: 'listservicesmodalupdate', locals: { order: @order, back_path: @back_path } ) %>");
+
+<!-- 讓#listservicesmodal 呈現出來 -->
+$("#listServicesModalUpdate").modal("show");
+
+<!-- Turn off submit on "Enter" key -->
+$("form").on("keypress", function (e) {
+  if (e.keyCode == 13) {
+    return false;
+  }
+});

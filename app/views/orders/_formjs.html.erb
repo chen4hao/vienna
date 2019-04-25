@@ -21,6 +21,32 @@
     }
   });
 
+  $("#list_services_update").click(function appendParams(){
+    var checkin_date = $("#order_checkin_date").val().trim();
+    var checkout_date = $("#order_checkout_date").val().trim();
+    var list_services_url = "/orders/list_services_update";
+    var order_id = $("#order_id").val().trim();
+    if (checkin_date.length > 0) {
+      list_services_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date+ "&order_id=" + order_id;
+      $("#list_services_update").attr("href",list_services_url);
+    } else {
+
+    }
+  });
+
+  $("#list_rooms_update").click(function appendParams(){
+    var checkin_date = $("#order_checkin_date").val().trim();
+    var checkout_date = $("#order_checkout_date").val().trim();
+    var list_rooms_url = "/orders/list_rooms_update";
+    var order_id = $("#order_id").val().trim();
+    if (checkin_date.length > 0) {
+      list_rooms_url += "?checkin_date="+ checkin_date + "&checkout_date=" + checkout_date+ "&order_id=" + order_id;
+      $("#list_rooms_update").attr("href",list_rooms_url);
+    } else {
+
+    }
+  });
+
   $("#list_rooms").click(function appendParams(){
     var checkin_date = $("#order_checkin_date").val().trim();
     var checkout_date = $("#order_checkout_date").val().trim();
@@ -98,6 +124,5 @@
     var balance = total - downpay - creditCard;
     $("#order_balance").val(balance);
   };
-
 
 </script>

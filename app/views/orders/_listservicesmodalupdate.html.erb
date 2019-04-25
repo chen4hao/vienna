@@ -2,8 +2,7 @@
 <div class="modal-dialog modal-lg" role="document">
   <div class="modal-content">
     <div class="modal-header">
-      <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-      <h4 class="modal-title" id="clientModalLabel">服務列表設定</h4>
+      <h4 class="modal-title" id="clientModalLabel">更新服務列表設定</h4>
     </div>
     <div class="modal-body">
       <table class="table table-bordered table-hover">
@@ -23,13 +22,17 @@
                 <% @order_days.each do |day| %>
                   <td data-id="<%= service.id %>" data-day="<%= day %>">
                     <div class="form-group add-form">
-                      <%= form_with model: CartItem.new, url: add_to_cart_order_path(service.id), method: :post do |f| %>
+                      <%= form_with model: CartItem.new, url: add_order_item_order_path(service.id), method: :post do |f| %>
                         <%= f.label :price, "價格:" %>
                         <%= f.text_field :price, size: "5x10"%>
-
                         <input type="hidden" name="cart_item[day]" value="<%= day %>">
                         <input type="hidden" name="cart_item[name]" value="<%= service.name %>">
                         <input type="hidden" name="cart_item[kind]" value="Service">
+
+                        <input type="hidden" name="order_id" value="<%= order.id %>">
+                        <input type="hidden" name="item_id" value="<%= service.id %>">
+                        <input type="hidden" name="back_path" value="<%= back_path %>" id="back_path">
+                        
                         <%= f.submit "新增", class: "btn btn-primary" %>
                       <% end %>
 
@@ -44,7 +47,15 @@
 
     </div>
     <div class="modal-footer">
-      <button type="button" class="btn btn-default" data-dismiss="modal">完成</button>
+      <button type="button" class="btn btn-default" data-dismiss="modal" id="close-btn" onclick="redirect_to_update()">完成</button>
     </div>
   </div>
 </div>
+
+<script type="text/javascript">
+  function redirect_to_update() {
+    var back_path = $("#back_path").val().trim();
+    window.location.href = back_path;
+  };
+
+</script>

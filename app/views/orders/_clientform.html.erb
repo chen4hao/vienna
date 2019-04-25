@@ -6,6 +6,7 @@
     <tr>
       <td width="10%" class="active">姓名</td>
       <td width="23%" ><div class="form-group form-inline">
+        <%= f.input :id, as: :hidden %>
         <%= f.input :client_id, as: :hidden %>
         <%= f.input :aasm_state, as: :hidden %>
         <%= f.input :job, as: :hidden %>
